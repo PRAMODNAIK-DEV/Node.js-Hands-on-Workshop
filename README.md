@@ -1,10 +1,6 @@
-# Node.js-Hands-on-Workshop
-A complete hands-on Node.js REST API workshop designed for beginners to intermediates. This 3-day program covers building real-world server-side applications using Node.js, Express.js, MongoDB, and PostgreSQL — from core concepts to deployment. Ideal for learners looking to master backend fundamentals through structured, practical projects.
+# 🚀 Node.js-Hands-on-Workshop 2025
 
-
-# 🚀 Node.js API Workshop 2025
-
-Welcome to the official repository for the **3-Day Node.js REST API Workshop**. This hands-on workshop is designed for beginners to intermediate developers to build real-world backend applications using Node.js, Express.js, MongoDB, and PostgreSQL — from scratch to deployment.
+Welcome to the official repository for the 3-Day Node.js REST API Workshop. This hands-on program is tailored for beginner to intermediate developers aiming to build real-world backend applications using Node.js, Express.js, MongoDB, and PostgreSQL. From core concepts to deployment, this workshop offers a structured, practical approach to mastering backend fundamentals.
 
 ---
 
@@ -65,4 +61,13 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 
 ## 🛠️ Project Structure
 
-
+```bash
+nodejs-api-workshop-2025/
+├── README.md
+├── 01-foundation-node-http/
+├── 02-building-rest-with-express/
+├── 03-data-persistence-and-deployment/
+│   ├── mongodb-version/
+│   └── postgresql-version/
+├── public/
+└── .env.example
