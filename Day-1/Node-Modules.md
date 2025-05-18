@@ -3,8 +3,6 @@
 Node.js uses a modular approach to organize and reuse code across applications. A **module** in Node.js is a JavaScript file that encapsulates related code. Modules can export functions, objects, or variables to be used in other files.
 
 ---
-&nbsp;
-
 
 ## 🔹 Types of Node.js Modules
 
@@ -96,8 +94,8 @@ console.log(_.reverse(numbers)); // Output: [4, 3, 2, 1]
 | Third-party      | `express`, `axios`| Installed via npm                       |
 
 ✅ Using modules helps in breaking your code into reusable, maintainable parts.
-<br><br>
----
+&nbsp;
+&nbsp;
 
 # 🔄 Node.js Module Systems: CommonJS vs ESM
 
