@@ -95,7 +95,7 @@ console.log(_.reverse(numbers)); // Output: [4, 3, 2, 1]
 
 ✅ Using modules helps in breaking your code into reusable, maintainable parts.
 
-
+---
 
 # 🔄 Node.js Module Systems: CommonJS vs ESM
 
