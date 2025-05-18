@@ -16,7 +16,8 @@ Node.js uses a modular approach to organize and reuse code across applications. 
 
 These are included with Node.js, no installation required.
 
-### Example: Using the `fs` Module
+### Example: 
+### Using the `fs` Module: (CommonJS Syntax)
 
 ```js
 const fs = require('fs');
@@ -24,7 +25,7 @@ const fs = require('fs');
 fs.writeFileSync('example.txt', 'Hello from Node.js!');
 ```
 
-### OR
+### OR (ECMAScript Syntax)
 
 ```js
 import { writeFile } from 'fs/promises';
