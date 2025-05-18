@@ -4,6 +4,8 @@ Node.js uses a modular approach to organize and reuse code across applications. 
 
 ---
 
+
+
 ## 🔹 Types of Node.js Modules
 
 1. **Core Modules** – Built into Node.js (e.g., `fs`, `http`, `path`)
