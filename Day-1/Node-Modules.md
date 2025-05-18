@@ -94,9 +94,10 @@ console.log(_.reverse(numbers)); // Output: [4, 3, 2, 1]
 | Third-party      | `express`, `axios`| Installed via npm                       |
 
 ✅ Using modules helps in breaking your code into reusable, maintainable parts.
-&nbsp;
-&nbsp;
+---
 
+
+---
 # 🔄 Node.js Module Systems: CommonJS vs ESM
 
 Node.js supports two main types of module systems:
@@ -205,8 +206,9 @@ await writeFile('example.txt', 'Hello from Node.js!');
 
 ✅ Choose the right module system based on your project requirements and compatibility needs.
 
+---
 
-
+---
 # 📦 Important Core/Built-in Modules in Node.js
 
 Node.js comes with several built-in modules. Below are some of the most commonly used ones:
