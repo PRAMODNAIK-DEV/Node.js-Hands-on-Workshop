@@ -204,3 +204,93 @@ await writeFile('example.txt', 'Hello from Node.js!');
 ---
 
 ✅ Choose the right module system based on your project requirements and compatibility needs.
+
+
+
+# 📦 Important Core/Built-in Modules in Node.js
+
+Node.js comes with several built-in modules. Below are some of the most commonly used ones:
+
+---
+
+## 1. `fs` (File System)
+Used for file operations like reading, writing, or deleting files.
+
+```js
+// fs-example.js
+const fs = require('fs');
+
+// Write a file
+fs.writeFileSync('demo.txt', 'Hello from Node.js');
+
+// Read the file
+const data = fs.readFileSync('demo.txt', 'utf-8');
+console.log(data); // Output: Hello from Node.js
+```
+
+---
+
+## 🌐 2. `http` (Create a Basic Web Server)
+
+```js
+// http-example.js
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Hello from Node.js server!');
+});
+
+server.listen(3000, () => {
+  console.log('Server running at http://localhost:3000');
+});
+```
+
+👉 Visit `http://localhost:3000` in your browser after running this.
+
+---
+
+## 🛠️ 3. `path` (Work with File Paths)
+
+```js
+// path-example.js
+const path = require('path');
+
+const filePath = '/users/admin/test.txt';
+
+console.log(path.basename(filePath));  // test.txt
+console.log(path.dirname(filePath));   // /users/admin
+console.log(path.extname(filePath));   // .txt
+```
+
+---
+
+## 🧮 4. `os` (Operating System Info)
+
+```js
+// os-example.js
+const os = require('os');
+
+console.log('Platform:', os.platform());
+console.log('CPU Cores:', os.cpus().length);
+console.log('Free Memory:', os.freemem());
+```
+
+---
+
+## 🔗 5. `url` (Parse and Format URLs)
+
+```js
+// url-example.js
+const url = require('url');
+
+const myUrl = new URL('https://example.com/page?name=pramod&age=24');
+
+console.log(myUrl.hostname);             // example.com
+console.log(myUrl.pathname);             // /page
+console.log(myUrl.searchParams.get('name')); // pramod
+```
+
+---
+
+> 💡 All these modules are **core modules** and require no external installation. Just use `require('module-name')` in Node.js and you're good to go!
