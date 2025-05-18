@@ -94,3 +94,113 @@ console.log(_.reverse(numbers)); // Output: [4, 3, 2, 1]
 | Third-party      | `express`, `axios`| Installed via npm                       |
 
 ✅ Using modules helps in breaking your code into reusable, maintainable parts.
+
+
+
+# 🔄 Node.js Module Systems: CommonJS vs ESM
+
+Node.js supports two main types of module systems:
+
+---
+
+## 🔹 1. CommonJS (CJS)
+
+### ✅ What is it?
+
+CommonJS is the original module system used in Node.js. It's **synchronous** and uses `require` and `module.exports`.
+
+### 📄 Syntax Example
+
+**File: `math.js`**
+
+```js
+function add(a, b) {
+  return a + b;
+}
+
+module.exports = { add };
+```
+
+**File: `app.js`**
+
+```js
+const math = require('./math');
+
+console.log(math.add(2, 3)); // Output: 5
+```
+
+---
+
+## 🔹 2. ECMAScript Modules (ESM)
+
+### ✅ What is it?
+
+ESM is the standard module system defined in JavaScript (ES6) and is supported in modern browsers and Node.js (v12+).
+
+ECMA: European Computer Manufacturers Association - A script language standard maintained by the European Computer Manufacturers Association.
+
+### 📄 Syntax Example
+
+**File: `math.mjs`** or **`math.js`** (with `"type": "module"` in `package.json`)
+
+```js
+export function add(a, b) {
+  return a + b;
+}
+```
+
+**File: `app.mjs`** or **`app.js`**
+
+```js
+import { add } from './math.js';
+
+console.log(add(2, 3)); // Output: 5
+```
+
+---
+
+## 🛠️ Real-World Example – Writing to a File
+
+### ✅ Using CommonJS
+
+**File: `writeFileCommonJS.js`**
+
+```js
+const fs = require('fs');
+
+fs.writeFileSync('example.txt', 'Hello from Node.js!');
+```
+
+### ✅ Using ESM
+
+**File: `writeFileESM.mjs`** OR with `"type": "module"` in `package.json`
+
+```js
+import { writeFile } from 'fs/promises';
+
+await writeFile('example.txt', 'Hello from Node.js!');
+```
+
+---
+
+## 📦 `package.json` Configs
+
+### For ESM:
+
+```json
+{
+  "type": "module"
+}
+```
+
+### For CommonJS (default):
+
+```json
+{
+  "type": "commonjs"
+}
+```
+
+---
+
+✅ Choose the right module system based on your project requirements and compatibility needs.
