@@ -8,7 +8,8 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 
 ### 🟩 **Day 1 – Node.js Fundamentals & HTTP Module**
 **Topics Covered:**
-- What is Node.js and how it works
+- Introduction to Node.js
+- 
 - Core modules: `fs`, `path`, `events`, `http`
 - Creating a basic HTTP server
 - File system operations
