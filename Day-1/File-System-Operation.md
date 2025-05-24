@@ -103,49 +103,60 @@ fs.rmdir('myFolder', (err) => {
 
 ---
 
-## 🖥️ File System Operations with Node.js Server
+## 🖥️ Final Server
 
 Here's how you can run basic file operations **inside an HTTP server**:
 
 ```js
 const http = require('http');
 const fs = require('fs');
-
 const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/read') {
-    fs.readFile('example.txt', 'utf8', (err, data) => {
-      if (err) {
-        res.statusCode = 500;
-        res.end('Error reading file');
-        return;
-      }
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/plain');
-      res.end(data);
-    });
-  } else if (req.url === '/write') {
-    fs.writeFile('example.txt', 'Written by Node.js Server', (err) => {
-      if (err) {
-        res.statusCode = 500;
-        res.end('Error writing file');
-        return;
-      }
-      res.statusCode = 200;
-      res.end('File written successfully');
-    });
-  } else {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello, Node.js Server! Use /read or /write');
-  }
+    if (req.url === '/read') {
+        fs.readFile('Files/example.txt', 'utf8', (err, data) => {
+            if (err) {
+                res.statusCode = 500;
+                res.end('Error reading file');
+                return;
+            }
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/plain');
+            res.end(data);
+        });
+    } else if (req.url === '/write') {
+        fs.writeFile('Files/example.txt', 'Written by Node.js Server', (err) => {
+            if (err) {
+                res.statusCode = 500;
+                res.end('Error writing file');
+                return;
+            }
+            res.statusCode = 200;
+            res.end('File written successfully');
+        });
+    } else if (req.url === '/delete') {
+        fs.unlink('Files/example.txt', (err) => {
+            if (err) {
+                res.statusCode = 500;
+                res.end('Error deleting file (it might not exist)');
+                return;
+            }
+            res.statusCode = 200;
+            res.end('File deleted successfully');
+        });
+
+    } else {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.end('Hello, Node.js Server! Use /read /write or /delete');
+    }
 });
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running at http://${hostname}:${port}/`);
 });
+
 ```
 
 > ✅ Visit `http://localhost:3000/read` or `http://localhost:3000/write` in your browser.
