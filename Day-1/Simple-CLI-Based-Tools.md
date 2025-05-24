@@ -238,6 +238,9 @@ function deleteTodo(index) {
 
 ### 5. Parse Command Line Arguments
 
+## 🔍 Purpose
+This code snippet is a **command-line interface (CLI) command parser**. It reads arguments from the terminal and delegates actions like adding, listing, or deleting todos based on user input.
+
 ```js
 const [,, command, ...args] = process.argv;
 
@@ -255,8 +258,45 @@ switch(command) {
     console.log('Commands: add, list, delete');
 }
 ```
+## 🔧 How It Works
+
+### 1. **Argument Extraction**
+```js
+const [,, command, ...args] = process.argv;
+```
+- `process.argv` is an array of command-line arguments.
+- The first two values (`process.argv[0]` and `process.argv[1]`) are ignored.
+- `command` holds the operation name (`add`, `list`, or `delete`).
+- `args` holds any additional arguments (like todo content or index).
+
+### 2. **Command Handling with switch-case**
+
+#### ➕ `add`
+```js
+addTodo(args.join(' '));
+```
+- Joins all arguments as a string and passes them to the `addTodo` function.
+
+#### 📋 `list`
+```js
+listTodos();
+```
+- Calls `listTodos()` to print the todo list.
+
+#### ❌ `delete`
+```js
+deleteTodo(parseInt(args[0]));
+```
+- Parses the first argument as an integer and deletes the todo at that position.
+
+#### ❓ `default`
+```js
+console.log('Commands: add, list, delete');
+```
+- If an unknown command is entered, it displays valid commands.
 
 ---
+
 
 ## How to Use
 
