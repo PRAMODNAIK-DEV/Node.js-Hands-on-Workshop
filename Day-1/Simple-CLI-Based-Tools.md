@@ -98,23 +98,23 @@ Here,
     ```js
     const dataBuffer = fs.readFileSync(file);
     ```
-- Reads the contents of the file from the disk.
-- `fs.readFileSync()` is **synchronous**, meaning it blocks further code execution until the file is fully read.
-- Suitable for CLI-based tools where tasks are sequential.
+    - Reads the contents of the file from the disk.
+    - `fs.readFileSync()` is **synchronous**, meaning it blocks further code execution until the file is fully read.
+    - Suitable for CLI-based tools where tasks are sequential.
 
 2. **🔤 Converting Buffer to String**
 
     ```js
     const dataJSON = dataBuffer.toString();
     ```
-- Converts the buffer (binary data) into a readable string format.
+    - Converts the buffer (binary data) into a readable string format.
 
 3. **🔄 Parsing JSON Data**
 
     ```js
     return JSON.parse(dataJSON);
     ```
-- Converts the JSON string into a usable JavaScript object (likely an array of todos).
+    - Converts the JSON string into a usable JavaScript object (likely an array of todos).
 
 ### 💡 Why Use Synchronous File Reading?
 
@@ -210,6 +210,31 @@ function deleteTodo(index) {
   console.log(`Deleted todo: "${removed[0].task}"`);
 }
 ```
+
+## 🔧 How It Works
+
+1. **Load the Todo List**
+   - `const todos = loadTodos();`  
+     Loads the current list of todos.
+
+2. **Validate the Index**
+   - Checks whether the provided index is valid:
+     - Less than 1 or greater than the number of todos → invalid.
+     - Logs: `'Invalid todo number'` and exits the function.
+
+3. **Delete the Todo**
+   - Uses `splice(index - 1, 1)` to remove the specified todo (JavaScript arrays are 0-based).
+
+4. **Save the Updated List**
+   - Calls `saveTodos(todos);` to persist the updated todo list.
+
+5. **Confirm Deletion**
+   - Logs the deleted task's description:  
+     ```
+     Deleted todo: "Task description"
+     ```
+
+---
 
 ### 5. Parse Command Line Arguments
 
