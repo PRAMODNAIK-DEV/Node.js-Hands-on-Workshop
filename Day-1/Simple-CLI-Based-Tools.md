@@ -93,9 +93,8 @@ Here,
 > It returns a buffer (binary data).
 
 ### 🔍 Step-by-step Explanation
-
-#### 1. 📥 Reading File Synchronously
-
+1. **📥 Reading File Synchronously**
+   
 ```js
 const dataBuffer = fs.readFileSync(file);
 ```
@@ -103,14 +102,14 @@ const dataBuffer = fs.readFileSync(file);
 - `fs.readFileSync()` is **synchronous**, meaning it blocks further code execution until the file is fully read.
 - Suitable for CLI-based tools where tasks are sequential.
 
-#### 2. 🔤 Converting Buffer to String
+2. **🔤 Converting Buffer to String**
 
 ```js
 const dataJSON = dataBuffer.toString();
 ```
 - Converts the buffer (binary data) into a readable string format.
 
-#### 3. 🔄 Parsing JSON Data
+3. **🔄 Parsing JSON Data**
 
 ```js
 return JSON.parse(dataJSON);
@@ -136,21 +135,21 @@ function addTodo(task) {
 }
 ```
 
-#### 1. `const todos = loadTodos();`
+1. **`const todos = loadTodos();`**
 - Loads the current list of todos from the file using the `loadTodos()` function.
 - Returns an array of todo objects.
 
-#### 2. `todos.push({ task, done: false });`
+2. **`todos.push({ task, done: false });`**
 - Adds a new task to the list.
 - The new task is represented as an object with:
   - `task`: The description of the task passed as an argument.
   - `done`: A boolean flag set to `false` initially (meaning the task is not completed).
 
-#### 3. `saveTodos(todos);`
+3. **`saveTodos(todos);`**
 - Persists the updated todo list back to the file by calling `saveTodos()`.
 - This ensures that the new task is saved.
 
-#### 4. `console.log(...)`
+4. **`console.log(...)`**
 - Logs a confirmation message to the console to notify that the task was added.
 
 ---
