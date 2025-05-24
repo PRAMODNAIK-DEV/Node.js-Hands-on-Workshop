@@ -57,29 +57,30 @@ test command:
 ```plaintext
 git repository:
 ```
-> If your project is hosted on GitHub or another VCS, provide the repo URL.
+> If your project is hosted on GitHub, GitLab, Bitbucket or another VCS, provide the repo URL. This tells others (and tools like npm or yarn) where the source code is hosted.
 
 ```plaintext
 keywords:
 ```
-> Tags to help others find your project, like `node`, `server`, `workshop`.
+> Tags to help others find your project, like `node`, `server`, `workshop`. This willl help others discover your project if you publish it publicly to the npm registry (https://www.npmjs.com/).
+> If you're just building a local project or a workshop demo (not publishing to npm), keywords are optional. They won’t affect your project functionality.
 
 ```plaintext
-author: Pramod
+author:
 ```
 > Your name or the name of the maintainer.
 
 ```plaintext
 license: (ISC)
 ```
-> The license under which your project is shared. ISC is fine for beginners.
+> The license under which your project is shared. This defines how others are allowed to use, modify, and share your code. 🧾 ISC – Internet Systems Consortium License
 
 ---
 
 After completing the prompts, you’ll see a message like:
 
 ```plaintext
-About to write to C:\Users\pammu\Desktop\Node JS Workshop\simple-node-server\package.json:
+About to write to <Relative Path of your project>\simple-node-server\package.json:
 ```
 
 This creates a `package.json` file with the values you entered, which is useful for:
@@ -94,7 +95,7 @@ This creates a `package.json` file with the values you entered, which is useful 
 Create a file named `server.js`:
 
 ```bash
-touch server.js
+server.js
 ```
 
 ---
@@ -120,7 +121,57 @@ server.listen(port, hostname, () => {
 });
 
 ```
+## 🧠 Understanding `hostname` and `port`
 
+### ✅ `hostname`
+- `'127.0.0.1'` or `'localhost'` refers to your **own computer**.
+- It restricts the server to **accept requests only from your device**.
+
+### ✅ `port`
+- The **port number** is like a **doorway** through which your app talks to the network.
+- Each app on your system that talks over the network uses a **unique port**.
+- Port `3000` is a common choice for development servers.
+
+### 📊 Port Number Range
+| Range         | Description                          |
+|---------------|--------------------------------------|
+| 0–1023        | Reserved (e.g., HTTP=80, HTTPS=443) |
+| 1024–49151    | Registered (safe for custom apps)   |
+| 49152–65535   | Dynamic/private (temp/test use)     |
+
+⚠️ Ports **must be unique** per app. Two apps cannot use the same port at the same time.
+
+---
+
+## 🧑‍💻 Why Port Is Needed
+
+### 💡 Imagine your computer is like an apartment:
+- **IP address** = the **building address**
+- **Port number** = the **room number**
+- You need both to reach the **correct resident (server)**.
+
+If you're running:
+```js
+// Server 1
+server.listen(3000);
+
+// Server 2
+server.listen(5000);
+```
+Both can run on `localhost` but on **different ports**, so they don’t interfere with each other.
+
+> ✅ Yes — many servers can run on your PC, but they **must listen on different ports** to avoid conflicts.
+
+---
+
+### 🔁 Summary Table
+| Term         | Example Value         | Meaning                                      |
+|--------------|------------------------|----------------------------------------------|
+| Hostname     | `localhost` / `127.0.0.1` | Your own computer                          |
+| Port         | `3000`, `5000`, etc.     | Identifies which server or service to talk to |
+| URL          | `http://localhost:3000` | Connects to specific app on specific port   |
+
+---
 ---
 
 ## ▶️ Step 4: Run the Server
