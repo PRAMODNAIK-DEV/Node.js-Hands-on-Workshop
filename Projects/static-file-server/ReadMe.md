@@ -37,7 +37,14 @@ mkdir static-file-server
 cd static-file-server
 ```
 
-2. Create some sample static files (HTML, CSS, JS) inside a:
+2. Create some sample static files (HTML, CSS, JS) inside a folder named static:
+
+    - Create the static folder and place your HTML, CSS, and JS file inside of it
+
+    ```JS
+    mkdir static-file-server
+    cd static-file-server
+    ```
 
 ```bash
 echo "<!DOCTYPE html><html><head><title>Home</title><link rel='stylesheet' href='style.css'></head><body><h1>Welcome</h1><script src='app.js'></script></body></html>" > index.html
@@ -45,7 +52,7 @@ echo "body { background-color: lightblue; }" > style.css
 echo "console.log('JS file loaded');" > app.js
 ```
 
-3. Create a `server.js` file:
+1. Create a `server.js` file:
 
 ```bash
 server.js
@@ -70,7 +77,7 @@ const mimeTypes = {
 
 const server = http.createServer((req, res) => {
   let filePath = '.' + req.url;
-  if (filePath === './') filePath = './index.html';
+  if (filePath === './') filePath = './static/index.html';
 
   const extname = String(path.extname(filePath)).toLowerCase();
   const contentType = mimeTypes[extname] || 'application/octet-stream';
