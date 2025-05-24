@@ -32,7 +32,7 @@ node -v
 
 ---
 
-### Step 2: Project Setup
+### Step 2: Project Setup or Directly use the VS Code to Create the folder instead of using mkdir in Terminal
 1. Create a new directory:
 ```bash
 mkdir simple-node-server
@@ -41,7 +41,7 @@ cd simple-node-server
 
 2. Create a file named `server.js`:
 ```bash
-touch server.js
+server.js
 ```
 
 ---
