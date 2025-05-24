@@ -1,5 +1,3 @@
-# 🟩 Day 1 – Node.js Fundamentals & HTTP Module
-
 ## 📂 File System Operations in Node.js
 
 ### 📘 What is the `fs` Module?
@@ -104,6 +102,56 @@ fs.rmdir('myFolder', (err) => {
 > ⚠️ `fs.rmdir()` is deprecated. Prefer `fs.rm()` with `{ recursive: true }` for folders.
 
 ---
+
+## 🖥️ File System Operations with Node.js Server
+
+Here's how you can run basic file operations **inside an HTTP server**:
+
+```js
+const http = require('http');
+const fs = require('fs');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  if (req.url === '/read') {
+    fs.readFile('example.txt', 'utf8', (err, data) => {
+      if (err) {
+        res.statusCode = 500;
+        res.end('Error reading file');
+        return;
+      }
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end(data);
+    });
+  } else if (req.url === '/write') {
+    fs.writeFile('example.txt', 'Written by Node.js Server', (err) => {
+      if (err) {
+        res.statusCode = 500;
+        res.end('Error writing file');
+        return;
+      }
+      res.statusCode = 200;
+      res.end('File written successfully');
+    });
+  } else {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello, Node.js Server! Use /read or /write');
+  }
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+```
+
+> ✅ Visit `http://localhost:3000/read` or `http://localhost:3000/write` in your browser.
+
+---
+
 
 ### 📘 Summary Table
 
