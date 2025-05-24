@@ -159,23 +159,13 @@ server.listen(port, hostname, () => {
 
 ```
 
-> ✅ Visit `http://localhost:3000/read` or `http://localhost:3000/write` in your browser.
+>  Visit `http://localhost:3000/read` or `http://localhost:3000/write` in your browser.
 
 
+---
 ## 🖥️🛠️ 📄 Building a Native RESTful HTTP Server Using Node.js and the fs Module (No Express.js)
 
 This server demonstrates how to use the built-in `http` and `fs` modules in Node.js to handle file operations through HTTP methods.
-
----
-
-## 🟩 Server Setup
-
-```js
-const http = require('http');
-const fs = require('fs');
-const hostname = '127.0.0.1';
-const port = 3000;
-```
 
 ---
 
