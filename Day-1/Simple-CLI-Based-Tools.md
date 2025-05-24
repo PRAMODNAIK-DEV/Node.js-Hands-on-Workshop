@@ -171,6 +171,31 @@ function listTodos() {
   }
 }
 ```
+## 🔧 How It Works
+
+1. **Load the Todo List**
+   - `const todos = loadTodos();`  
+     This line calls another function (likely reading from a file or database) to fetch the current list of todos.
+
+2. **Check if the List is Empty**
+   - If no todos are found, it logs:  
+     ```
+     No todos found!
+     ```
+
+3. **Display the List**
+   - If todos exist, it logs:  
+     ```
+     Todo List:
+     ```
+   - Then loops through each `todo`, displaying:
+     - Its **index**
+     - A **checkbox-style status**:
+       - `[✔]` if the todo is marked as done
+       - `[ ]` if not done
+     - The **task description**
+
+---
 
 ### 4. Delete Todo
 
