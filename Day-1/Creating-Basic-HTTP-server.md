@@ -5,8 +5,8 @@
 Before writing any code, initialize your Node.js project using `npm`.
 
 ```bash
-mkdir node-workshop
-cd node-workshop
+mkdir simple-node-server
+cd simple-node-server
 npm init
 ```
 
