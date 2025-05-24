@@ -125,10 +125,10 @@ server.listen(port, hostname, () => {
 ### `Output:`
 - `Server running at http://127.0.0.1:3000/`
 
-- This tells reach out to the Domain  127.0.0.1 or localhost in that access port 3000
+This tells reach out to the Domain  127.0.0.1 or localhost in that access port 3000
 
 ### `Where:`
-- 127.0.0.1 → This is the loopback IP address, also known as localhost, which points to your own machine.
+- 127.0.0.1 → This is the loopback IP address (points back to your own computer), also known as localhost, which points to your own machine.
 
 - :3000 → This is the port number, telling your system to connect to the specific server (or app) that is listening on port 3000.
 
@@ -150,8 +150,8 @@ server.listen(port, hostname, () => {
 | 1024–49151    | Registered (safe for custom apps)   |
 | 49152–65535   | Dynamic/private (temp/test use)     |
 
-⚠️ Ports **must be unique** per app. Two apps cannot use the same port at the same time.
-
+⚠️ Ports **must be unique** per app. Two apps with same Host/Domain Name cannot use the same port at the same time.
+⚠️ But two different Host/Domains (or IP addresses) can absolutely use the same port number — because the combination of IP address + port number must be unique, not just the port alone.
 ---
 
 ## 🧑‍💻 Why Port Is Needed
