@@ -3,7 +3,7 @@
 
 ## What is Routing? (Concept Explanation)
 
-| Routing is the mechanism to direct incoming HTTP requests to specific functions or code blocks based on the URL and method (GET, POST, etc.).
+| Routing is the mechanism to direct incoming HTTP requests to specific functions or code blocks based on the URL and method (GET, POST, PUT, PATCH and DELETE).
 
 Routing allows your server to respond differently based on the **URL path** and **HTTP method** (GET, POST, PUT, PATCH and DELETE). Unlike Express.js, native Node.js requires manual routing using `req.url` and `req.method`.
 
