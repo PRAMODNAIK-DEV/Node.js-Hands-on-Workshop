@@ -95,25 +95,25 @@ Here,
 ### 🔍 Step-by-step Explanation
 1. **📥 Reading File Synchronously**
    
-```js
-const dataBuffer = fs.readFileSync(file);
-```
+    ```js
+    const dataBuffer = fs.readFileSync(file);
+    ```
 - Reads the contents of the file from the disk.
 - `fs.readFileSync()` is **synchronous**, meaning it blocks further code execution until the file is fully read.
 - Suitable for CLI-based tools where tasks are sequential.
 
 2. **🔤 Converting Buffer to String**
 
-```js
-const dataJSON = dataBuffer.toString();
-```
+    ```js
+    const dataJSON = dataBuffer.toString();
+    ```
 - Converts the buffer (binary data) into a readable string format.
 
 3. **🔄 Parsing JSON Data**
 
-```js
-return JSON.parse(dataJSON);
-```
+    ```js
+    return JSON.parse(dataJSON);
+    ```
 - Converts the JSON string into a usable JavaScript object (likely an array of todos).
 
 ### 💡 Why Use Synchronous File Reading?
