@@ -47,7 +47,7 @@ As your CLI tool grows, you can use libraries like:
 > `chalk` – for colored terminal output
 > `inquirer` – for interactive prompts
 
---
+---
 
 # Simple Todo CLI Tool with Node.js
 
@@ -82,6 +82,48 @@ function saveTodos(todos) {
   fs.writeFileSync(file, dataJSON);
 }
 ```
+
+Here,
+> fs.readFileSync() is a synchronous method provided by Node.js's fs (File System) module.
+
+> It reads the contents of the file specified by the variable file (likely 'todos.json').
+
+> It blocks the event loop until the entire file is read.
+
+> It returns a buffer (binary data).
+
+### 🔍 Step-by-step Explanation
+
+#### 1. 📥 Reading File Synchronously
+
+```js
+const dataBuffer = fs.readFileSync(file);
+```
+- Reads the contents of the file from the disk.
+- `fs.readFileSync()` is **synchronous**, meaning it blocks further code execution until the file is fully read.
+- Suitable for CLI-based tools where tasks are sequential.
+
+#### 2. 🔤 Converting Buffer to String
+
+```js
+const dataJSON = dataBuffer.toString();
+```
+- Converts the buffer (binary data) into a readable string format.
+
+#### 3. 🔄 Parsing JSON Data
+
+```js
+return JSON.parse(dataJSON);
+```
+- Converts the JSON string into a usable JavaScript object (likely an array of todos).
+
+### 💡 Why Use Synchronous File Reading?
+
+- For CLI-based tools, **simplicity and readability** matter more than performance.
+- Blocking is acceptable in sequential operations.
+- Easier to reason about during small utility script execution.
+
+---
 
 ### 2. Add Todo
 
