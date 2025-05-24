@@ -9,18 +9,18 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 ### 🟩 **Day 1 – Node.js Fundamentals & HTTP Module**
 **Topics Covered:**
 - Introduction to Node.js
-- 
+- Introduction to REST and HTTP Methods
 - Core modules: `fs`, `path`, `events`, `http`
 - Creating a basic HTTP server 
-- File system operations
 - Routing with native Node.js
+- File system operations
 - Simple CLI-based tools
 
 **Hands-On:**
 - Build a simple HTTP-based Note Saver app
 - CLI task manager (file storage)
 
-📂 Folder: `01-foundation-node-http/`
+📂 Folder: `Day-1/`
 
 ---
 
@@ -36,7 +36,7 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 - Build a RESTful API for task management
 - Serve static files
 - Implement middleware chains
-
+-
 📂 Folder: `02-building-rest-with-express/`
 
 ---
@@ -65,7 +65,7 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 ```bash
 nodejs-api-workshop-2025/
 ├── README.md
-├── 01-foundation-node-http/
+├── Day-1-foundation-node-http/
 ├── 02-building-rest-with-express/
 ├── 03-data-persistence-and-deployment/
 │   ├── mongodb-version/
