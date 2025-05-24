@@ -126,7 +126,9 @@ server.listen(port, hostname, () => {
 - `Server running at http://127.0.0.1:3000/`
 
 - This tells reach out to the Domain  127.0.0.1 or localhost in that access port 3000
-127.0.0.1 → This is the loopback IP address, also known as localhost, which points to your own machine.
+
+### `Where:`
+- 127.0.0.1 → This is the loopback IP address, also known as localhost, which points to your own machine.
 
 - :3000 → This is the port number, telling your system to connect to the specific server (or app) that is listening on port 3000.
 
