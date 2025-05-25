@@ -49,7 +49,7 @@ app.listen(PORT, () => {
 });
 
 ```
-1. ***🧩Middleware to Parse JSON***
+   ***🧩Middleware to Parse JSON***
 
     ```js
     app.use(express.json());
