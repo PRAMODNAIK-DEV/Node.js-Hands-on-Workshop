@@ -156,7 +156,7 @@ Request headers are metadata passed along with HTTP requests. They contain infor
 In Express.js, you can access headers via the `req.headers` object.
 
 ---
-## 🔍 Accessing Headers
+**🔍 Accessing Headers**
 
 ```js
 app.get('/headers', (req, res) => {
@@ -165,7 +165,7 @@ app.get('/headers', (req, res) => {
 });
 ```
 
-### Sample Request:
+**Sample Request:**
 ```http
 GET /headers
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
@@ -173,12 +173,12 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
 
 ---
 
-## 📘 Explanation
+**📘 Explanation**
 
 - `req.headers` is an object where each key is the header name in lowercase.
 - You can access headers using bracket notation like `req.headers['user-agent']`.
 
-### Example: Accessing a Custom Header
+**Example: Accessing a Custom Header**
 
 ```js
 app.get('/custom-header', (req, res) => {
@@ -187,7 +187,7 @@ app.get('/custom-header', (req, res) => {
 });
 ```
 
-### Sample Request with Custom Header:
+**Sample Request with Custom Header:**
 ```http
 GET /custom-header
 x-client-type: mobile
@@ -200,14 +200,14 @@ Client Type: mobile
 
 ---
 
-## ⚠️ Note
+**⚠️ Note**
 
 - Header names are **case-insensitive**, but it's best to use lowercase when accessing them in Node.js.
 - You can also use headers to pass tokens for authentication (`Authorization` header).
 
 ---
 
-## ✅ Use Cases for Headers
+**Use Cases for Headers**
 
 | Header             | Purpose                                |
 |--------------------|----------------------------------------|
