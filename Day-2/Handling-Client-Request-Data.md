@@ -63,7 +63,7 @@ Best for optional inputs like search filters and sorting options.
 ## 📦 2. Route Parameters
 Route parameters are part of the URL path and defined with Colon (`:`) in routes.
 
-## Example URL
+**Example URL**
 
 ```JS
 http://localhost:3000/student/51
@@ -76,7 +76,7 @@ app.get('/student/:id', (req, res) => {
     res.send(`User ID is ${userId}`);
 });
 ```
-## Explanation
+**Explanation**
 
 - `app.get('/user/:id', ...)`: Defines a GET endpoint where `:id` is a **route parameter**.
 - `req.params.id`: Retrieves the value of the `id` parameter from the URL.
@@ -98,12 +98,12 @@ In Express.js, the **request body** (`req.body`) contains data sent by the clien
 
 To access `req.body`, you need to use middleware to parse incoming request data.
 
-### For JSON data:
+**For JSON data:**
 ```js
 app.use(express.json());
 ```
 
-### For URL-encoded form data:
+**For URL-encoded form data:**
 ```js
 app.use(express.urlencoded({ extended: true }));
 ```
@@ -139,7 +139,7 @@ Content-Type: application/json
 - It is `undefined` by default — must use middleware like `express.json()` to populate it.
 - You can destructure it or access fields directly: `req.body.username`, `req.body.password`.
 
-**🔄 Summary**
+### 🔄 Summary
 
 | Request Type       | Middleware             | `req.body` Available |
 | ------------------ | ---------------------- | -------------------- |
