@@ -99,7 +99,7 @@ e-commerce-backend-server/
 **Project Setup**
 Use the below command or Directly use the VS Code to Create the folder instead of using mkdir in Terminal
 
-Create a new directory:
+**Create a new directory:**
 ```bash
 mkdir e-commerce-backend-server
 cd e-commerce-backend-server
@@ -111,6 +111,7 @@ npm init -y
 ```
 
 **🔌 Database Connection**
+
 Inside your project folder (ecommerce-backend-server), create a file named `db.js`. This file will configure the connection to your PostgreSQL database. Paste the following code into `db.js`:
 ```js
 const { Pool } = require('pg');
