@@ -330,3 +330,6 @@ app.get("/delete-cookie", (req, res) => {
 | Headers          | `req.headers` | ❌                   |
 | Cookies          | `req.cookies` | ✅ `cookie-parser`   |
 
+---
+
+To be continued: **Handling-Client-Request-Data**

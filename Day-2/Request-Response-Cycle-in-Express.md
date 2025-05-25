@@ -183,4 +183,6 @@ Always **send only one response per request**. Calling `res.send()` or `res.json
 - `res` is used to build and send the response.
 - Understanding the cycle is essential for working with **routes, middleware, and controllers**.
 
+---
+
 To be continued: **Handling-Client-Request-Data**

@@ -74,4 +74,39 @@ app.listen(PORT, () => {
 
 ---
 
+# 📌 API Routing in Express.js
+
+In Express.js, routing refers to how your application responds to client requests to specific endpoints (URLs) using HTTP methods such as GET, POST, PUT, DELETE, etc.
+
+## Basic Routing
+
+### Example:
+```js
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the Home Page!');
+});
+
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});
+```
+
+### Explanation:
+- `app.get()` defines a route for GET requests to the root `/` URL.
+- The callback function `(req, res)` handles the request and sends a response.
+
+## ✅ Route Methods
+
+Express provides methods to handle different HTTP requests:
+
+- `app.get()` – Read data
+- `app.post()` – Create data
+- `app.put()` – Update data
+- `app.delete()` – Delete data
+
+---
+
 To be continued: **Request-Response Cycle in Express.js**
