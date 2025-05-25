@@ -34,7 +34,7 @@ http://localhost:3000/greet`?name=Pramod`
 - `?name=Pramod`: Query Parameter (`name` is the key, `Pramod` is the value)
 
 
-**Create a Endpoint in the Backend which handles the above data from the Client:**
+## Create a Endpoint in the Backend which handles the above data from the Client:
 ```js
 app.get('/greet', (req, res) => {
     const name = req.query.name || 'Guest'; // Default to 'Guest' if no name is provided
@@ -42,7 +42,7 @@ app.get('/greet', (req, res) => {
 });
 ```
 
-## Explanation
+**Explanation**
 
 - `app.get('/greet', ...)`: Defines a GET endpoint at the `/greet` path.
 - `req.query.name`: Retrieves the value of the `name` query parameter from the URL.
@@ -51,8 +51,8 @@ app.get('/greet', (req, res) => {
 
 ### Example URLs
 
-- `/greet?name=Pramod` → Response: `Hello, Pramod!`
-- `/greet` → Response: `Hello, Guest!`
+- `http://localhost:3000/greet?name=Pramod` → Response: `Hello, Pramod!`
+- `http://localhost:3000/greet` → Response: `Hello, Guest!`
 
 This is a basic use case of query parameters and default values in Node.js using Express.
 
