@@ -89,8 +89,8 @@ module.exports = pool;
 | port     | Default PostgreSQL port is 5432                                           |
 
 ➡️ Note: 
-  - You must replace 'your_pg_user' and 'your_password' with actual PostgreSQL credentials. 
-  - To check these credentials in pgAdmin, follow the steps below:
+   - You must replace `your_pg_user` and `your_password` with actual PostgreSQL credentials. 
+   - To check these credentials in pgAdmin, follow the steps below:
     - In pgAdmin, right-click on the server where your database is located from the left sidebar.
     - Select Properties.
     - A new window will open. Switch to the Connection tab to view the connection details.
@@ -112,7 +112,7 @@ Think of it like a shared taxi service:
 
 ## 4. Create Express Server
 
-### `server.js`
+### Create a File named `server.js` and Import the required modules and Add the Middleware
 
 ```js
 const express = require('express');
@@ -128,7 +128,7 @@ app.use(express.json()); // Middleware to parse JSON
 
 ---
 
-## 📤 GET `/users` - Retrieve All Users
+## 📤 GET `/users` - Retrieve All Users from the users Table
 
 ```js
 app.get('/users', async (req, res) => {
@@ -146,7 +146,9 @@ app.get('/users', async (req, res) => {
 
 ---
 
-## 📥 POST `/users` - Route/Endpoint to Add a New User by accepting data from the Client via Payload
+## 📥 POST `/users` - 
+
+This `Route`/`Endpoint` to Add a New User to the users table by accepting data `{ name, email }` from the Client via Payload.
 
 ```js
 app.post('/users', async (req, res) => {
@@ -165,8 +167,8 @@ app.post('/users', async (req, res) => {
 
 ### 🔍 Explanation
 
-- Reads `name` and `email` from the request body.
-- Executes a parameterized SQL query using the pool:
+- Reads `name` and `email` from the request body (`req.body`).
+- Executes a parameterized SQL query using the pool (Database Connection Object):
   ```sql
   INSERT INTO users (name, email) VALUES ($1, $2)
   ```
@@ -191,15 +193,13 @@ Use Postman or `curl` to test the endpoints.
 ### Example POST request
 
 ```bash
-curl -X POST http://localhost:3000/users \
--H "Content-Type: application/json" \
--d '{"name": "John Doe", "email": "john@example.com"}'
+curl -X POST http://localhost:3000/users -H "Content-Type: application/json" -d "{\"name\": \"John Doe\", \"email\": \"john@example.com\"}"
 ```
 
-**Explanation**: Sends a POST request to insert a new user into the database.
+**Explanation**: 
+To run this open any terminal and copy paste and press enter. Then it Sends a POST request to insert a new user into the database.
 
 ---
-
 
 ## 📝 Notes
 
