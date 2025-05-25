@@ -10,11 +10,11 @@ Middleware functions are functions that have access to the request object (`req`
 
 ## Types of Middleware
 
-1. **Application-level middleware**
-2. **Router-level middleware**
-3. **Error-handling middleware**
-4. **Built-in middleware**
-5. **Third-party middleware**
+1. **Application-level middleware**: Functions that are bound to an instance of the Express app and handle requests for all or specific routes.
+2. **Router-level middleware**: Similar to application-level middleware but bound to an instance of `express.Router()`, allowing modular route handling.
+3. **Error-handling middleware**: Middleware that takes four arguments `(err, req, res, next)` and is used to catch and process errors in the app.
+4. **Built-in middleware**: Middleware functions provided by Express (e.g., express.json(), express.static()) to handle common tasks.
+5. **Third-party middleware**: External middleware installed via npm (e.g., body-parser, cors) to add additional functionality to Express apps.
 
 ## 1. Custom Middleware
 
