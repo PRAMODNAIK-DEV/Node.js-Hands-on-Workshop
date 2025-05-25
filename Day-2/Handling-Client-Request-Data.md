@@ -151,8 +151,13 @@ Content-Type: application/json
 
 
 ## 🧾 4. Headers
+Request headers are metadata passed along with HTTP requests. They contain information like browser type, authentication tokens, content types, and more.
 
-**Code:**
+In Express.js, you can access headers via the `req.headers` object.
+
+---
+## 🔍 Accessing Headers
+
 ```js
 app.get('/headers', (req, res) => {
     const userAgent = req.headers['user-agent'];
@@ -160,11 +165,59 @@ app.get('/headers', (req, res) => {
 });
 ```
 
-**Explanation:**
-- Headers are key-value pairs that provide metadata about the request.
-- Access headers via `req.headers`.
+### Sample Request:
+```http
+GET /headers
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+```
 
 ---
+
+## 📘 Explanation
+
+- `req.headers` is an object where each key is the header name in lowercase.
+- You can access headers using bracket notation like `req.headers['user-agent']`.
+
+### Example: Accessing a Custom Header
+
+```js
+app.get('/custom-header', (req, res) => {
+    const clientType = req.headers['x-client-type'];
+    res.send(`Client Type: ${clientType}`);
+});
+```
+
+### Sample Request with Custom Header:
+```http
+GET /custom-header
+x-client-type: mobile
+```
+
+**Response:**
+```
+Client Type: mobile
+```
+
+---
+
+## ⚠️ Note
+
+- Header names are **case-insensitive**, but it's best to use lowercase when accessing them in Node.js.
+- You can also use headers to pass tokens for authentication (`Authorization` header).
+
+---
+
+## ✅ Use Cases for Headers
+
+| Header             | Purpose                                |
+|--------------------|----------------------------------------|
+| `Content-Type`     | Indicates the media type of the body   |
+| `User-Agent`       | Identifies the client software         |
+| `Authorization`    | Contains credentials (e.g., tokens)    |
+| `X-Custom-Header`  | Any custom client-to-server info       |
+
+---
+
 
 ## 🍪 5. Cookies
 
