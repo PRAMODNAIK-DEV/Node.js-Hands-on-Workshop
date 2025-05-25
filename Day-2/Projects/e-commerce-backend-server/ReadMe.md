@@ -176,7 +176,11 @@ app.listen(port, () => {
     I am Alive!
     ```
 
-## 👤 POST /users – Create a New User
+# Let's Start Adding the `Endpoints`/`Routes`
+
+## 1. 👤 USERS:
+
+### POST /users – Create a New User
 🔧 Code:
 
 ```js
@@ -245,7 +249,7 @@ This tells the server you're sending JSON data.
 **4. Send the Request**
 Click the **Send** button.
 
-## 📬 Expected Response
+***📬 Expected Response***
 
 If the user is successfully added to the database, you should receive:
 
@@ -260,6 +264,63 @@ If the user is successfully added to the database, you should receive:
   "password": "securepassword123"
 }
 ```
+
+### GET /users – Get all users
+This route handles a GET request to the /users endpoint. It retrieves all user records from the PostgreSQL users table using a SQL query and returns the result as a JSON response.
+
+```js
+app.get('/users', async (req, res) => {
+    const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
+});
+
+```
+
+### 📬 Fetching All Users with Postman
+  - In Postman 
+    - Change the Method to `GET`
+    - In the URL field, type: `http://localhost:3000/users`
+    - No `Body`/`Payload` Needed as it is GET request
+    - Hit `Enter` or `Send`
+
+### 📬 Expected Response
+
+If the request is successful, you should receive:
+
+- **Status Code:** `200 OK`
+- **Body:** JSON array of all users in the database. 
+- Example:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Alice",
+    "email": "alice@example.com",
+    "password": "securepassword123"
+  },
+  {
+    "id": 2,
+    "name": "Bob",
+    "email": "bob@example.com",
+    "password": "anothersecurepassword"
+  }
+]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 -------
