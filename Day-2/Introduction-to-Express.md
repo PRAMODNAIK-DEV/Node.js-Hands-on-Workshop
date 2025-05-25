@@ -74,4 +74,4 @@ app.listen(PORT, () => {
 
 ---
 
-To be continued: **API Routing & Controllers**
+To be continued: **Request-Response Cycle in Express.js**
