@@ -142,8 +142,8 @@ module.exports = pool;
 > This setup uses `pg.Pool` to efficiently manage multiple database connections. Remember to replace the placeholder values with your actual PostgreSQL credentials.
 ---
 
-## 🚀 Express Setup (`server.js`)
-Inside your project folder (ecommerce-backend-server), create another file named `server.js`. This file is the main entry point for your E-commerce Backend API. It initializes the Express server, configures middleware, and sets up the routing for different API endpoints.
+## 🚀 Express Setup (`app.js`)
+Inside your project folder (ecommerce-backend-server), create another file named `app.js`. This file is the main entry point for your E-commerce Backend API. It initializes the Express server, configures middleware, and sets up the routing for different API endpoints.
 
 ```js
 const express = require('express');
@@ -167,7 +167,7 @@ app.listen(port, () => {
 Now start the server by running below command
 
 ```js
-node server.js
+node app.js
 ```
 ---
 
@@ -567,7 +567,8 @@ app.get('/orders', async (req, res) => {
 # `Modular Approach`: 
 Let's separates core functionality into modular files and folders for better `maintainability` and `scalability`.
 
-Paste the below code inside `server.js`
+Create a new file named server.js inside the project folder and Paste the below code.
+
 ```js
 const express = require('express');
 const app = express();
