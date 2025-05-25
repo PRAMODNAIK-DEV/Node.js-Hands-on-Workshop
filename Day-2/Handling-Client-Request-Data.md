@@ -34,7 +34,7 @@ http://localhost:3000/greet`?name=Pramod`
 - `?name=Pramod`: Query Parameter (`name` is the key, `Pramod` is the value)
 
 
-## Create a Endpoint in the Backend which handles the above data from the Client:
+### Create a Endpoint in the Backend which handles the above data from the Client:
 ```js
 app.get('/greet', (req, res) => {
     const name = req.query.name || 'Guest'; // Default to 'Guest' if no name is provided
