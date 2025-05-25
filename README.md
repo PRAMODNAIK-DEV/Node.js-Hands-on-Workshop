@@ -29,7 +29,6 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 - Introduction to Express.js
 - Middleware (custom & third-party)
 - PostgreSQL Integration
-- File upload using `multer`
 - API Routing & Controllers
 
 **Hands-On:**
