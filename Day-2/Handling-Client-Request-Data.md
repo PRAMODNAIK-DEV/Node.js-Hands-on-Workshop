@@ -55,29 +55,38 @@ app.get('/greet', (req, res) => {
 - `http://localhost:3000/greet` → Response: `Hello, Guest!`
 
 This is a basic use case of query parameters and default values in Node.js using Express.
+Best for optional inputs like search filters and sorting options.
 
 
 ---
 
 ## 📦 2. Route Parameters
+Route parameters are part of the URL path and defined with Colon (`:`) in routes.
 
-**Example URL:**
-```
-GET /user/123
+## Example URL
+
+```JS
+http://localhost:3000/student/51
 ```
 
 **Code:**
 ```js
-app.get('/user/:id', (req, res) => {
+app.get('/student/:id', (req, res) => {
     const userId = req.params.id;
     res.send(`User ID is ${userId}`);
 });
 ```
+## Explanation
 
-**Explanation:**
+- `app.get('/user/:id', ...)`: Defines a GET endpoint where `:id` is a **route parameter**.
+- `req.params.id`: Retrieves the value of the `id` parameter from the URL.
+- Route parameters are dynamic segments in the URL path and are commonly used to identify resources.
 - Route parameters are dynamic segments in the URL path.
 - Define with `:paramName` and access via `req.params`.
 
+
+This pattern is often used to fetch or manipulate a specific resource using its `identifier`.
+For Example GET the details of the Student with RollNumber - 51. Then the URL will be http://localhost:3000/student/51 
 ---
 
 ## 🧾 3. Request Body
