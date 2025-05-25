@@ -84,9 +84,9 @@ app.get('/student/:id', (req, res) => {
 - Route parameters are dynamic segments in the URL path.
 - Define with `:paramName` and access via `req.params`.
 
-
 This pattern is often used to fetch or manipulate a specific resource using its `identifier`.
-For Example GET the details of the Student with RollNumber - 51. Then the URL will be http://localhost:3000/student/51 
+For Example GET the details of the Student with RollNumber - 51. Then the URL will be http://localhost:3000/student/51
+
 ---
 
 ## 🧾 3. Request Body
