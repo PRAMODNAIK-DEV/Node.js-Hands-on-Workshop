@@ -164,6 +164,13 @@ app.listen(port, () => {
 
 ```
 
+Now start the server by running below command
+
+```js
+node server.js
+```
+---
+
 **Explaination:**
   - `app.use(express.json())`: 
     - This is a middleware that tells Express to automatically parse incoming JSON requests.
@@ -175,10 +182,10 @@ app.listen(port, () => {
     ```bash
     I am Alive!
     ```
-
+---
 # Let's Start Adding the `Endpoints`/`Routes`
 
-## 1. 👤 USERS:
+## 1. 👤 USERS Endpoints:
 
 ### POST /users – Create a New User
 🔧 Code:
@@ -289,42 +296,278 @@ If the request is successful, you should receive:
 
 - **Status Code:** `200 OK`
 - **Body:** JSON array of all users in the database. 
-- Example:
+- **Example**:
 
 ```json
 [
   {
     "id": 1,
-    "name": "Alice",
-    "email": "alice@example.com",
-    "password": "securepassword123"
+    "name": "Pramod Naik",
+    "email": "pammunaik92@gmail.com",
+    "password": "Monday@123"
   },
   {
     "id": 2,
-    "name": "Bob",
-    "email": "bob@example.com",
-    "password": "anothersecurepassword"
+    "name": "Ajay",
+    "email": "ajay@example.com",
+    "password": "Ajay@7878"
   }
 ]
 ```
 
+---
+
+## 2. 📦 PRODUCTS Endpoints:
+
+### POST /products – `Create`/`Add` a New Product
+This endpoint allows you to `add` a new product to the products table in the PostgreSQL database.
+  - It expects a POST request with a JSON body containing:
+    - name (text)
+    - description (optional text)
+    - price (numeric)
+    - stock (integer)
+  - It executes an INSERT SQL query using these values and returns the newly created product.
+  - Response: Returns the created product with status code 201 Created.
+
+```js
+app.post('/products', async (req, res) => {
+    const { name, description, price, stock } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO products (name, description, price, stock) VALUES ($1, $2, $3, $4) RETURNING *',
+            [name, description, price, stock]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error adding product");
+    }
+});
+```
+
+***Test in Postman***
+  - Method: POST
+  - Endpoint: /products
+  - Purpose: Adds a new product to the database.
+  - Request Body:
+    ```js
+    {
+    "name": "Laptop",
+    "description": "Gaming laptop",
+    "price": 999.99,
+    "stock": 10
+    }
+    ```
+  - Response: Returns the newly created product with status 201 Created.
+
+### GET /products – `Read`/`Fetch` All Products
+This endpoint retrieves and returns a list of all products stored in the database.
+  - It uses a SELECT * FROM products SQL query to fetch all product rows.
+  - The response is an array of product objects in JSON format.
+
+```js
+app.get('/products', async (req, res) => {
+    const result = await pool.query('SELECT * FROM products');
+    res.json(result.rows);
+});
+```
+***Test in Postman***
+  - Method: GET
+  - Endpoint: /products
+  - Purpose: Retrieves all products from the database.
+  - Request Body: Not needed as it is GET request
+  - Response: Returns an array of all product objects.
+
+
+### PUT /products – Update Product by `ID`
+This endpoint updates the details of an existing product by its id.
+  - This endpoint make use of the concept of `URL Paramter` as it takes the data from the Client in the URL.
+  - It accepts a PUT request to /products/:id, where :id is the ID of the product to update.
+  - It uses the values in the JSON body to update:
+    - `name`, `description`, `price`, and `stock`.
+  - The SQL query uses placeholders ($1, $2, ...) to prevent SQL injection.
+  - Response: Returns the updated product object.
+
+```js
+// Update product
+app.put('/products/:id', async (req, res) => {
+    const { name, description, price, stock } = req.body;
+    const { id } = req.params;
+    try {
+        const result = await pool.query(
+            'UPDATE products SET name=$1, description=$2, price=$3, stock=$4 WHERE id=$5 RETURNING *',
+            [name, description, price, stock, id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error updating product");
+    }
+});
+
+```
+
+***Test in Postman***
+  - Method: PUT
+  - Endpoint: /products/:id
+  - Purpose: Updates the details of a specific product using its ID.
+  - Request Params: `id` of the product to update.
+  - Request Body:
+    ```js
+    {
+    "name": "Updated Laptop",
+    "description": "High-end gaming laptop",
+    "price": 1099.99,
+    "stock": 8
+    }
+    ```
+  - Response: Returns the updated product object.
+
+
+### DELETE /products – Delete Product by `ID`
+This endpoint deletes a product from the database using its ID.
+  - It accepts a `DELETE` request to `/products/:id`.
+  - The SQL query `DELETE FROM products WHERE id = $1` removes the record.
+  - Response: Returns a success message like `"Product deleted"` upon completion.
+
+```js
+app.delete('/products/:id', async (req, res) => {
+    try {
+        await pool.query('DELETE FROM products WHERE id=$1', [req.params.id]);
+        res.send("Product deleted");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error deleting product");
+    }
+});
+```
+
+***Test in Postman***
+  - Method: DELETE
+  - Endpoint: `/products/:id`
+  - Purpose: Deletes a product from the database by its ID.
+  - Request Params: `id` of the product to delete.
+  - Response: A plain text confirmation message (e.g., `"Product deleted"`).
+
+---
+
+## 3.📦 ORDERS Endpoints – Create and Fetch Orders
+
+### POST /orders – `Create`/`Add`/`Place` an Order
+This endpoint allows a user to place a new order, which includes adding an entry to both the orders table and the order_items table.
+
+```js
+app.post('/orders', async (req, res) => {
+    const { user_id, items } = req.body;
+
+    try {
+        let total = 0;
+        for (let item of items) {
+            total += item.price * item.quantity;
+        }
+
+        const orderResult = await pool.query(
+            'INSERT INTO orders (user_id, total) VALUES ($1, $2) RETURNING *',
+            [user_id, total]
+        );
+
+        const orderId = orderResult.rows[0].id;
+
+        for (let item of items) {
+            await pool.query(
+                'INSERT INTO order_items (order_id, product_id, quantity, price) VALUES ($1, $2, $3, $4)',
+                [orderId, item.product_id, item.quantity, item.price]
+            );
+        }
+
+        res.status(201).send("Order placed successfully");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error placing order");
+    }
+});
+```
+
+**🛠️ What Happens:**
+  - The backend calculates the total price of the order.
+  - It inserts the order into the orders table with user_id and total.
+  - It retrieves the newly created order_id from the database.
+  - For each item in the items array:
+    - It inserts a record into the order_items table with details of product, quantity, price, and linked order_id.
+
+
+***Test in Postman***
+  - Method: POST
+  - Endpoint: /orders
+  - Request Body:
+    ```js
+    {
+    "user_id": 1,
+    "items": [
+        {
+        "product_id": 101,
+        "quantity": 2,
+        "price": 299.99
+        },
+        {
+        "product_id": 105,
+        "quantity": 1,
+        "price": 499.00
+        }
+    ]
+    }
+    ```
+  - Response:
+    - 201 Created: If the order and all items are successfully saved.
+    - Message: "Order placed successfully"
+  - **Note**: `user_id` & `product_id` should be present in the respective Users and Products table otherwise it will throw error.
 
 
 
+### GET /orders - `Get`/`Fetch` All Orders
+This endpoint retrieves and returns all orders stored in the database.
 
+```js
+app.get('/orders', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM orders');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error fetching orders");
+    }
+});
+```
 
+***Test in Postman***
+  - Method: GET
+  - Endpoint: /orders
+  - Query: SELECT * FROM orders
+  - It fetches each order's:
+    - id
+    - user_id
+    - total amount
+    - created_at timestamp
+  - Response: A JSON array of all orders.
+    ```js
+    [
+    {
+        "id": 1,
+        "user_id": 1,
+        "total": 1098.98,
+        "created_at": "2025-05-25T10:22:00.000Z"
+    },
+    ...
+    ]
+    ```
+  - Error 500: If database fetching fails.
 
+---
 
+# `Modular Approach`: 
+Let's separates core functionality into modular files and folders for better `maintainability` and `scalability`.
 
-
-
-
-
-
-
-
--------
-
+Paste the below code inside `server.js`
 ```js
 const express = require('express');
 const app = express();
@@ -354,6 +597,8 @@ app.listen(port, () => {
 ---
 
 ## 👤 User Routes (`routes/users.js`)
+
+First create a new folder called `routes` then inside of that create a file named `users.js` and paste the below code.
 
 ```js
 const express = require('express');
@@ -387,6 +632,8 @@ module.exports = router;
 ---
 
 ## 📦 Product Routes (`routes/products.js`)
+
+Inside the routes folder create one more file named `products.js` and paste the below code.
 
 ```js
 const express = require('express');
@@ -447,6 +694,7 @@ module.exports = router;
 ---
 
 ## 🧾 Orders Routes (`routes/orders.js`)
+Create another file named `orders.js` inside `routes` folder and paste the below code.
 
 ```js
 const express = require('express');
@@ -498,6 +746,12 @@ router.get('/', async (req, res) => {
 module.exports = router;
 ```
 
+
+Now start the server by running below command
+
+```js
+node server.js
+```
 ---
 
 ## 🔐 Optional Features
