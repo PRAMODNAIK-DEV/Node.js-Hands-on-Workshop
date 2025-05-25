@@ -1,0 +1,158 @@
+# Express.js `req` (Request) Object - Handling Request Data
+
+The `req` object in Express.js represents the HTTP request and contains all the data sent from the client to the server.
+1. `Query` Parameters
+2. `URL`/`Route` Parameters
+3. Request `Body`
+4. Headers
+5. Cookies
+---
+
+## 📥 1. Query Parameters
+
+**Example URL:**
+Query parameters are part of the URL and follow a <domain-name>:<port-number>/<endpoint>/`?key1=value1&key2=value2&keyn=valuen` format.
+
+- Query parameters are key-value pairs in the URL after the `?`.
+- Access them using `req.query`.
+
+***Syntax***
+```JS
+<domain-name>:<port-number>/<endpoint>/`?key1=value1&key2=value2&keyn=valuen`
+```
+
+**Example URL:**
+```
+http://localhost:3000/greet`?name=Pramod`
+
+```
+Here:
+    - http://localhost: Domain Name
+    - 3000: Port Number
+    - /greet: Endpoint
+    - ?name=Pramod: Query Parameter
+
+**Create a Endpoint in the Backend which handles the above data from the Client:**
+```js
+app.get('/greet', (req, res) => {
+    const name = req.query.name || 'Guest'; // Default to 'Guest' if no name is provided
+    res.send(`Hello, ${name}!`);
+});
+```
+
+## Explanation
+
+- `app.get('/greet', ...)`: Defines a GET endpoint at the `/greet` path.
+- `req.query.name`: Retrieves the value of the `name` query parameter from the URL.
+- `|| 'Guest'`: If `name` is not provided in the query string, the default value `'Guest'` is used.
+- ``res.send(`Hello, ${name}!`)``: Sends a plain text response back to the client with a personalized greeting.
+
+### Example URLs
+
+- `/greet?name=Pramod` → Response: `Hello, Pramod!`
+- `/greet` → Response: `Hello, Guest!`
+
+This is a basic use case of query parameters and default values in Node.js using Express.
+
+
+---
+
+## 📦 2. Route Parameters
+
+**Example URL:**
+```
+GET /user/123
+```
+
+**Code:**
+```js
+app.get('/user/:id', (req, res) => {
+    const userId = req.params.id;
+    res.send(`User ID is ${userId}`);
+});
+```
+
+**Explanation:**
+- Route parameters are dynamic segments in the URL path.
+- Define with `:paramName` and access via `req.params`.
+
+---
+
+## 🧾 3. Request Body
+
+**Example Request:**
+```
+POST /submit
+Content-Type: application/json
+
+{
+  "name": "Alice",
+  "email": "alice@example.com"
+}
+```
+
+**Code:**
+```js
+app.use(express.json());  // Middleware to parse JSON
+
+app.post('/submit', (req, res) => {
+    const { name, email } = req.body;
+    res.send(`Received name: ${name}, email: ${email}`);
+});
+```
+
+**Explanation:**
+- The request body contains data sent in POST, PUT, or PATCH requests.
+- Use `express.json()` middleware to parse JSON bodies.
+
+---
+
+## 🧾 4. Headers
+
+**Code:**
+```js
+app.get('/headers', (req, res) => {
+    const userAgent = req.headers['user-agent'];
+    res.send(`User-Agent: ${userAgent}`);
+});
+```
+
+**Explanation:**
+- Headers are key-value pairs that provide metadata about the request.
+- Access headers via `req.headers`.
+
+---
+
+## 🍪 5. Cookies
+
+**Code (requires cookie-parser):**
+```bash
+npm install cookie-parser
+```
+
+```js
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+app.get('/cookie', (req, res) => {
+    const token = req.cookies.token;
+    res.send(`Token: ${token}`);
+});
+```
+
+**Explanation:**
+- Cookies are stored in the browser and sent with each request.
+- Use `cookie-parser` middleware to access them via `req.cookies`.
+
+---
+
+## ✅ Summary
+
+| Type             | Access via    | Middleware Required |
+| ---------------- | ------------- | ------------------- |
+| Query Parameters | `req.query`   | ❌                   |
+| Route Parameters | `req.params`  | ❌                   |
+| Request Body     | `req.body`    | ✅ `express.json()`  |
+| Headers          | `req.headers` | ❌                   |
+| Cookies          | `req.cookies` | ✅ `cookie-parser`   |
+

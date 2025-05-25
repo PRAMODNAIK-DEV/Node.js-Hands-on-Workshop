@@ -89,8 +89,8 @@ app.get('/example', (req, res) => {
 res.send('Hello');
 ```
 
-- Sends a string, object, buffer, or array as a response.
-- Automatically sets the content-type based on input.
+- Sends a `string`, `object`, `buffer`, or `array` as a response.
+- Automatically sets the `content-type` based on input.
 
 ---
 
@@ -111,7 +111,7 @@ res.json({ user: 'John', age: 30 });
 res.status(404).send('Not Found');
 ```
 
-- Sets the HTTP status code.
+- Sets the `HTTP` status code.
 - Can be chained with other methods like `.send()` or `.json()`.
 
 ---
