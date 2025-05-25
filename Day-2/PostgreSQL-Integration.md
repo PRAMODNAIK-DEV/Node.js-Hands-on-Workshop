@@ -25,11 +25,11 @@ npm install express pg
 
 ## 2. Set Up PostgreSQL
 
-# Create a database and a table using the PostgreSQL CLI or any GUI tool like pgAdmin.
+### Create a database and a table using the PostgreSQL CLI or any GUI tool like pgAdmin.
 
 Creating Database and Table using pgAdmin
 
-## Steps
+### Steps
 
 1. Open **pgAdmin**.
 2. From the left sidebar, click on **Servers**.
@@ -59,7 +59,8 @@ CREATE TABLE users (
 This file sets up a connection pool to a PostgreSQL database using the pg (node-postgres) library in Node.js. It allows the application to interact with the database efficiently.
 
 
-### `db.js` - Database Connection Setup
+**Database Connection Setup**
+Create a new file named `db.js` in the same folder and Paste the below code.
 
 ```js
 const { Pool } = require('pg');
@@ -96,7 +97,7 @@ module.exports = pool;
     - A new window will open. Switch to the Connection tab to view the connection details.
 
 
-**🔁 What is a "Pool of Database Connections"?**
+### 🔁 What is a "Pool of Database Connections"?
 
 A connection pool is a managed collection of reusable connections to a database. Instead of creating a new connection every time you run a query (which is `slow` and resource-intensive), a pool keeps a set of connections open and hands them out when needed.
   - When you create a new Pool() from the pg library, it uses some default settings.
@@ -112,7 +113,7 @@ Think of it like a shared taxi service:
 
 ## 4. Create Express Server
 
-### Create a File named `server.js` and Import the required modules and Add the Middleware
+**Create a File named `server.js` and Import the required modules and Add the Middleware**
 
 ```js
 const express = require('express');
@@ -121,7 +122,8 @@ const app = express();
 
 app.use(express.json()); // Middleware to parse JSON
 ```
-### Express Initialization
+
+**Express Initialization**
 
 - `express()` creates an instance of the Express application.
 - `express.json()` is middleware that parses incoming requests with JSON payloads.
