@@ -27,10 +27,10 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 ### 🟨 **Day 2 – Express.js & REST API Development**
 **Topics Covered:**
 - Introduction to Express.js
-- API Routing & Controllers
 - Middleware (custom & third-party)
-- Error handling, validation (`express-validator`)
+- PostgreSQL Integration
 - File upload using `multer`
+- API Routing & Controllers
 
 **Hands-On:**
 - Build a RESTful API for task management
@@ -49,7 +49,6 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 - CRUD operations with both DBs
 - Environment configuration with `.env`
 - Deployment using Render or Railway
-- Git & GitHub basics
 
 **Hands-On:**
 - Create two versions of the same API (MongoDB & PostgreSQL)

@@ -51,7 +51,7 @@ CREATE TABLE users (
 );
 ```
 
-**Explanation**: This creates a database named `testdb` and a `users` table with `id`, `name`, and `email` columns.
+**Explanation**: This creates a `users` table with `id`, `name`, and `email` columns.
 
 ---
 
@@ -65,7 +65,7 @@ This file sets up a connection pool to a PostgreSQL database using the pg (node-
 const { Pool } = require('pg');
 
 const pool = new Pool({
-    user: 'your_pg_user',
+    user: 'postgres',
     host: 'localhost',
     database: 'testdb',
     password: 'your_password',
@@ -88,10 +88,16 @@ module.exports = pool;
 | password | The password for the specified PostgreSQL user                            |
 | port     | Default PostgreSQL port is 5432                                           |
 
-➡️ Note: You must replace 'your_pg_user' and 'your_password' with actual PostgreSQL credentials.
+➡️ Note: 
+  - You must replace 'your_pg_user' and 'your_password' with actual PostgreSQL credentials. 
+  - To check these credentials in pgAdmin, follow the steps below:
+    - In pgAdmin, right-click on the server where your database is located from the left sidebar.
+    - Select Properties.
+    - A new window will open. Switch to the Connection tab to view the connection details.
 
 
 **🔁 What is a "Pool of Database Connections"?**
+
 A connection pool is a managed collection of reusable connections to a database. Instead of creating a new connection every time you run a query (which is `slow` and resource-intensive), a pool keeps a set of connections open and hands them out when needed.
   - When you create a new Pool() from the pg library, it uses some default settings.
   - At most, 10 connections can be created and reused at any given time.
@@ -101,8 +107,6 @@ A connection pool is a managed collection of reusable connections to a database.
 Think of it like a shared taxi service:
   - Instead of everyone driving their own car (making their own DB connection),
   - A few cars (connections) are available to pick up people (queries) as needed.
-
-
 
 ---
 
@@ -116,8 +120,17 @@ const pool = require('./db');
 const app = express();
 
 app.use(express.json()); // Middleware to parse JSON
+```
+### Express Initialization
 
-// GET all users
+- `express()` creates an instance of the Express application.
+- `express.json()` is middleware that parses incoming requests with JSON payloads.
+
+---
+
+## 📤 GET `/users` - Retrieve All Users
+
+```js
 app.get('/users', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM users');
@@ -126,8 +139,16 @@ app.get('/users', async (req, res) => {
         console.error(err.message);
     }
 });
+```
+### 🔍 Explanation
+  - Runs a simple `SELECT * FROM users` query.
+  - Sends all user records as JSON.
 
-// POST a new user
+---
+
+## 📥 POST `/users` - Route/Endpoint to Add a New User by accepting data from the Client via Payload
+
+```js
 app.post('/users', async (req, res) => {
     try {
         const { name, email } = req.body;
@@ -140,13 +161,22 @@ app.post('/users', async (req, res) => {
         console.error(err.message);
     }
 });
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
 ```
 
-**Explanation**:
+### 🔍 Explanation
+
+- Reads `name` and `email` from the request body.
+- Executes a parameterized SQL query using the pool:
+  ```sql
+  INSERT INTO users (name, email) VALUES ($1, $2)
+  ```
+- `RETURNING *` returns the inserted row.
+- `res.json(result.rows[0])` sends the created user as JSON.
+
+---
+
+
+**Summary**:
 - `/users` (GET) retrieves all users.
 - `/users` (POST) adds a new user to the database.
 - `pool.query()` is used to run SQL queries.
@@ -170,13 +200,10 @@ curl -X POST http://localhost:3000/users \
 
 ---
 
-## 6. Error Handling and Security (Optional but Recommended)
 
-- Use try-catch for all database operations.
-- Use parameterized queries to prevent SQL injection.
-- Use environment variables for database credentials (`dotenv` package).
+## 📝 Notes
 
----
+- Make sure you have a `users` table in your PostgreSQL DB with at least `name` and `email` columns.
 
 ## Conclusion
 
