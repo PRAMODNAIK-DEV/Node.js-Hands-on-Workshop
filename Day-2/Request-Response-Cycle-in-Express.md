@@ -49,15 +49,15 @@ app.listen(PORT, () => {
 });
 
 ```
-   ***🧩Middleware to Parse JSON***
+***🧩Middleware to Parse JSON***
 
-    ```js
-    app.use(express.json());
-    ```
+```js
+app.use(express.json());
+```
 
-    - This line registers middleware that automatically parses incoming JSON payloads in POST, PUT, or PATCH requests.
-    - Required for accessing `req.body` in JSON-based requests.
-    - Without this, req.body would be undefined for JSON input.
+  - This line registers middleware that automatically parses incoming JSON payloads in POST, PUT, or PATCH requests.
+  - Required for accessing `req.body` in JSON-based requests.
+  - Without this, req.body would be undefined for JSON input.
 
 ---
 
