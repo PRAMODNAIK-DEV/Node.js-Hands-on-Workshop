@@ -75,6 +75,7 @@ CREATE TABLE order_items (
 ---
 
 ## 📦 Project Structure
+Below is the organized folder structure for the E-commerce Backend API project. It separates core functionality into modular files and folders for better maintainability and scalability.
 
 ```
 ecommerce-api/
@@ -89,10 +90,13 @@ ecommerce-api/
     ├── productsController.js
     └── ordersController.js
 ```
-
+> This structure follows a modular `MVC pattern`, making the codebase `clean`, `scalable`, and `easier` to `maintain`.
 ---
 
-## 🔌 Database Connection (`db.js`)
+
+## Create Backend - Node & Express Server
+
+**Database Connection (`db.js`)**
 
 ```js
 const { Pool } = require('pg');
