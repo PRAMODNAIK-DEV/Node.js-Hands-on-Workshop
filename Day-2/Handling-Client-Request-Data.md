@@ -159,7 +159,7 @@ In Express.js, you can access headers via the `req.headers` object.
 **🔍 Accessing Headers**
 
 ```js
-app.get('/headers', (req, res) => {
+app.get('/', (req, res) => {
     const userAgent = req.headers['user-agent'];
     res.send(`User-Agent: ${userAgent}`);
 });
@@ -221,15 +221,18 @@ Client Type: mobile
 
 ## 🍪 5. Cookies
 
-**Code (requires cookie-parser):**
+**Code (requires cookie-parser) Install it using:**
 ```bash
 npm install cookie-parser
 ```
-
+**Use the cookie parser**
 ```js
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+```
 
+**Access the Cookie Data in your Endpoint**
+```js
 app.get('/cookie', (req, res) => {
     const token = req.cookies.token;
     res.send(`Token: ${token}`);
