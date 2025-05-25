@@ -209,19 +209,30 @@ Client Type: mobile
 
 **Use Cases for Headers**
 
-| Header             | Purpose                                |
-|--------------------|----------------------------------------|
-| `Content-Type`     | Indicates the media type of the body   |
-| `User-Agent`       | Identifies the client software         |
-| `Authorization`    | Contains credentials (e.g., tokens)    |
-| `X-Custom-Header`  | Any custom client-to-server info       |
+| Header            | Purpose                              |
+| ----------------- | ------------------------------------ |
+| `Content-Type`    | Indicates the media type of the body |
+| `User-Agent`      | Identifies the client software       |
+| `Authorization`   | Contains credentials (e.g., tokens)  |
+| `X-Custom-Header` | Any custom client-to-server info     |
 
 ---
 
 
 ## 🍪 5. Cookies
+**What Are Cookies?**
+Cookies are small pieces of data stored on a user’s browser by a website. They help in tracking user activities, maintaining session information, and personalizing user experiences.
 
-**Code (requires cookie-parser) Install it using:**
+**How Cookies Work?**
+  - Creation: When a user visits a website, the server sends a Set-Cookie header in the response.
+  - Storage: The browser stores the cookie and sends it with each request to the same domain.
+  - Retrieval: The server reads the cookie to retrieve stored information.
+
+## Managing and Working with Cookies in Express.js 🚀
+Express.js provides built-in support for handling cookies through the cookie-parser middleware. 
+
+
+**Step-1: Setup Express and cookie-parser**
 ```bash
 npm install cookie-parser
 ```
@@ -230,6 +241,37 @@ npm install cookie-parser
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 ```
+**Step-2: Setting Cookies in Express**
+  - Using res.cookie(): You can set a cookie in Express using the res.cookie() method.
+    
+    ```js
+    app.get("/set-cookie", (req, res) => {
+    res.cookie("username", "PramodNaik", { 
+        maxAge: 86400000,     // 1 day in milliseconds
+        httpOnly: true        // Cookie not accessible via JavaScript
+    });
+
+    res.send("Cookie has been set!");
+    });
+    ```
+
+    **Explanation**
+    - `res.cookie(name, value, options)`: Used to set a cookie in the HTTP response.
+    - `username`: The name of the cookie.
+    - `"PramodNaik"`: The value of the cookie.
+    - `maxAge`: 86400000: The cookie will expire after 1 day (in milliseconds).
+    - `httpOnly`: true: Enhances security by preventing JavaScript (on the client side) from accessing the cookie. This protects against XSS attacks.
+    
+    **Client Request & Server Response**
+    - When the client hits /set-cookie, the server responds with:
+    ```JS
+    Set-Cookie: username=PramodNaik; Max-Age=86400000; HttpOnly
+    ```
+
+    Set-Cookie: username=PramodNaik; Max-Age=86400000; HttpOnly
+    ```JS
+    Cookie: username=PramodNaik
+    ```
 
 **Access the Cookie Data in your Endpoint**
 ```js
