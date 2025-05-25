@@ -25,7 +25,7 @@ Express.js is a minimal and flexible Node.js web application framework that prov
 
 That can become tedious and repetitive.
 
-### Advantages Express over default http/https module?
+### Advantages of Express over default `http`/`https` module?
 Express is a popular framework built on top of Node's `http` module. It simplifies backend development.
 - `Lightweight & Fast`: Minimal setup and optimized performance.
 - `Middleware Support`: Easily integrate third-party middleware for functionalities like authentication, logging, and error handling.
@@ -40,6 +40,7 @@ npm init -y
 npm install express
 ```
 
+#### Why do we need to Install Express:
 Express is a third-party package
 - It is not part of Node.js core.
 - It's developed and maintained outside the official Node.js runtime by the open-source community.
