@@ -110,6 +110,11 @@ cd e-commerce-backend-server
 npm init -y
 ```
 
+**Install All the Dependencis**
+```bash
+npm install express 
+```
+
 **🔌 Database Connection**
 
 Inside your project folder (ecommerce-backend-server), create a file named `db.js`. This file will configure the connection to your PostgreSQL database. Paste the following code into `db.js`:
