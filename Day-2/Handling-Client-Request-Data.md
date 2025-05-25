@@ -22,15 +22,17 @@ Query parameters are part of the URL and follow a <domain-name>:<port-number>/<e
 ```
 
 **Example URL:**
-```
+```JS
 http://localhost:3000/greet`?name=Pramod`
-
 ```
-Here:
-    - http://localhost: Domain Name
-    - 3000: Port Number
-    - /greet: Endpoint
-    - ?name=Pramod: Query Parameter
+
+**Explanation:**
+
+- `http://localhost`: Domain Name (host)
+- `3000`: Port Number
+- `/greet`: Endpoint
+- `?name=Pramod`: Query Parameter (`name` is the key, `Pramod` is the value)
+
 
 **Create a Endpoint in the Backend which handles the above data from the Client:**
 ```js
