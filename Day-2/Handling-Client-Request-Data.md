@@ -94,7 +94,7 @@ In Express.js, the **request body** (`req.body`) contains data sent by the clien
 
 ---
 
-## 🔧 Enabling Request Body Parsing
+### 🔧 Enabling Request Body Parsing
 
 To access `req.body`, you need to use middleware to parse incoming request data.
 
@@ -109,7 +109,7 @@ app.use(express.urlencoded({ extended: true }));
 ```
 
 ---
-## Example: Handling a Login Request
+**Example: Handling a Login Request**
 
 ```js
 // Middleware to parse JSON
@@ -133,15 +133,13 @@ Content-Type: application/json
 }
 ```
 
----
-
-## 📘 Explanation
+**📘 Explanation**
 
 - `req.body` contains the parsed body of the request.
 - It is `undefined` by default — must use middleware like `express.json()` to populate it.
 - You can destructure it or access fields directly: `req.body.username`, `req.body.password`.
 
-## 🔄 Summary
+**🔄 Summary**
 
 | Request Type       | Middleware             | `req.body` Available |
 | ------------------ | ---------------------- | -------------------- |
