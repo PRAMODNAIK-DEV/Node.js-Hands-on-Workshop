@@ -78,7 +78,7 @@ CREATE TABLE order_items (
 Below is the organized folder structure for the E-commerce Backend API project. It separates core functionality into modular files and folders for better maintainability and scalability.
 
 ```
-ecommerce-api/
+e-commerce-backend-server/
 ├── db.js
 ├── server.js
 ├── routes/
@@ -96,8 +96,8 @@ ecommerce-api/
 
 ## Create Backend - Node & Express Server
 
-**Database Connection (`db.js`)**
-
+**🔌 Database Connection**
+Inside your project folder (ecommerce-backend-server), create a file named `db.js`. This file will configure the connection to your PostgreSQL database. Paste the following code into `db.js`:
 ```js
 const { Pool } = require('pg');
 
@@ -111,10 +111,11 @@ const pool = new Pool({
 
 module.exports = pool;
 ```
-
+> This setup uses pg.Pool to efficiently manage multiple database connections. Remember to replace the placeholder values with your actual PostgreSQL credentials.
 ---
 
 ## 🚀 Express Setup (`server.js`)
+Inside your project folder (ecommerce-backend-server), create another file named `server.js`. This file is the main entry point for your E-commerce Backend API. It initializes the Express server, configures middleware, and sets up the routing for different API endpoints.
 
 ```js
 const express = require('express');
@@ -136,6 +137,11 @@ app.listen(port, () => {
     console.log(`E-commerce API running on http://localhost:${port}`);
 });
 ```
+
+**Explanation:**
+ - Express Initialization: Creates an Express application instance (app).
+ - Port Setup: Defines the port number (3000) where the server will listen for requests.
+ - JSON Middleware: app.use(express.json()) enables the server to automatically parse JSON data sent in HTTP request bodies.
 
 ---
 
