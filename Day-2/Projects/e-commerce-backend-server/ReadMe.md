@@ -111,9 +111,17 @@ npm init -y
 ```
 
 **Install All the Dependencis**
-```bash
-npm install express 
+Inside your project folder (ecommerce-backend-server) run the below command to install the dependencies.
+
+```js
+npm install express pg
 ```
+Note: 
+   - This will create a new folder named `node-modules` and a file named `package-lock.json` in the projects root folder. In this case npm downloads the `express` and `pg` packages (and all their dependencies) and saves them in the node_modules folder. 
+   - `package-lock.json` - Locks the exact versions of every installed package and its sub-dependencies.
+     - It Ensures consistent installs across different environments (e.g., teammates or servers).
+     - Prevents bugs due to version mismatches.
+
 
 **🔌 Database Connection**
 
@@ -131,11 +139,126 @@ const pool = new Pool({
 
 module.exports = pool;
 ```
-> This setup uses pg.Pool to efficiently manage multiple database connections. Remember to replace the placeholder values with your actual PostgreSQL credentials.
+> This setup uses `pg.Pool` to efficiently manage multiple database connections. Remember to replace the placeholder values with your actual PostgreSQL credentials.
 ---
 
 ## 🚀 Express Setup (`server.js`)
 Inside your project folder (ecommerce-backend-server), create another file named `server.js`. This file is the main entry point for your E-commerce Backend API. It initializes the Express server, configures middleware, and sets up the routing for different API endpoints.
+
+```js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.send("I am Alive!");
+});
+
+// Your all other routes goes here
+
+app.listen(port, () => {
+    console.log(`E-commerce API running on http://localhost:${port}`);
+});
+
+```
+
+**Explaination:**
+  - `app.use(express.json())`: 
+    - This is a middleware that tells Express to automatically parse incoming JSON requests.
+    - It allows your API to read and access data sent in the body of POST, PUT, or PATCH requests (like user data or product info).
+  - `/`: 
+    - This is a GET route for the root URL. 
+    - When someone opens http://localhost:3000/ in the browser or Postman, the server responds with:
+    ```bash
+    I am Alive!
+    ```
+
+## 👤 POST /users – Create a New User
+🔧 Code:
+
+```js
+app.post('/users', async (req, res) => {
+    const { name, email, password } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
+            [name, email, password]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error creating user");
+    }
+});
+```
+> This endpoint handles `user registration` by accepting user data and saving it into the PostgreSQL `users` database table.
+
+**Explaination**
+  - `📥 const { name, email, password } = req.body`:  
+    - Extracts name, email, and password from the request body.
+    - This assumes the client is sending a JSON payload like:
+    ```js
+    {
+    "name": "Alice",
+    "email": "alice@example.com",
+    "password": "securepassword"
+    }
+    ```
+  - `🛠️ await pool.query(...)`: This executes an SQL INSERT query using the PostgreSQL connection pool
+
+**📬 Creating a New User with Postman or Test the POST /users endpoint in Postman**
+
+### 1. Open Postman
+Make sure your Express server is running (usually on `http://localhost:3000`).
+
+### 2. Create a New Request
+- Click **"New" > "HTTP Request"** or **"Create Request"**.
+- Set the method to **POST**.
+- In the URL field, type: `http://localhost:3000/users`
+
+### 3. Set the Headers
+Go to the **Headers** tab and set:
+
+| Key           | Value              |
+|---------------|--------------------|
+| Content-Type  | application/json   |
+
+This tells the server you're sending JSON data.
+
+### 4. Set the Request Body
+- Go to the **Body** tab.
+- Choose **raw** and then **JSON** from the dropdown.
+- Enter your user data, like this:
+
+```json
+{
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "securepassword123"
+}
+```
+
+### 5. Send the Request
+Click the **Send** button.
+
+## 📬 Expected Response
+
+If the user is successfully added to the database, you should receive:
+
+- **Status Code:** `201 Created`
+- **Body:** JSON data of the newly created user. Example:
+
+```json
+{
+  "id": 1,
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "securepassword123"
+}
+```
+
 
 ```js
 const express = require('express');
