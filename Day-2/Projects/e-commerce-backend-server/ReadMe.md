@@ -26,7 +26,7 @@ CREATE TABLE users (
     password TEXT NOT NULL
 );
 ```
-> This users table stores user account details with an auto-incrementing id, name, unique email, and password. All fields are required, and emails must be unique.
+> This `users` table stores user account details with an auto-incrementing `id`, `name`, unique `email`, and `password`. All fields are required, and emails must be `unique`.
 
 
 2. `Products` Table: To store the Products Details.
@@ -40,7 +40,7 @@ CREATE TABLE products (
 );
 
 ```
-> This products table stores product details with an auto-incrementing `id`, product `name`, optional `description`, `price` (up to 10 digits, 2 decimal places), and available stock. All fields except description are required.
+> This `products` table stores product details with an auto-incrementing `id`, product `name`, optional `description`, `price` (up to 10 digits, 2 decimal places), and available stock. All fields except description are required.
 
 
 3. `Orders` Table: To store the orders Details.
@@ -54,9 +54,10 @@ CREATE TABLE orders (
 );
 
 ```
-> This orders table records each order placed by a user. It includes an auto-incrementing `id`, a `user_id` linked to the `users table`, the total order `amount`, and the timestamp `created_at` which defaults to the current time.
+> This `orders` table records each order placed by a user. It includes an auto-incrementing `id`, a `user_id` linked to the `users table`, the total order `amount`, and the timestamp `created_at` which defaults to the current time.
 
-4. Order Items: To store the details of individual products within an order. For example if a user ordered 2 products then there will be 2 entries in this table with same `order_id` and diff `product_id`.
+4. Order Items: To store the details of individual products within an order. 
+   For example if a user ordered 2 products then there will be 2 entries in this table with same `order_id` and diff `product_id`.
 
 ```sql
 -- Order Items Table
