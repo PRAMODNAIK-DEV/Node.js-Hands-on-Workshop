@@ -85,38 +85,72 @@ app.get('/student/:id', (req, res) => {
 - Define with `:paramName` and access via `req.params`.
 
 This pattern is often used to fetch or manipulate a specific resource using its `identifier`.
-For Example GET the details of the Student with RollNumber - 51. Then the URL will be http://localhost:3000/student/51
+For Example GET the details of the `Student` with `RollNumber` - `51`. Then the URL will be http://localhost:3000/student/51
 
 ---
 
 ## 🧾 3. Request Body
+In Express.js, the **request body** (`req.body`) contains data sent by the client in POST, PUT, or PATCH requests. This is typically used when submitting forms or sending JSON data via an API.
 
-**Example Request:**
-```
-POST /submit
-Content-Type: application/json
+---
 
-{
-  "name": "Alice",
-  "email": "alice@example.com"
-}
-```
+## 🔧 Enabling Request Body Parsing
 
-**Code:**
+To access `req.body`, you need to use middleware to parse incoming request data.
+
+### For JSON data:
 ```js
-app.use(express.json());  // Middleware to parse JSON
+app.use(express.json());
+```
 
-app.post('/submit', (req, res) => {
-    const { name, email } = req.body;
-    res.send(`Received name: ${name}, email: ${email}`);
+### For URL-encoded form data:
+```js
+app.use(express.urlencoded({ extended: true }));
+```
+
+---
+## Example: Handling a Login Request
+
+```js
+// Middleware to parse JSON
+app.use(express.json());
+
+app.post('/login', (req, res) => {
+    console.log(req.body); // { username: "John", password: "1234" }
+
+    res.send(`Welcome, ${req.body.username}`);
 });
 ```
 
-**Explanation:**
-- The request body contains data sent in POST, PUT, or PATCH requests.
-- Use `express.json()` middleware to parse JSON bodies.
+**Example: POST Request:**
+```
+POST /login
+Content-Type: application/json
+
+{
+  "username": "John",
+  "password": "1234"
+}
+```
 
 ---
+
+## 📘 Explanation
+
+- `req.body` contains the parsed body of the request.
+- It is `undefined` by default — must use middleware like `express.json()` to populate it.
+- You can destructure it or access fields directly: `req.body.username`, `req.body.password`.
+
+## 🔄 Summary
+
+| Request Type       | Middleware             | `req.body` Available |
+| ------------------ | ---------------------- | -------------------- |
+| JSON               | `express.json()`       | ✅                    |
+| Form (URL-encoded) | `express.urlencoded()` | ✅                    |
+| Raw/Binary         | Custom parser          | Depends              |
+
+---
+
 
 ## 🧾 4. Headers
 
