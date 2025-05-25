@@ -262,30 +262,63 @@ app.use(cookieParser());
     - `maxAge`: 86400000: The cookie will expire after 1 day (in milliseconds).
     - `httpOnly`: true: Enhances security by preventing JavaScript (on the client side) from accessing the cookie. This protects against XSS attacks.
     
-    **Client Request & Server Response**
+  - Client Request & Server Response
     - When the client hits /set-cookie, the server responds with:
     ```JS
     Set-Cookie: username=PramodNaik; Max-Age=86400000; HttpOnly
     ```
 
-    Set-Cookie: username=PramodNaik; Max-Age=86400000; HttpOnly
+    - Set-Cookie: username=PramodNaik; Max-Age=86400000; HttpOnly
     ```JS
     Cookie: username=PramodNaik
     ```
 
-**Access the Cookie Data in your Endpoint**
+**Step-3: Access the Cookie Data in Node & Express**
+Once a cookie is set on the client (usually via the Set-Cookie header in a server response), it is automatically sent by the browser in every subsequent request to the same domain and path. You can access these cookies on the server in all incoming requests using middleware like cookie-parser
+
 ```js
-app.get('/cookie', (req, res) => {
-    const token = req.cookies.token;
-    res.send(`Token: ${token}`);
+app.get('/dashboard', (req, res) => {
+    const username = req.cookies.username;
+
+    if (username) {
+        res.send(`Welcome back, ${username}`);
+    } else {
+        res.send('No cookie found.');
+    }
 });
+
 ```
+**🧠 How it Works**
+  - When the client sends a request (like to /dashboard), the browser includes the cookies in the Cookie header.
+
+  - Example request header:
+    ```JS
+    Cookie: username=PramodNaik
+    ```
+  - cookie-parser reads this header and populates req.cookies.
+
 
 **Explanation:**
 - Cookies are stored in the browser and sent with each request.
 - Use `cookie-parser` middleware to access them via `req.cookies`.
 
+
+**Step-4: Deleting Cookies in Express**
+To Remove or Delete the specific cookie from the client use res.clearCookie(`<cookie-name>`).
+
+**Code:**
+```JS
+app.get("/delete-cookie", (req, res) => {
+    res.clearCookie("username");     // 👈 Deletes the cookie named 'username'
+    res.send("Cookie deleted!");     // 👈 Sends confirmation response
+});
+
+```
+  - When a user visits `/delete-cookie` route, the server will attempt to clear a cookie.
+  - `res.clearCookie("username")`: Removes the cookie named username from the client.
+
 ---
+
 
 ## ✅ Summary
 
