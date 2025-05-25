@@ -72,9 +72,6 @@ app.get('/protected', authenticate, (req, res) => {
 
 These are middleware functions developed by the community and published as Node.js packages.
 
-
----
-
 ### Example 1: `body-parser` - Parse incoming request bodies
 
 ```bash
@@ -104,16 +101,16 @@ app.listen(3000, () => {
 ### Example-2: `morgan` for logging
 Morgan is a third-party middleware for HTTP request logging in Node.js/Express applications. It logs details like method, URL, status code, response time, etc., helping developers monitor and debug their applications easily.
 
-🔧 Why use Morgan?
+**🔧 Why use Morgan?**
  - Logs every incoming HTTP request
  - Supports predefined formats (e.g., tiny, dev, combined)
  - Can write logs to a file or the console.
 
-📦 Installation
+**📦 Installation**
 ```bash
 npm install morgan
 ```
-
+**Code:**
 ```js
 const express = require('express');
 const morgan = require('morgan');
