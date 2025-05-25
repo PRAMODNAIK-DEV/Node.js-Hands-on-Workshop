@@ -171,6 +171,7 @@ app.listen(port, () => {
   - `/`: 
     - This is a GET route for the root URL. 
     - When someone opens http://localhost:3000/ in the browser or Postman, the server responds with:
+
     ```bash
     I am Alive!
     ```
@@ -208,17 +209,18 @@ app.post('/users', async (req, res) => {
     ```
   - `🛠️ await pool.query(...)`: This executes an SQL INSERT query using the PostgreSQL connection pool
 
-**📬 Creating a New User with Postman or Test the POST /users endpoint in Postman**
+
+### 📬 Creating a New User with Postman or Test the POST /users endpoint in Postman
 
 ### 1. Open Postman
 Make sure your Express server is running (usually on `http://localhost:3000`).
 
-### 2. Create a New Request
+**1. Create a New Request**
 - Click **"New" > "HTTP Request"** or **"Create Request"**.
 - Set the method to **POST**.
 - In the URL field, type: `http://localhost:3000/users`
 
-### 3. Set the Headers
+**2. Set the Headers**
 Go to the **Headers** tab and set:
 
 | Key           | Value              |
@@ -227,7 +229,7 @@ Go to the **Headers** tab and set:
 
 This tells the server you're sending JSON data.
 
-### 4. Set the Request Body
+**3. Set the Request Body**
 - Go to the **Body** tab.
 - Choose **raw** and then **JSON** from the dropdown.
 - Enter your user data, like this:
@@ -240,7 +242,7 @@ This tells the server you're sending JSON data.
 }
 ```
 
-### 5. Send the Request
+**4. Send the Request**
 Click the **Send** button.
 
 ## 📬 Expected Response
@@ -259,6 +261,8 @@ If the user is successfully added to the database, you should receive:
 }
 ```
 
+
+-------
 
 ```js
 const express = require('express');
