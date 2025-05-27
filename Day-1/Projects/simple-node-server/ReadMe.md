@@ -105,31 +105,20 @@ Open your browser or use curl to test:
 
 ## Explanation
 
-### http.createServer()
-Creates a new HTTP server instance that listens to incoming requests.
-
-### req.url
-Used to determine which URL path is being accessed.
-
-### res.statusCode
-Sets the HTTP status code for the response.
-
-### res.setHeader('Content-Type', 'text/plain')
-Ensures the client interprets the response as plain text.
-
-### res.end()
-Sends the response body to the client and ends the request.
-
-### server.listen(3000)
-Tells the server to start listening for connections on port 3000.
+- **http.createServer()**: Creates a new HTTP server instance that listens to incoming requests.
+- **req.url**: Used to determine which URL path is being accessed.
+- **res.statusCode**: Sets the HTTP status code for the response.
+- **res.setHeader('Content-Type', 'text/plain')**: Ensures the client interprets the response as plain text.
+- **res.end()**: Sends the response body to the client and ends the request.
+- **server.listen(3000)**: Tells the server to start listening for connections on port 3000.
 
 ---
 
-## Stopping the Server
+**Stopping the Server**
 To stop the server, press `Ctrl + C` in the terminal where it's running.
 
 ---
 
-## Notes
+**Notes**
 - No external packages are required.
 - This is a beginner-friendly project to learn core Node.js concepts.
