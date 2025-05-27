@@ -77,7 +77,7 @@ CREATE TABLE order_items (
 ## 📦 Project Structure
 Below is the organized folder structure for the E-commerce Backend API project. It separates core functionality into modular files and folders for better maintainability and scalability.
 
-```
+```bash
 e-commerce-backend-server/
 ├── db.js
 ├── server.js

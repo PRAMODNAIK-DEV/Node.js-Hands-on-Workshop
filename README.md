@@ -32,41 +32,39 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 - API Routing & Controllers
 
 **Hands-On:**
-- Build a RESTful API for task management
-- Serve static files
-- Implement middleware chains
--
-📂 Folder: `02-building-rest-with-express/`
+- Build a RESTful API E-Commerce Business Application
+
+📂 Folder: `Day-2/`
 
 ---
 
-### 🟥 **Day 3 – MongoDB & PostgreSQL Integration + Deployment**
+### 🟥 **Day 3 – Security and MongoDB Integration**
 **Topics Covered:**
+- Authentication & Authorization in Node.js
 - NoSQL vs SQL: When to use which
 - MongoDB + Mongoose (schema, models, connection)
-- PostgreSQL with `pg` or Sequelize
-- CRUD operations with both DBs
+- CRUD operations with MongoDB
 - Environment configuration with `.env`
-- Deployment using Render or Railway
 
 **Hands-On:**
 - Create two versions of the same API (MongoDB & PostgreSQL)
-- Deploy one API to Render/Railway
-- Secure your app with `helmet`, `cors`, and `.env`
 
-📂 Folder: `03-data-persistence-and-deployment/`
+📂 Folder: `Day-3/`
 
 ---
 
 ## 🛠️ Project Structure
 
 ```bash
-nodejs-api-workshop-2025/
+Node.js-Hands-On-Workshop/
 ├── README.md
-├── Day-1-foundation-node-http/
-├── 02-building-rest-with-express/
-├── 03-data-persistence-and-deployment/
-│   ├── mongodb-version/
-│   └── postgresql-version/
-├── public/
-└── .env.example
+├── Day-1 Node.js Fundamentals & HTTP Module/
+│   ├── README.md
+│   └── Projects/
+├── Day-2 Express.js & REST API Development/
+│   ├── README.md
+│   └── Projects/
+├── Day-3/
+│   ├── README.md
+│   └── Projects/
+└── public/
