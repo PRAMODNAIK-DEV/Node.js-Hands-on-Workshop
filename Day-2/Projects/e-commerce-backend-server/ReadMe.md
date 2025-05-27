@@ -592,7 +592,7 @@ This is the basic approach where all routes are written directly in server.js (o
 **Let's organize our code by moving all controller or route-handling functions into separate files:**
 Create a new folder named `simple-routes` inside the project folder and Create a file named `users.js` to move all the `controllers` or `route-handling functions` related to `users` route inside of it.
 
-In this case, we have two routes for `users`: one to create a user and another to fetch all users. So, cut the route-handling functions from `app.js`, paste them into users.js, give them meaningful names like `createUser` and `getUsers`, and then export them.
+In this case, we have two routes for `users`: one to create a user and another to fetch all users. So, **Cut** the route-handling functions from `app.js`, **Paste** them into users.js, give them ***meaningful names*** like `createUser` and `getUsers`, and then export them.
 
 You'r users.js should look like below:
 
@@ -646,7 +646,7 @@ app.listen(3000, () => {
 });
 ```
 
-Do the same for all other endpoints by creating dedicated files inside the `simple-routes` folder, and import them into `app.js`. In this case, create two more files `products.js` and `orders.js` and move the corresponding controller or route-handling functions into them respectively.
+Do the same for all other `endpoints` by creating dedicated files inside the `simple-routes` folder, and import them into `app.js`. In this case, create two more files `products.js` and `orders.js` and move the corresponding controller or route-handling functions into them respectively.
 
 **Note:**
 > While this approach improves code cleanliness by separating logic into different files, it does not provide the full benefits of modularity. For a better and scalable structure, we should use the `Router` Module provided by Express.

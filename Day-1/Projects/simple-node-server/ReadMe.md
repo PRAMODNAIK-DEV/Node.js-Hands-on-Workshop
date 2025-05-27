@@ -29,7 +29,10 @@ To verify installation:
 ```bash
 node -v
 ```
-
+This should display the specific version of `Node.js` you have installed, for example:
+```bash
+v22.11.0
+```
 ---
 
 ### Step 2: Project Setup or Directly use the VS Code to Create the folder instead of using mkdir in Terminal
