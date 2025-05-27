@@ -234,9 +234,9 @@ Make sure your Express server is running (usually on `http://localhost:3000`).
 **2. Set the Headers**
 Go to the **Headers** tab and set:
 
-| Key           | Value              |
-|---------------|--------------------|
-| Content-Type  | application/json   |
+| Key          | Value            |
+| ------------ | ---------------- |
+| Content-Type | application/json |
 
 This tells the server you're sending JSON data.
 
@@ -567,7 +567,99 @@ app.get('/orders', async (req, res) => {
 # `Modular Approach`: 
 Let's separates core functionality into modular files and folders for better `maintainability` and `scalability`.
 
-Create a new file named server.js inside the project folder and Paste the below code.
+## Controllers in Node.js:
+In a Node.js & Express `controllers` are responsible for handling the actual logic for a route — they take the request, interact with the database or business logic, and return a response.
+
+They separate the logic from your route definitions (server.js or routes/*.js) to keep your code `modular`, `clean`, and `maintainable`.
+
+**🧠 In Simple Terms:**
+  - Routes define `what endpoint` is called.
+  - Controllers define `what happens` when it's called.
+
+## Let's Start creating the `Controllers` for our E-Commerce Project:
+**There are Two Ways to Modularize Node.js + Express Server:**
+1. Without Using Router Module
+2. With Using Router Module
+
+
+## 1. Without Using Router Module:
+This is the basic approach where all routes are written directly in server.js (or app.js). Good for small applications or quick demos.
+"Without using router module" means:
+ - You don't use `express.Router()`
+ - You define `controller` functions (like createUser) in separate files (optional)
+   - But you import those functions directly into `server.js` or `app.js` and bind them to routes manually.
+
+**Let's organize our code by moving all controller or route-handling functions into separate files:**
+Create a new folder named `simple-routes` inside the project folder and Create a file named `users.js` to move all the `controllers` or `route-handling functions` related to `users` route inside of it.
+
+In this case, we have two routes for `users`: one to create a user and another to fetch all users. So, cut the route-handling functions from `app.js`, paste them into users.js, give them meaningful names like `createUser` and `getUsers`, and then export them.
+
+You'r users.js should look like below:
+
+```js
+const pool = require('../db');
+
+const getUsers = async (req, res) => {
+    const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
+}
+
+const createUser = async (req, res) => {
+    const { name, email, password } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
+            [name, email, password]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error creating user");
+    }
+}
+
+module.exports = { getUsers, createUser }
+```
+
+Now import these functions into app.js and assign them to their respective routes. In this case, pass getUsers to `app.get('/users', getUsers)` and createUser to `app.post('/users', createUser)`. 
+Your app.js should look like the following:
+
+```js
+const express = require('express');
+const pool = require('./db');
+const { getUsers, createUser } = require('./simple-routes/users');
+
+const app = express();
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("Welcome to My College");
+});
+
+app.get('/users', getUsers);
+app.post('/users', createUser);
+
+
+app.listen(3000, () => {
+    console.log("Server is Running at http://localhost:3000");
+});
+```
+
+Do the same for all other endpoints by creating dedicated files inside the `simple-routes` folder, and import them into `app.js`. In this case, create two more files `products.js` and `orders.js` and move the corresponding controller or route-handling functions into them respectively.
+
+**Note:**
+> While this approach improves code cleanliness by separating logic into different files, it does not provide the full benefits of modularity. For a better and scalable structure, we should use the `Router` Module provided by Express.
+---
+
+## 2. With Using Router Module:
+  - In Express.js, the Router module is a `mini Express` application. It provides a way to group related routes together, making your code `modular`, `readable`, and `maintainable`.
+  - This is the recommended approach for `scalable apps`. You separate routes into modules, and optionally controllers too.
+
+
+**Let's start building our routes with the Express Router module for better structure and organization.**
+
+Create a new file named `server.js` inside the project folder and Paste the below code.
 
 ```js
 const express = require('express');
@@ -581,9 +673,10 @@ const userRoutes = require('./routes/users');
 const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 
-app.use('/users', userRoutes);
-app.use('/products', productRoutes);
-app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);      // This tells express to use everything exported from ./routes/users for any URL that starts with /users
+app.use('/products', productRoutes);    // This tells express to use everything exported from ./routes/products for any URL that starts with /products
+app.use('/orders', orderRoutes);        // This tells express to use everything exported from ./routes/orders for any URL that starts with /orders
+
 
 app.listen(port, () => {
     console.log(`E-commerce API running on http://localhost:${port}`);
@@ -629,6 +722,24 @@ router.get('/', async (req, res) => {
 
 module.exports = router;
 ```
+
+**Explaination:**
+```js
+const router = express.Router();
+```
+  - This router is a `mini` Express app.
+  - It lets you define routes (like GET, POST, PUT, PATCH, DELETE, etc.) separately from the main server.js file.
+  - Helps organize code, especially in large applications.
+
+**🧠 What app.use('/users', userRoutes) Does:**
+It prefixes all the routes defined inside userRoutes (your users.js) with /users.
+
+So:
+```js
+router.post('/', ...) // becomes POST /users
+router.get('/', ...)  // becomes GET /users
+```
+
 
 ---
 
