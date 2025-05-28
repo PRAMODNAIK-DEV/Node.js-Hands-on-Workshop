@@ -5,10 +5,10 @@
 
 ![Authentication & Authorization in Node.js](./images/Authentication%20and%20Security.jpg)
 ### 🧩 What’s the Difference?
-| Concept            | Meaning                                                                                             |
-| ------------------ | --------------------------------------------------------------------------------------------------- |
+| Concept            | Meaning                                                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | **Authentication** | Verifying the identity of a user (e.g., login `user_name` and `password`). to determine whether the user is legitimate or not. |
-| **Authorization**  | Determining what an authenticated user is `allowed to do` (e.g., admin rights).                       |
+| **Authorization**  | Determining what an authenticated user is `allowed to do` (e.g., admin rights).                                                |
 
 ---
 
@@ -29,26 +29,58 @@ npm install express pg bcryptjs jsonwebtoken dotenv
 ```
   - `express` – Web framework for building APIs and server-side applications in Node.js.
   - `pg` – PostgreSQL client for Node.js to interact with PostgreSQL databases.
-  - `bcryptjs` – Library for hashing and comparing passwords securely.
-  - `jsonwebtoken` – For generating and verifying JWT tokens used in authentication.
-  - `dotenv` – Loads environment variables from a .env file into process.env.
+  - `bcryptjs` – Library for `hashing` and `comparing` passwords securely.
+  - `jsonwebtoken` – For generating and verifying `JWT tokens` used in authentication.
+  - `dotenv` – Loads environment variables from a `.env` file into process.env.
 
 #### 2. **Environment Configuration (.env)**
-```
+First, create a new file named `.env` in the root folder of the project, then paste the following environment variables into it.
+
+```js
 DATABASE_URL=postgresql://username:password@localhost:5432/yourdbname
 JWT_SECRET=your_jwt_secret_key
 ```
 
 #### 3. **Database Table (PostgreSQL SQL)**
+We have already created the users table in our PostgreSQL database. If not, please copy and paste the code below into the `Query Tool` of pgAdmin. Verify the table creation by running `SELECT * FROM users;`.
+
 ```sql
 CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
 );
 ```
 
 #### 4. **DB Connection using pg**
+We have already created the database connection in our `db.js` file. If not, please create it by pasting the code below into `db.js` located in the root folder of the project.
+```js
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'testdb',
+    password: 'Monday@123',
+    port: 5432,
+});
+
+module.exports = pool;
+```
+## Significance of .env File in Development
+The .env file is used to store environment-specific variables such as API keys, database URLs, ports, and secret tokens in a centralized and secure way. It helps developers:
+
+  - **Separate configuration from code →**  Makes the application easier to manage and deploy across environments (development, staging, production).
+  - **Secure sensitive data →** Prevents hardcoding secrets directly in the source code.
+  - **Easily switch environments →** By changing the values in .env, the app can run differently without modifying any logic.
+  - **Improve maintainability →**  All configs are in one place, making updates or debugging simpler.
+
+The .env file is typically loaded using libraries like `dotenv`, and it should always be added to `.gitignore `to avoid pushing secrets to version control.
+
+Let's replace our hardcoded database configurations with environment variables using the `.env `file and the dotenv package.
+We have already created our `.env` file and installed the `dotenv` package. Now, access the environment variables from the .env file using the code below.
+
 ```js
 const { Pool } = require('pg');
 require('dotenv').config();
@@ -59,6 +91,21 @@ const pool = new Pool({
 
 module.exports = pool;
 ```
+
+```js
+require('dotenv').config();
+```
+  - It loads environment variables defined in your `.env` file into process.env.
+  - The require('dotenv') imports the dotenv package.
+  - The .config() method reads the .env file and parses its key-value pairs.
+  - These key-value pairs become available in your app via process.env.
+
+**What is process.env in Node.js?**
+process.env is a built-in object in Node.js that provides access to environment variables of the system where your application is running.
+
+🔹 **How it works:**
+  - `process` is a **`global object`** in Node.js that gives information and control over the current Node.js process.
+  - env is a **`property`** of `process` that contains an object with all environment variables as key-value pairs.
 
 #### 5. **Register Endpoint**
 ```js

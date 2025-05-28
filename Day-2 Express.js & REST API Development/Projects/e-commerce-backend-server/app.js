@@ -5,6 +5,9 @@ const port = 3000;
 
 app.use(express.json());
 
+require('dotenv').config();
+console.log('Loaded:', process.env.JWT_SECRET);
+
 app.get('/', (req, res) => {
     res.send("I am Alive!");
 });
