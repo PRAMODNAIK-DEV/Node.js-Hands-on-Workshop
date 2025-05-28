@@ -1,14 +1,14 @@
 
-# 🟥 Day 3 – Security and PostgreSQL Integration
+# 🟥 Day 3 – Introduction to Authentication & Authorization in Node.js and MongoDB Integration
 
 ## 🔐 Authentication & Authorization in Node.js
 
 ![Authentication & Authorization in Node.js](./images/Authentication%20and%20Security.jpg)
 ### 🧩 What’s the Difference?
-| Concept            | Meaning                                                                       |
-| ------------------ | ----------------------------------------------------------------------------- |
-| **Authentication** | Verifying the identity of a user (e.g., login).                               |
-| **Authorization**  | Determining what an authenticated user is allowed to do (e.g., admin rights). |
+| Concept            | Meaning                                                                                              |
+| ------------------ | ---------------------------------------------------------------------------------------------------- |
+| **Authentication** | Verifying the identity of a user (e.g., login). to determine whether the user is legitimate or not." |
+| **Authorization**  | Determining what an authenticated user is allowed to do (e.g., admin rights).                        |
 
 ---
 
