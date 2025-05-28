@@ -5,10 +5,10 @@
 
 ![Authentication & Authorization in Node.js](./images/Authentication%20and%20Security.jpg)
 ### 🧩 What’s the Difference?
-| Concept            | Meaning                                                                                              |
-| ------------------ | ---------------------------------------------------------------------------------------------------- |
-| **Authentication** | Verifying the identity of a user (e.g., login). to determine whether the user is legitimate or not." |
-| **Authorization**  | Determining what an authenticated user is allowed to do (e.g., admin rights).                        |
+| Concept            | Meaning                                                                                             |
+| ------------------ | --------------------------------------------------------------------------------------------------- |
+| **Authentication** | Verifying the identity of a user (e.g., login `user_name` and `password`). to determine whether the user is legitimate or not. |
+| **Authorization**  | Determining what an authenticated user is `allowed to do` (e.g., admin rights).                       |
 
 ---
 
@@ -27,6 +27,11 @@ Install required packages:
 ```bash
 npm install express pg bcryptjs jsonwebtoken dotenv
 ```
+  - `express` – Web framework for building APIs and server-side applications in Node.js.
+  - `pg` – PostgreSQL client for Node.js to interact with PostgreSQL databases.
+  - `bcryptjs` – Library for hashing and comparing passwords securely.
+  - `jsonwebtoken` – For generating and verifying JWT tokens used in authentication.
+  - `dotenv` – Loads environment variables from a .env file into process.env.
 
 #### 2. **Environment Configuration (.env)**
 ```
