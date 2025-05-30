@@ -346,8 +346,7 @@ To fix this, you need to:
      - Allow access only if the token is valid
 
 
-Let’s secure our route by authorizing the user through a JWT token, ensuring that only authenticated users can access protected resources.
-
+### Let’s secure our route by authorizing the user through a JWT token, ensuring that only authenticated users can access protected resources.
 
 
 ```js
