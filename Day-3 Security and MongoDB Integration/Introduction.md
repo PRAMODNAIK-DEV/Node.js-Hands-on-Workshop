@@ -22,7 +22,7 @@
 
 ### 🔧 Implementing Auth in Node.js (with PostgreSQL + JWT)
 
-#### 1. **Setup**
+### 1. **Setup**
 Install required packages:
 ```bash
 npm install express pg bcryptjs jsonwebtoken dotenv
@@ -33,7 +33,8 @@ npm install express pg bcryptjs jsonwebtoken dotenv
   - `jsonwebtoken` – For generating and verifying `JWT tokens` used in authentication.
   - `dotenv` – Loads environment variables from a `.env` file into process.env.
 
-#### 2. **Environment Configuration (.env)**
+---
+### 2. **Environment Configuration (.env)**
 First, create a new file named `.env` in the root folder of the project, then paste the following environment variables into it.
 
 ```js
@@ -68,15 +69,18 @@ const pool = new Pool({
 
 module.exports = pool;
 ```
-## Significance of .env File in Development
-The .env file is used to store environment-specific variables such as API keys, database URLs, ports, and secret tokens in a centralized and secure way. It helps developers:
+---
+
+## Significance of `.env` File in Development
+The `.env` file is used to store environment-specific variables such as `API keys`, `database URLs`, `ports`, and `secret` tokens in a centralized and secure way. 
+It helps developers:
 
   - **Separate configuration from code →**  Makes the application easier to manage and deploy across environments (development, staging, production).
   - **Secure sensitive data →** Prevents hardcoding secrets directly in the source code.
   - **Easily switch environments →** By changing the values in .env, the app can run differently without modifying any logic.
   - **Improve maintainability →**  All configs are in one place, making updates or debugging simpler.
 
-The .env file is typically loaded using libraries like `dotenv`, and it should always be added to `.gitignore `to avoid pushing secrets to version control.
+The    file is typically loaded using libraries like `dotenv`, and it should always be added to `.gitignore `to avoid pushing secrets to version control.
 
 Let's replace our hardcoded database configurations with environment variables using the `.env `file and the dotenv package.
 We have already created our `.env` file and installed the `dotenv` package. Now, access the environment variables from the .env file using the code below.
