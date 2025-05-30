@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
+const { authenticate } = require('../middleware/authMiddleware');
 
 // Create product
-router.post('/', async (req, res) => {
+router.post('/', authenticate, async (req, res) => {
     const { name, description, price, stock } = req.body;
     try {
         const result = await pool.query(
@@ -18,7 +19,7 @@ router.post('/', async (req, res) => {
 });
 
 // Read all products
-router.get('/', async (req, res) => {
+router.get('/', authenticate, async (req, res) => {
     const result = await pool.query('SELECT * FROM products');
     res.json(result.rows);
 });

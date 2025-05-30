@@ -346,33 +346,95 @@ To fix this, you need to:
      - Allow access only if the token is valid
 
 
-### Let’s secure our route by authorizing the user through a JWT token, ensuring that only authenticated users can access protected resources.
-
+**Let’s secure our route by authorizing the user through a JWT token, ensuring that only authenticated users can access protected resources.**
+Create a new folder named `middleware` inside the projects `folder`. Then, inside the `middleware` folder, create a file named `authMiddleware.js`, and paste the following code into it:
 
 ```js
-const authenticate = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
-  if (!token) return res.status(401).send('No token provided');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(403).send('Invalid token');
-    req.user = decoded;
-    next();
-  });
+const authenticate = (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
+    if (!token) return res.status(401).send('Authorization failed. Please provide a valid token');
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) return res.status(403).send('The provided Token is Invalid');
+        req.user = decoded;
+        next();
+    });
 };
+
+module.exports = { authenticate };
 ```
 
-#### 8. **Protected Route Example**
+**Explaination**
+  1. `const authenticate = (req, res, next) => {` -> 
+    - Defines a `middleware function` named authenticate.
+    - Middleware functions in Express have access to the request (`req`), response (`res`), and `next()` callback.
+
+  2. `const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>` ->
+    - Attempts to extract the `token` from the `Authorization header` of the HTTP request.
+    - `req.headers.authorization` typically looks like: `"Bearer eyJhbGciOiJIUz..."`.
+    - The `.split(' ')[1]` splits it by space and retrieves the `token` part (the second part).
+    - The `optional chaining` operator (?.) prevents runtime errors if authorization is undefined.
+
+  3. `if (!token) return res.status(401).send('Authorization failed. Please provide a valid token');`->
+    - If no token was found, it immediately returns a 401 Unauthorized response.
+    - This tells the client they must provide a token.
+
+  4. `jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {`->
+    - Calls `jwt.verify()` to validate the token using the `secret key` from environment variables.
+    - If valid, decoded will contain the **token's payload** (e.g., user info).
+    - If invalid (e.g., tampered or expired), err will be set.
+
+  5. `if (err) return res.status(403).send('The provided Token is Invalid');`->
+    - If verification fails, sends a `403` Forbidden response.
+    - Indicates that the **token is present but invalid** (not authorized).
+
+  6. `next();`->
+    - If everything checks out, it calls `next()` to pass control to the **next middleware** or **route handler**.
+
+Now that we know how to send data to our backend server using `Postman` either by **Query Parameter**, **URL Parameter** or **request body**, let's see how to pass the Authorization Token (Bearer Token) either from `Postman` or from the client side.
+
+1. **Passing Bearer Token using Postman**:
+- **Step 1:** Open Postman and create a **new request** (or use an existing one).
+- **Step 2:** Go to the `Authorization` tab.
+- **Step 3:** In the Type dropdown, select `Bearer Token`.
+- **Step 4:** In the Token field, paste your `JWT` or `Bearer` token (e.g., eyJhbGciOi...) which we generated from POST `/login` request.
+- **Step 5:** Send the request. Postman will automatically include this token in the header as:
 ```js
-app.get('/profile', authenticate, (req, res) => {
-  res.send(`Hello user ${req.user.userId}`);
+Authorization: Bearer <your_token>
+```
+
+2. **Passing Bearer Token from Client Side (e.g., React/JavaScript)**
+
+```js
+fetch('https://localhost:3000/products', {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_TOKEN_HERE'
+  }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+
+```
+
+## Protect the Route:
+Now to protect any route or endpoint we have to pass our `authenticate` middleware function as a parameter to the Controller or Route handling function (As a callback function).
+
+**Example of Protectecting the GET /products Route**
+```js
+const { authenticate } = require('../middleware/authMiddleware');   // First import the middleware function
+
+router.get('/', authenticate, async (req, res) => {           // Modify the Controller by passing authenticate as a callback function.
+    const result = await pool.query('SELECT * FROM products');
+    res.json(result.rows);
 });
 ```
 
+We can protect all routes or only those that are more sensitive or confidential.
 ---
 
-### 💡 Best Practices
-- Always hash passwords (never store plain text)
-- Use HTTPS in production
-- Store tokens securely (HttpOnly cookies or secure storage)
-- Implement token expiration and refresh mechanisms
