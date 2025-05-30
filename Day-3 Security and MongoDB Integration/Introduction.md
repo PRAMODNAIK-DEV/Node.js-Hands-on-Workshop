@@ -56,7 +56,7 @@ CREATE TABLE users (
 ```
 ---
 
-### 4. **DB Connection using pg**
+### 4. **DB Connection using `pg`**
 We have already created the database connection in our `db.js` file. If not, please create it by pasting the code below into `db.js` located in the root folder of the project.
 ```js
 const { Pool } = require('pg');
@@ -106,7 +106,8 @@ require('dotenv').config();
   - The .config() method reads the .env file and parses its key-value pairs.
   - These key-value pairs become available in your app via process.env.
 
-**What is process.env in Node.js?**
+**What is process.env in Node.js?**:
+
 process.env is a built-in object in Node.js that provides access to environment variables of the system where your application is running.
 
 🔹 **How it works:**
