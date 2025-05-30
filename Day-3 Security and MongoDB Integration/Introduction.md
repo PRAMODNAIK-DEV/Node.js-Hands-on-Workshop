@@ -43,7 +43,7 @@ JWT_SECRET=your_jwt_secret_key
 ```
 ---
 
-#### 3. **Database Table (PostgreSQL SQL)**
+### 3. **Database Table (PostgreSQL SQL)**
 We have already created the users table in our PostgreSQL database. If not, please copy and paste the code below into the `Query Tool` of pgAdmin. Verify the table creation by running `SELECT * FROM users;`.
 
 ```sql
@@ -56,7 +56,7 @@ CREATE TABLE users (
 ```
 ---
 
-#### 4. **DB Connection using pg**
+### 4. **DB Connection using pg**
 We have already created the database connection in our `db.js` file. If not, please create it by pasting the code below into `db.js` located in the root folder of the project.
 ```js
 const { Pool } = require('pg');
@@ -165,7 +165,7 @@ No — although it looks like a readable string, it's `not reversible`.
   - You can only compare: try hashing the user’s login attempt and see if it matches.
 
 
-#### 6. **Login & Token Generation**
+### 6. **Login & Token Generation**
 **What is Login & Token Generation?**
 It’s the process where:
   - A user logs in with credentials (e.g., email and password).
