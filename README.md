@@ -41,10 +41,10 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 ### 🟥 **Day 3 – Security and MongoDB Integration**
 **Topics Covered:**
 - Authentication & Authorization in Node.js
+- Environment configuration with `.env`
 - NoSQL vs SQL: When to use which
 - MongoDB + Mongoose (schema, models, connection)
 - CRUD operations with MongoDB
-- Environment configuration with `.env`
 
 **Hands-On:**
 - Create two versions of the same API (MongoDB & PostgreSQL)

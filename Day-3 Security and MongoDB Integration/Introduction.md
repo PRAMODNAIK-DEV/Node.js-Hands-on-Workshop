@@ -34,7 +34,7 @@ npm install express pg bcryptjs jsonwebtoken dotenv
   - `dotenv` – Loads environment variables from a `.env` file into process.env.
 
 ---
-### 2. **Environment Configuration (.env)**
+### 2. **Environment Configuration with `.env`**
 First, create a new file named `.env` in the root folder of the project, then paste the following environment variables into it.
 
 ```js
@@ -106,9 +106,8 @@ require('dotenv').config();
   - The .config() method reads the .env file and parses its key-value pairs.
   - These key-value pairs become available in your app via process.env.
 
-**What is process.env in Node.js?**:
-
-process.env is a built-in object in Node.js that provides access to environment variables of the system where your application is running.
+#### **What is process.env in Node.js?:**
+The process.env is a built-in object in Node.js that provides access to environment variables of the system where your application is running.
 
 🔹 **How it works:**
   - `process` is a **`global object`** in Node.js that gives information and control over the current Node.js process.
@@ -150,49 +149,53 @@ router.post('/', async (req, res) => {
 **Explaination**
   - `const hashedPassword = await bcrypt.hash(password, 10);`:  Generates a hash of the password using 10 salt rounds. `10` → The salt rounds, a measure of how computationally intensive the hash will be.
 
-**🔑 What is “salt” in password hashing?**
+#### **🔑 What is “salt” in password hashing?**
 Salt is a `random value` added to the password before `hashing`. In our case, It tells bcrypt to repeat the `hashing algorithm` 2^10 = 1024 times.
 
 This means:
-  - Even if two users have the same password, their hashed values will be different.
+  - Even if two users have the same `password`, their `hashed` values will be different.
   - Salting makes attacks like rainbow tables (precomputed hash dictionaries) useless.
   - Salt rounds = the number of times bcrypt processes the data internally.
 
-🔒 Is this readable string insecure?
-No — although it looks like a readable string, it's `not reversible`.
 
-✅ Bcrypt hashes are one-way functions:
-  - You cannot decrypt or reverse them to get the original password.
+#### **🔒 Is this readable string insecure?**
+- No — although it looks like a readable string, it's `not reversible`.
+- Bcrypt hashes are one-way functions:
+  - You cannot `decrypt` or `reverse` them to get the original password.
   - You can only compare: try hashing the user’s login attempt and see if it matches.
 
+---
 
 ### 6. **Login & Token Generation**
-**What is Login & Token Generation?**
+
+#### **What is Login & Token Generation?**
 It’s the process where:
   - A user logs in with credentials (e.g., email and password).
   - The server validates the credentials.
   - If valid, the server generates a token (usually a JWT – JSON Web Token).
   - The token is sent back to the client and used for authenticated requests.
 
-**🔒 Why is this process needed?**
-🔑 1. To verify the user’s identity:
-  - You need to make sure the user is who they claim to be.
-  - This is done by checking their email + password against stored (hashed) values.
+<br>
 
-🪪 2. To enable access to protected routes
-  - After login, the token acts like an ID card.
-  - The client includes the token in headers (usually Authorization) in each request.
-  - The server checks the token to allow/deny access to APIs like:
-    - /profile
-    - /orders
-    - /products
+#### **🔒 Why is this process needed?**
+#### **1. 🔑 To verify the user’s identity**
+     - You need to make sure the user is who they claim to be.
+     - This is done by checking their email + password against stored (hashed) values.
 
-🛡️ 3. To keep sessions stateless
-  - With tokens, the server doesn’t need to store session data.
-  - Instead, each request carries the token and proves the user is authenticated.
+#### **2. 🪪 To enable access to protected routes**
+     - After login, the token acts like an ID card.
+     - The client includes the token in headers (usually Authorization) in each request.
+     - The server checks the token to allow/deny access to APIs like:
+       - /profile
+       - /orders
+       - /products
+
+#### **3. 🛡️ To keep sessions stateless**
+     - With tokens, the server doesn’t need to store session data.
+     - Instead, each request carries the token and proves the user is authenticated.
 
 
-**Why a token is needed even after login:**
+#### **Why a token is needed even after login:**
 🔐 Security: We don't ask for username & password on every request
   - Imagine a user logs in, then clicks around your app — view profile, check orders, post comments.
   - If you asked for username + password on every API call, that would:
@@ -204,7 +207,8 @@ It’s the process where:
   - Then issue a token (JWT or session token)
   - User sends token with each future request
 
-## Username and password are for **`Authentication`**, and the token is for **`Authorization`**:
+--- 
+### Username and password are for **`Authentication`**, and the token is for **`Authorization`**:
 
 **Authentication** — `Username` + `Password`
   - This happens first
@@ -222,6 +226,7 @@ It’s the process where:
     - "Can you edit this data?"
   - The token contains that information (like your userId, role, etc.)
 
+<br>
 
 **Let's add authentication and authorization to our app**
 First, add a new endpoint **POST** **`/login`** for registered users to log in to our application. Inside the routes folder, create a new file named `login.js` and add the code below.
@@ -308,11 +313,12 @@ This is a `function` provided by the jsonwebtoken library. It creates (`signs`) 
         ```js
         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0ODQ2NDAwOCwiZXhwIjoxNzQ4NDY3NjA4fQ.Xp3Y506oOkbAfdRnf-bLb15mrJfLfXIA4uGlvmv63gE
         ```
-    - This string has 3 parts:
-      - `Header`: specifies algorithm (HS256) and token type
-      - `Payload`: includes your data (like userId)
-      - `Signature`: verifies the token was signed with your secret
+      - This string has 3 parts:
+        - `Header`: specifies algorithm (HS256) and token type
+        - `Payload`: includes your data (like userId)
+        - `Signature`: verifies the token was signed with your secret
 
+<br>
 
 Now update the main file `server.js`, where all the `Controllers` from different files are imported and registered. Import and register the newly created `Controller` for the /login endpoint by appending the code below to `server.js`
 
@@ -323,14 +329,15 @@ const loginRoutes = require('./routes/login');      // Import the login Controll
 app.use('/login', loginRoutes);     // Register the controller under /login endpoint
 
 ```
+---
 
-### **Authorization Middleware**
+### 7. **Authorization Middleware**
 
-**🔐 What is a Protected Route?**
-A protected route is any `route` or `endpoint` in your web application that requires the user to be `authenticated` or `logged-in` — and possibly `authorized` (has permission) — before they can access it.
+#### **🔐 What is a Protected Route?**
+> A protected route is any `route` or `endpoint` in your web application that requires the user to be `authenticated` or `logged-in` — and possibly `authorized` (has permission) — before they can access it.
 
 
-**🧱 Background & Reason**
+#### **🧱 Background & Reason**
 When building modern web apps (with Node.js, Express, etc.), not every user should have access to all parts of the app.
 
 For example:
@@ -354,6 +361,7 @@ To fix this, you need to:
      - Extract user data from it
      - Allow access only if the token is valid
 
+<br>
 
 **Let’s secure our route by authorizing the user through a JWT token, ensuring that only authenticated users can access protected resources.**
 Create a new folder named `middleware` inside the projects `folder`. Then, inside the `middleware` folder, create a file named `authMiddleware.js`, and paste the following code into it:
@@ -403,33 +411,37 @@ module.exports = { authenticate };
   6. `next();`->
     - If everything checks out, it calls `next()` to pass control to the **next middleware** or **route handler**.
 
+<br>
+
 Now that we know how to send data to our backend server using `Postman` either by **Query Parameter**, **URL Parameter** or **request body**, let's see how to pass the Authorization Token (Bearer Token) either from `Postman` or from the client side.
 
 1. **Passing Bearer Token using Postman**:
-- **Step 1:** Open Postman and create a **new request** (or use an existing one).
-- **Step 2:** Go to the `Authorization` tab.
-- **Step 3:** In the Type dropdown, select `Bearer Token`.
-- **Step 4:** In the Token field, paste your `JWT` or `Bearer` token (e.g., eyJhbGciOi...) which we generated from POST `/login` request.
-- **Step 5:** Send the request. Postman will automatically include this token in the header as:
-```js
-Authorization: Bearer <your_token>
-```
+   - **Step 1:** Open Postman and create a **new request** (or use an existing one).
+   - **Step 2:** Go to the `Authorization` tab.
+   - **Step 3:** In the Type dropdown, select `Bearer Token`.
+   - **Step 4:** In the Token field, paste your `JWT` or `Bearer` token (e.g., eyJhbGciOi...) which we generated from POST `/login` request.
+   - **Step 5:** Send the request. Postman will automatically include this token in the header as:
+      ```js
+      Authorization: Bearer <your_token>
+      ```
 
 2. **Passing Bearer Token from Client Side (e.g., React/JavaScript)**
 
-```js
-fetch('https://localhost:3000/products', {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer YOUR_TOKEN_HERE'
-  }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
+        ```js
+        fetch('https://localhost:3000/products', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer YOUR_TOKEN_HERE'
+          }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
 
-```
+        ```
+
+---
 
 ## Protect the Route:
 Now to protect any route or endpoint we have to pass our `authenticate` middleware function as a parameter to the Controller or Route handling function (As a callback function).
