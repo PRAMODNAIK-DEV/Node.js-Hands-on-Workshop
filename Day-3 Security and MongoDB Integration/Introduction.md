@@ -41,6 +41,7 @@ First, create a new file named `.env` in the root folder of the project, then pa
 DATABASE_URL=postgresql://username:password@localhost:5432/yourdbname
 JWT_SECRET=your_jwt_secret_key
 ```
+---
 
 #### 3. **Database Table (PostgreSQL SQL)**
 We have already created the users table in our PostgreSQL database. If not, please copy and paste the code below into the `Query Tool` of pgAdmin. Verify the table creation by running `SELECT * FROM users;`.
@@ -53,6 +54,7 @@ CREATE TABLE users (
     password TEXT NOT NULL
 );
 ```
+---
 
 #### 4. **DB Connection using pg**
 We have already created the database connection in our `db.js` file. If not, please create it by pasting the code below into `db.js` located in the root folder of the project.
@@ -71,7 +73,7 @@ module.exports = pool;
 ```
 ---
 
-## Significance of `.env` File in Development
+### Significance of `.env` File in Development
 The `.env` file is used to store environment-specific variables such as `API keys`, `database URLs`, `ports`, and `secret` tokens in a centralized and secure way. 
 It helps developers:
 
@@ -80,7 +82,7 @@ It helps developers:
   - **Easily switch environments →** By changing the values in .env, the app can run differently without modifying any logic.
   - **Improve maintainability →**  All configs are in one place, making updates or debugging simpler.
 
-The    file is typically loaded using libraries like `dotenv`, and it should always be added to `.gitignore `to avoid pushing secrets to version control.
+The file is typically loaded using libraries like `dotenv`, and it should always be added to `.gitignore `to avoid pushing secrets to version control.
 
 Let's replace our hardcoded database configurations with environment variables using the `.env `file and the dotenv package.
 We have already created our `.env` file and installed the `dotenv` package. Now, access the environment variables from the .env file using the code below.
@@ -111,7 +113,9 @@ process.env is a built-in object in Node.js that provides access to environment 
   - `process` is a **`global object`** in Node.js that gives information and control over the current Node.js process.
   - env is a **`property`** of `process` that contains an object with all environment variables as key-value pairs.
 
-#### 5. **Register/Create User Endpoint**
+---
+
+### 5. **Register/Create User Endpoint**
 We have already created a /users endpoint in our app, which handles user registration. It is a POST request where the user is expected to send their name, email, and password. However, we haven't encrypted the user's password before storing it in the database, which poses a major security risk—anyone with database access could potentially steal user passwords. To address this issue and secure user data, follow the steps below.
 
 Let's modify our POST `/users` endpoint (also known as Create or Register New User) inside /routes/users.js file to encrypt the user's password before storing it in the database. Just look at the commented lines and make the changes.
