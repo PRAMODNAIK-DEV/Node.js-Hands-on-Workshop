@@ -116,7 +116,10 @@ The process.env is a built-in object in Node.js that provides access to environm
 ---
 
 ### 5. **Register/Create User Endpoint**
-We have already created a /users endpoint in our app, which handles user registration. It is a POST request where the user is expected to send their name, email, and password. However, we haven't encrypted the user's password before storing it in the database, which poses a major security risk—anyone with database access could potentially steal user passwords. To address this issue and secure user data, follow the steps below.
+  - We have already created a `/users` endpoint in our app, which handles **user registration**. It is a POST request where the user is expected to send their `name`, `email`, and `password`. 
+  - However, we haven't `encrypted` the user's password before storing it in the database, which poses a **major security risk** —anyone with database access could potentially `steal` user passwords. To address this issue and secure user data, follow the steps below.
+
+<br>
 
 Let's modify our POST `/users` endpoint (also known as Create or Register New User) inside /routes/users.js file to encrypt the user's password before storing it in the database. Just look at the commented lines and make the changes.
 
