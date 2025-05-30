@@ -315,7 +315,7 @@ app.use('/login', loginRoutes);     // Register the controller under /login endp
 
 ```
 
-#### 7. **Authorization Middleware**
+### **Authorization Middleware**
 
 **🔐 What is a Protected Route?**
 A protected route is any `route` or `endpoint` in your web application that requires the user to be `authenticated` or `logged-in` — and possibly `authorized` (has permission) — before they can access it.
@@ -346,8 +346,7 @@ To fix this, you need to:
      - Allow access only if the token is valid
 
 
-Let’s secure our route by authorizing the user through a JWT token, ensuring that only authenticated users can access protected resources.
-
+### Let’s secure our route by authorizing the user through a JWT token, ensuring that only authenticated users can access protected resources.
 
 
 ```js
