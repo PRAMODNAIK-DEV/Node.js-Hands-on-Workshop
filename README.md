@@ -8,19 +8,20 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 
 ### 🟩 **Day 1 – Node.js Fundamentals & HTTP Module**
 **Topics Covered:**
-- Introduction to Node.js
-- Introduction to REST and HTTP Methods
-- Core modules: `fs`, `path`, `events`, `http`
-- Creating a basic HTTP server 
-- Routing with native Node.js
-- File system operations
-- Simple CLI-based tools
+- Introduction to Node.js and the Node Event Loop
+- Introduction to REST APIs and HTTP Methods
+- Node Modules and Core Modules: `fs`, `path`, `http`
+- Creating a Basic HTTP Server
+- Using Postman for API Testing
+- Implementing Routing using Native Node.js
+- Performing File System Operations
+- Building Simple CLI-Based Tools
 
 **Hands-On:**
-- Build a simple HTTP-based Note Saver app
-- CLI task manager (file storage)
+- Building a HTTP backend Server
+- Simple Todo CLI Tool with Node.js (file storage)
 
-📂 Folder: `Day-1/`
+📂 Folder: `Day-1 Node.js Fundamentals & HTTP Module/`
 
 ---
 
@@ -28,13 +29,15 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 **Topics Covered:**
 - Introduction to Express.js
 - Middleware (custom & third-party)
-- PostgreSQL Integration
+- Handling Client Data and Request Response Model
+- PostgreSQL Integration and CRUD Operations
+- Modular Project Structure
 - API Routing & Controllers
 
 **Hands-On:**
-- Build a RESTful API E-Commerce Business Application
+- Building a RESTful API for an E-Commerce Business Application
 
-📂 Folder: `Day-2/`
+📂 Folder: `Day-2 Express.js & REST API Development/`
 
 ---
 
@@ -42,18 +45,21 @@ Welcome to the official repository for the **3-Day Node.js REST API Workshop**. 
 **Topics Covered:**
 - Authentication & Authorization in Node.js
 - Environment configuration with `.env`
+- Hands-on: Adding Security to e-commerce-backend-server
+- Secure Password Storage and Token-based Authentication
+- Handling Protected Routes in Express
 - NoSQL vs SQL: When to use which
 - MongoDB + Mongoose (schema, models, connection)
-- CRUD operations with MongoDB
+- CRUD Operations with MongoDB using Mongoose
 
 **Hands-On:**
-- Create two versions of the same API (MongoDB & PostgreSQL)
+- Creating two versions of the e-commerce-backend-server API (MongoDB & PostgreSQL)
 
-📂 Folder: `Day-3/`
+📂 Folder: `Day-3 Security and MongoDB Integration/`
 
 ---
 
-## 🛠️ Project Structure
+## 🛠️ Folder Structure
 
 ```bash
 Node.js-Hands-On-Workshop/
