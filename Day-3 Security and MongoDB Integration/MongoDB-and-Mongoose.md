@@ -179,7 +179,22 @@ You will get something like below after you save the connection
 
 ![](./images//Conn-3.png)
 
-#### **Note:** We no need create `Database` and `Collection` (Table) it will be created automatically by Mongoose in our Node.js server.
+
+### Create a Database inside the created Connection:
+Now, let's create a database where we will store all of our collections (similar to tables).
+
+### **Step-1**
+
+![](./images//Conn-4.png)
+
+### **Step-2**
+![](./images//Conn-5.png)
+
+Here it is asking for a Collection name as well you can give test or any other name for now as will create all of our Collections using Mogoose. Click on Create Database it will create the Database like below:
+
+![](./images//Conn-6.png)
+
+#### **Note:** We no need create `Database` and  `Collection` (Table) it will be created automatically by Mongoose if the Database or the Collection not found.
 
 ---
 ## Now Using this Connection Let's connect Node.js + Express and MongoDB using Mongoose

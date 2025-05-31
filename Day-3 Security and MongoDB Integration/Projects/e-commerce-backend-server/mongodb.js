@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Connect to MongoDB
 const connectToMongoDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/test-db123', {
+        await mongoose.connect('mongodb://localhost:27017/e-commerceD', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
@@ -13,5 +13,7 @@ const connectToMongoDB = async () => {
         process.exit(1); // Exit the process if DB connection fails
     }
 };
+
+connectToMongoDB();
 
 module.exports = connectToMongoDB;

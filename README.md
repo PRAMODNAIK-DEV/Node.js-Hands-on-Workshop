@@ -64,7 +64,7 @@ Node.js-Hands-On-Workshop/
 ├── Day-2 Express.js & REST API Development/
 │   ├── README.md
 │   └── Projects/
-├── Day-3/
+├── Day-3 Security and MongoDB Integration/
 │   ├── README.md
 │   └── Projects/
 └── public/
