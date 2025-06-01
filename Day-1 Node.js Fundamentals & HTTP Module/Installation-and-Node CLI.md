@@ -15,7 +15,7 @@
 
 ### 🔍 Verify Installation
 
-After installation is complete, open a terminal or command prompt and run:
+After installation is complete, open a `terminal` or `command` prompt and run:
 
 ```bash
 node -v
@@ -43,7 +43,7 @@ Expected output:
 
 ## 💻 Node CLI (REPL)
 
-Node CLI (Command Line Interface) allows you to execute JavaScript code directly in the terminal using the built-in REPL (Read-Eval-Print Loop) environment.
+Node `CLI` (Command Line Interface) allows you to execute JavaScript code directly in the terminal using the built-in **REPL (Read-Eval-Print Loop)** environment.
 
 ### ▶️ Open Node CLI
 
@@ -114,17 +114,22 @@ Or press `Ctrl + C` twice.
 ---
 
 ## 📄 Running a JavaScript File with Node.js
+Let's create a new folder with a preferred name where we'll keep all the hands-on code and projects.
+Use Windows `File Explorer` or the `Command Prompt`.
+
+```js
+mkdir Node-JS-Workshop
+```
+**Note:** Open this folder in VS Code
 
 ### 1️⃣ Create the File
-
-1. Open any code editor (e.g., VS Code).
-2. Create a new file named:
+1. Let's create a new file named `app.js` inside Node-JS-Workshop
 
 ```
 app.js
 ```
 
-3. Add the following code to the file:
+2. Add the following code to the file:
 
 ```js
 console.log("Welcome to Node.js!");
@@ -146,3 +151,6 @@ You should see:
 ```
 Welcome to Node.js!
 ```
+---
+
+To be continued: [Creating-Basic-HTTP-server](Creating-Basic-HTTP-server.md)
