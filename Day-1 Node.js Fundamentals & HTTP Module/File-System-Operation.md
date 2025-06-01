@@ -10,7 +10,7 @@ The `fs` (File System) module in Node.js allows you to work with the **file syst
 | Method                          | Description                            | Blocking?      |
 | ------------------------------- | -------------------------------------- | -------------- |
 | Synchronous (`fs.readFileSync`) | Executes immediately, blocks next code | ✅ Blocking     |
-| Asynchronous (`fs.readFile`)    | Uses `callbacks` or `Promises`             | ❌ Non-blocking |
+| Asynchronous (`fs.readFile`)    | Uses `callbacks` or `Promises`         | ❌ Non-blocking |
 
 ---
 
@@ -112,3 +112,5 @@ fs.rmdir('myFolder', (err) => {
 | Delete File   | `fs.unlink()`             | `fs.unlinkSync()`     |
 | Create Folder | `fs.mkdir()`              | `fs.mkdirSync()`      |
 | Delete Folder | `fs.rmdir()` or `fs.rm()` | `fs.rmSync()`         |
+
+## To be continued: [Introduction-to-REST-and-HTTP-Methods](Introduction-to-REST-and-HTTP-Methods.md)

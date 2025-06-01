@@ -8,11 +8,9 @@ While **Node.js** is a versatile platform capable of handling various kinds of a
 - Task automation scripts
 - Desktop applications (with Electron) etc.
 
-But, it is **primarily used for backend development** due to its non-blocking, event-driven architecture and its ability to handle concurrent connections efficiently.
+But, it is **primarily used for backend development** due to its `non-blocking`, `event-driven` architecture and its ability to **handle concurrent connections efficiently**.
 
 ---
-
-
 
 ## 🔄 What is REST?
 
@@ -26,7 +24,7 @@ But, it is **primarily used for backend development** due to its non-blocking, e
 RESTful services use standard **HTTP methods** to perform CRUD (Create, Read, Update, Delete) operations:
 
 | Method | Action         | Description                      |
-|--------|----------------|----------------------------------|
+| ------ | -------------- | -------------------------------- |
 | GET    | Read           | Fetch data from the server       |
 | POST   | Create         | Send data to the server          |
 | PUT    | Update         | Replace existing data            |
@@ -48,19 +46,19 @@ RESTful services use standard **HTTP methods** to perform CRUD (Create, Read, Up
 
 - Node.js excels in handling **I/O-bound operations**.
 - It allows us to easily build **REST APIs** using the built-in `http` module or frameworks like **Express.js**.
-- REST fits well with JSON, which is the native data format for JavaScript.
+- REST fits well with JSON, which is the `native data format` for JavaScript.
 
 ---
 
 ## 🧪 Example Resource URIs
 
-| URI              | Method | Action              |
-|------------------|--------|---------------------|
-| `/users`         | GET    | Get all users       |
-| `/users/:id`     | GET    | Get one user        |
-| `/users`         | POST   | Create new user     |
-| `/users/:id`     | PUT    | Update user         |
-| `/users/:id`     | DELETE | Delete user         |
+| URI            | Method | Action          |
+| -------------- | ------ | --------------- |
+| `/student`     | GET    | Get all student |
+| `/student/:id` | GET    | Get one user    |
+| `/student`     | POST   | Create new user |
+| `/student/:id` | PUT    | Update user     |
+| `/student/:id` | DELETE | Delete user     |
 
 ---
 
@@ -70,4 +68,4 @@ RESTful services use standard **HTTP methods** to perform CRUD (Create, Read, Up
 - Node.js is a perfect choice for creating RESTful APIs.
 - Knowing HTTP methods is essential for building full-stack apps.
 
-Stay tuned for the practical hands-on: **Implementing REST routes using Node.js HTTP module**!
+## To be continued: [Routing-with-Native-NodeJS](Routing-with-Native-NodeJS.md)

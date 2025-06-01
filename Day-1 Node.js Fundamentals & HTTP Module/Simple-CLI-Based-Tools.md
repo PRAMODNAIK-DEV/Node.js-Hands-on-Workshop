@@ -1,42 +1,41 @@
 # 🧰 Simple CLI-Based Tools in Node.js
 
 ## 🗣️ What is a CLI?
-A CLI (Command Line Interface) is a way to interact with a program using text commands in a terminal or command prompt (like cmd, bash, or PowerShell).
+A CLI (Command Line Interface) is a way to interact with a program using **text commands** in a `terminal` or `command prompt`  (like `cmd`, `bash`, or `PowerShell`).
 
 ---
 
 ## 🧑‍💻 Why Build CLI Tools in Node.js?
 Node.js is perfect for building CLI tools because:
-
 > It runs JavaScript outside the browser.
-> It gives access to system-level APIs (like file system, input/output).
-> It's fast and lightweight.
+> It gives access to **system-level APIs** (like file system, input/output).
+> It's `fast` and `lightweight`.
 
-🔧 Example: Create a Simple CLI Tool with Node.js
-Let’s create a basic CLI tool that greets the user.
+🔧 **Example**: Create a Simple CLI Tool with Node.js
+Let’s create a basic CLI tool that **greets the user**.
 
-📁 File: `greet.js`
+📁 File: Create a new file named `greet.js` and add the following code init:
 
-```bash
-const name = process.argv[2]; // Takes the third item in the argument list
+```js
+const name = process.argv[2];   // Takes the third item in the argument list
 console.log(`Hello, ${name || "stranger"}! 👋`);
 ```
 
 ▶️ Run it from Terminal:
 ```bash
-node greet.js John
+node greet.js Pramod
 ```
 
 🧾 Output:
 ```bash
-Hello, John! 👋
+Hello, Pramod! 👋
 ```
 
 ## 🧠 Explanation:
 > process.argv is an array holding all the command line arguments.
 > process.argv[0] → node
 > process.argv[1] → greet.js (script name)
-> process.argv[2] → "John" (your input)
+> process.argv[2] → "Pramod" (your input)
 
 ---
 
@@ -53,7 +52,7 @@ As your CLI tool grows, you can use libraries like:
 
 ## Overview
 
-A basic command-line tool to add and list tasks stored in a text file (`todo.txt`).
+A basic command-line tool to `add` and `list` **tasks stored in a text file** (`todo.txt`).
 
 ---
 
@@ -84,13 +83,14 @@ function saveTodos(todos) {
 ```
 
 Here,
-> fs.readFileSync() is a synchronous method provided by Node.js's fs (File System) module.
+- `fs.readFileSync()` is a `synchronous` method provided by Node.js's fs (File System) module.
 
-> It reads the contents of the file specified by the variable file (likely 'todos.json').
+- It reads the contents of the file specified by the variable file (likely 'todos.json').
 
-> It blocks the event loop until the entire file is read.
+- It `blocks` the **event loop** until the entire file is read.
 
-> It returns a buffer (binary data).
+- It returns a `buffer` (binary data).
+
 
 ### 🔍 Step-by-step Explanation
 1. **📥 Reading File Synchronously**
@@ -110,6 +110,7 @@ Here,
     - Converts the buffer (binary data) into a readable string format.
 
 3. **🔄 Parsing JSON Data**
+     - `JSON.parse()` is a JavaScript method that converts a **JSON-formatted string** into a JavaScript object.
 
     ```js
     return JSON.parse(dataJSON);
@@ -125,7 +126,7 @@ Here,
 ---
 
 ### 2. Add Todo
-
+This function is used to add or insert new todo entered in the CLI into `todos.json`
 ```js
 function addTodo(task) {
   const todos = loadTodos();
@@ -140,8 +141,8 @@ function addTodo(task) {
     - Returns an array of todo objects.
 
 2. **`todos.push({ task, done: false });`**
-    - Adds a new task to the list.
-    - The new task is represented as an object with:
+    - Adds a **new task** to the list.
+    - The new task is represented as an object with 2 Key's:
         - `task`: The description of the task passed as an argument.
         - `done`: A boolean flag set to `false` initially (meaning the task is not completed).
 
@@ -224,13 +225,15 @@ function deleteTodo(index) {
 
 3. **Delete the Todo**
    - Uses `splice(index - 1, 1)` to remove the specified todo (JavaScript arrays are 0-based).
+   - The splice() method in JavaScript is used to add, remove, or replace elements in an array, all in one go. It modifies the original array (unlike slice, which doesn't).
+   - Syntax:  `array.splice(start, deleteCount)`
 
 4. **Save the Updated List**
-   - Calls `saveTodos(todos);` to persist the updated todo list.
+   - Calls `saveTodos(todos);` to **persist** the updated todo list.
 
 5. **Confirm Deletion**
    - Logs the deleted task's description:  
-     ```
+     ```js
      Deleted todo: "Task description"
      ```
 
@@ -239,7 +242,7 @@ function deleteTodo(index) {
 ### 5. Parse Command Line Arguments
 
 ## 🔍 Purpose
-This code snippet is a **command-line interface (CLI) command parser**. It reads arguments from the terminal and delegates actions like adding, listing, or deleting todos based on user input.
+This code snippet is a **command-line interface (CLI) command parser**. It reads arguments from the terminal and delegates actions like `adding`, `listing`, or `deleting` todos based on user input.
 
 ```js
 const [,, command, ...args] = process.argv;
@@ -299,6 +302,7 @@ console.log('Commands: add, list, delete');
 
 
 ## How to Use
+Run the `todo.js` File as follows for each operations:
 
 - **Add a todo:**  
   ```bash
@@ -314,7 +318,7 @@ console.log('Commands: add, list, delete');
   ```bash
   node todo.js delete 2
   ```
-
+  Deletes the Todo.
 ---
 
 ## Summary
@@ -326,4 +330,6 @@ console.log('Commands: add, list, delete');
 
 ---
 
-**This is a foundational example. You can extend it with more features like marking todos as done, editing tasks, or storing data in a database.**
+> This is a foundational example. You can **extend it with more features** like **marking todos** as done, **editing tasks**, or **storing data in a database**.
+
+## To be continued: [Projects](./Projects/static-file-server/ReadMe.md)
