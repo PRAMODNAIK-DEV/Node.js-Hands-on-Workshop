@@ -63,7 +63,7 @@ git repository:
 keywords:
 ```
 > Tags to help others find your project, like `node`, `server`, `workshop`. This willl help others discover your project if you publish it publicly to the npm registry (https://www.npmjs.com/).
-> If you're just building a local project or a workshop demo (not publishing to npm), keywords are optional. They won’t affect your project functionality.
+> If you're just building a local project (not publishing to npm), keywords are optional. They won’t affect your project functionality.
 
 ```plaintext
 author:
@@ -73,7 +73,7 @@ author:
 ```plaintext
 license: (ISC)
 ```
-> The license under which your project is shared. This defines how others are allowed to use, modify, and share your code. 🧾 ISC – Internet Systems Consortium License
+> The license under which your project is shared. This defines how others are allowed to `use`, `modify`, and `share` your code. 🧾 ISC – Internet Systems Consortium License
 
 ---
 
@@ -102,7 +102,9 @@ server.js
 
 ## 🧑‍💻 Step 3: Write the HTTP Server Code
 
-Paste the following code into `server.js`:
+Let's create a simple **Node.js server** using the built-in `http` module, which responds with `"Hello, Node.js Server!"` to any client request.
+
+Paste the following code into a `server.js`:
 
 ```js
 const http = require('http');
@@ -111,12 +113,12 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-  res.statusCode = 200; // OK
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, Node.js Server!');
+  res.statusCode = 200; // Status Code OK
+  res.setHeader('Content-Type', 'text/plain');    // Indicates the type of data sent to Client
+  res.end('Hello, Node.js Server!');              // End the Response with Hello, Node.js Server!
 });
 
-server.listen(port, hostname, () => {
+server.listen(port, hostname, () => {             // START the server.
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
@@ -150,8 +152,8 @@ This tells reach out to the Domain  127.0.0.1 or localhost in that access port 3
 | 1024–49151    | Registered (safe for custom apps)   |
 | 49152–65535   | Dynamic/private (temp/test use)     |
 
-⚠️ Ports **must be unique** per app. Two apps with same Host/Domain Name cannot use the same port at the same time.
-⚠️ But two different Host/Domains (or IP addresses) can absolutely use the same port number — because the combination of IP address + port number must be unique, not just the port alone.
+- ⚠️ Ports **must be unique** per app. Two apps with same Host/Domain Name cannot use the same port at the same time.
+- ⚠️ But **two different Host/Domains** (or IP addresses) can absolutely use the **same port number** — because the combination of IP address + port number must be unique, not just the port alone.
 ---
 
 ## 🧑‍💻 Why Port Is Needed
@@ -221,3 +223,5 @@ res.end('Welcome to my Node.js Workshop!');
 ```
 
 ---
+
+## To be continued: [Node-Modules](Node-Modules.md)
