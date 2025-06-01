@@ -258,3 +258,5 @@ node server.js
 - You can extend it by using frameworks like `Express` for more features.
 
 ---
+
+## To be continued: [Project-2: simple-node-server](../simple-node-server/ReadMe.md)

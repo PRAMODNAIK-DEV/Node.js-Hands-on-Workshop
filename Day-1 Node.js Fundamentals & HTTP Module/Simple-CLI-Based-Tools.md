@@ -332,4 +332,4 @@ Run the `todo.js` File as follows for each operations:
 
 > This is a foundational example. You can **extend it with more features** like **marking todos** as done, **editing tasks**, or **storing data in a database**.
 
-## To be continued: [Projects](./Projects/static-file-server/ReadMe.md)
+## To be continued: [Project-1: static-file-server](./Projects/static-file-server/ReadMe.md)
