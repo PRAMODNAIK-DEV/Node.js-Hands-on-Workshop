@@ -1,18 +1,14 @@
 
 # PostgreSQL Integration with Node.js and Express
 
-PostgreSQL is a powerful, open-source object-relational database system. Node.js can interact with PostgreSQL using libraries like `pg`, which is a PostgreSQL client for Node.js.
+`PostgreSQL` is a `powerful`, `open-source`, `object-relational` database system. Node.js can interact with PostgreSQL using libraries like `pg`, which is a `PostgreSQL client` for Node.js.
 
 ## Prerequisites
-
-- Node.js and npm installed
-- PostgreSQL installed and running
+- `Node.js` and `npm` installed
+- `PostgreSQL` installed and running
 - A basic understanding of JavaScript and Express
 
 ## Step-by-Step Guide
-
----
-
 ## 1. Installs express and pg external Modules
 
 ```bash
@@ -56,9 +52,6 @@ CREATE TABLE users (
 ---
 
 ## 3. Connect Node.js to PostgreSQL
-This file sets up a connection pool to a PostgreSQL database using the pg (node-postgres) library in Node.js. It allows the application to interact with the database efficiently.
-
-
 **Database Connection Setup**
 Create a new file named `db.js` in the same folder and Paste the below code.
 
@@ -75,6 +68,8 @@ const pool = new Pool({
 
 module.exports = pool;
 ```
+This file sets up a **connection pool** to a PostgreSQL database using the `pg` (node-postgres) library in Node.js. It allows the application to **interact with the database** efficiently.
+
 
 **Explanation**: 
  - `pg.Pool`: A `class` from pg that handles a `pool` of database connections, allowing multiple queries without reconnecting each time (better performance and scalability). Replace credentials with your PostgreSQL config.
@@ -83,26 +78,26 @@ module.exports = pool;
 
 | Key      | Description                                                               |
 | -------- | ------------------------------------------------------------------------- |
-| user     | Your PostgreSQL username                                                  |
-| host     | The database server location, typically 'localhost' for local development |
-| database | The name of the PostgreSQL database you want to connect to (e.g., testdb) |
-| password | The password for the specified PostgreSQL user                            |
-| port     | Default PostgreSQL port is 5432                                           |
+| user     | Your PostgreSQL `username`                                                  |
+| host     | The database server location, typically **'localhost'** for local development |
+| database | The **name of the PostgreSQL database** you want to connect to (e.g., testdb) |
+| password | The `password` for the specified PostgreSQL user                            |
+| port     | Default PostgreSQL port is `5432`                                           |
 
 ➡️ Note: 
    - You must replace `your_pg_user` and `your_password` with actual PostgreSQL credentials. 
    - To check these credentials in pgAdmin, follow the steps below:
-    - In pgAdmin, right-click on the server where your database is located from the left sidebar.
-    - Select Properties.
-    - A new window will open. Switch to the Connection tab to view the connection details.
+    - In pgAdmin, `right-click` on the `server` where your database is located from the left sidebar.
+    - Select `Properties`.
+    - A new window will open. Switch to the `Connection` tab to view the **connection details**.
 
 
 ### 🔁 What is a "Pool of Database Connections"?
 
-A connection pool is a managed collection of reusable connections to a database. Instead of creating a new connection every time you run a query (which is `slow` and resource-intensive), a pool keeps a set of connections open and hands them out when needed.
-  - When you create a new Pool() from the pg library, it uses some default settings.
-  - At most, 10 connections can be created and reused at any given time.
-  - If all are busy and another query comes in, it waits until one is free (or times out).
+A `connection pool` is a **managed collection of reusable connections to a database**. Instead of creating a new connection every time you run a query (which is `slow` and resource-intensive), a pool keeps a set of connections open and hands them out when needed.
+  - When you create a new `Pool()` from the pg library, it uses some **default settings**.
+  - At most, `10 connections` can be `created` and `reused` at any given time.
+  - If all are busy and another query comes in, it `waits` until one is free (or times out).
   - You can customize the pool by using a key called `max` (max: 20)
 
 Think of it like a shared taxi service:
@@ -212,3 +207,5 @@ To run this open any terminal and copy paste and press enter. Then it Sends a PO
 You’ve now integrated PostgreSQL into a Node.js + Express application. With this setup, you can perform CRUD operations and build scalable backend APIs.
 
 --- 
+
+## To be continued: [e-commerce-backend-server](./Projects/e-commerce-backend-server//ReadMe.md)

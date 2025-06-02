@@ -8,12 +8,18 @@ The `req` object in Express.js represents the HTTP request and contains all the 
 5. Cookies
 ---
 
+## Types of Request Data: Different Ways a Client Can Send Data to the Backend Server
+1. Query Parameters
+2. Route/URL Parameters
+3. Request Body
+
+
 ## 📥 1. Query Parameters
 
 **Example URL:**
 Query parameters are part of the URL and follow a <domain-name>:<port-number>/<endpoint>/`?key1=value1&key2=value2&keyn=valuen` format.
 
-- Query parameters are key-value pairs in the URL after the `?`.
+- Query parameters are `key-value` pairs in the URL after the `?`.
 - Access them using `req.query`.
 
 ***Syntax***
@@ -30,7 +36,7 @@ http://localhost:3000/greet`?name=Pramod`
 
 - `http://localhost`: Domain Name (host)
 - `3000`: Port Number
-- `/greet`: Endpoint
+- `/greet`: `Endpoint` or `Route`
 - `?name=Pramod`: Query Parameter (`name` is the key, `Pramod` is the value)
 
 
@@ -60,7 +66,7 @@ Best for optional inputs like search filters and sorting options.
 
 ---
 
-## 📦 2. Route Parameters
+## 📦 2. Route/URL Parameters
 Route parameters are part of the URL path and defined with Colon (`:`) in routes.
 
 **Example URL**
@@ -90,7 +96,7 @@ For Example GET the details of the `Student` with `RollNumber` - `51`. Then the 
 ---
 
 ## 🧾 3. Request Body
-In Express.js, the **request body** (`req.body`) contains data sent by the client in POST, PUT, or PATCH requests. This is typically used when submitting forms or sending JSON data via an API.
+In Express.js, the **request body** (`req.body`) contains data sent by the client in `POST`, `PUT`, or `PATCH` requests. This is typically used when **submitting forms** or **sending JSON data** via an API.
 
 ---
 
@@ -151,7 +157,7 @@ Content-Type: application/json
 
 
 ## 🧾 4. Headers
-Request headers are metadata passed along with HTTP requests. They contain information like browser type, authentication tokens, content types, and more.
+Request headers are `metadata` passed along with HTTP requests. They contain information like `browser type`, `authentication tokens`, `content types`, and more.
 
 In Express.js, you can access headers via the `req.headers` object.
 
@@ -175,7 +181,7 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
 
 **📘 Explanation**
 
-- `req.headers` is an object where each key is the header name in lowercase.
+- `req.headers` is an object where each key is the header name in `lowercase`.
 - You can access headers using bracket notation like `req.headers['user-agent']`.
 
 **Example: Accessing a Custom Header**
@@ -211,25 +217,25 @@ Client Type: mobile
 
 | Header            | Purpose                              |
 | ----------------- | ------------------------------------ |
-| `Content-Type`    | Indicates the media type of the body |
-| `User-Agent`      | Identifies the client software       |
-| `Authorization`   | Contains credentials (e.g., tokens)  |
-| `X-Custom-Header` | Any custom client-to-server info     |
+| `Content-Type`    | Indicates the `media type` of the body |
+| `User-Agent`      | Identifies the `client software`       |
+| `Authorization`   | Contains `credentials` (e.g., tokens)  |
+| `X-Custom-Header` | Any `custom client-to-server info`     |
 
 ---
 
 
 ## 🍪 5. Cookies
 **What Are Cookies?**
-Cookies are small pieces of data stored on a user’s browser by a website. They help in tracking user activities, maintaining session information, and personalizing user experiences.
+Cookies are **small pieces of data stored on a user’s browser by a website**. They help in **tracking user activities**,** maintaining session information**, and **personalizing user experiences**.
 
 **How Cookies Work?**
-  - Creation: When a user visits a website, the server sends a Set-Cookie header in the response.
-  - Storage: The browser stores the cookie and sends it with each request to the same domain.
-  - Retrieval: The server reads the cookie to retrieve stored information.
+  - `Creation`: When a user visits a website, the server sends a `Set-Cookie` `header` in the response.
+  - `Storage`: The **browser stores the cookie** and sends it with each request to the **same domain**.
+  - `Retrieval`: The server reads the cookie to retrieve stored information.
 
 ## Managing and Working with Cookies in Express.js 🚀
-Express.js provides built-in support for handling cookies through the cookie-parser middleware. 
+Express.js provides built-in support for handling cookies through the `cookie-parser` middleware. 
 
 
 **Step-1: Setup Express and cookie-parser**
@@ -246,12 +252,12 @@ app.use(cookieParser());
     
     ```js
     app.get("/set-cookie", (req, res) => {
-    res.cookie("username", "PramodNaik", { 
-        maxAge: 86400000,     // 1 day in milliseconds
-        httpOnly: true        // Cookie not accessible via JavaScript
-    });
+        res.cookie("username", "PramodNaik", {
+            maxAge: 86400000,     // 1 day in milliseconds
+            httpOnly: true        // Cookie not accessible via JavaScript
+        });
 
-    res.send("Cookie has been set!");
+        res.send("Cookie has been set!");
     });
     ```
 
@@ -262,19 +268,20 @@ app.use(cookieParser());
     - `maxAge`: 86400000: The cookie will expire after 1 day (in milliseconds).
     - `httpOnly`: true: Enhances security by preventing JavaScript (on the client side) from accessing the cookie. This protects against XSS attacks.
     
+    #### 🛡️ What is XSS (Cross-Site Scripting)?
+        XSS (Cross-Site Scripting) is a type of security vulnerability that allows attackers to `inject malicious scripts` (usually JavaScript) into trusted websites or web applications.
+
   - Client Request & Server Response
     - When the client hits /set-cookie, the server responds with:
     ```JS
     Set-Cookie: username=PramodNaik; Max-Age=86400000; HttpOnly
     ```
-
-    - Set-Cookie: username=PramodNaik; Max-Age=86400000; HttpOnly
     ```JS
     Cookie: username=PramodNaik
     ```
 
 **Step-3: Access the Cookie Data in Node & Express**
-Once a cookie is set on the client (usually via the Set-Cookie header in a server response), it is automatically sent by the browser in every subsequent request to the same domain and path. You can access these cookies on the server in all incoming requests using middleware like cookie-parser
+Once a cookie is set on the client (usually via the `Set-Cookie` header in a server response), **it is automatically sent by the browser** in **every subsequent request** to the same `domain` and `path`. You can access these cookies on the server in all incoming requests using `middleware` like `cookie-parser`
 
 ```js
 app.get('/dashboard', (req, res) => {
@@ -312,7 +319,6 @@ app.get("/delete-cookie", (req, res) => {
     res.clearCookie("username");     // 👈 Deletes the cookie named 'username'
     res.send("Cookie deleted!");     // 👈 Sends confirmation response
 });
-
 ```
   - When a user visits `/delete-cookie` route, the server will attempt to clear a cookie.
   - `res.clearCookie("username")`: Removes the cookie named username from the client.
@@ -332,4 +338,4 @@ app.get("/delete-cookie", (req, res) => {
 
 ---
 
-To be continued: **Handling-Client-Request-Data**
+[To be continued: **Middleware**](Middleware.md)

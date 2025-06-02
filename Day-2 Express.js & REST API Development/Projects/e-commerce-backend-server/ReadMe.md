@@ -1,21 +1,22 @@
 
 # 🛒 E-commerce Backend API Project (Node.js + Express + PostgreSQL)
 
-This project implements the backend of a basic e-commerce platform using Node.js, Express, and PostgreSQL. It includes APIs for managing users, products, and orders — demonstrating full CRUD functionality.
+This project implements the **backend of a basic e-commerce platform** using Node.js, Express, and PostgreSQL. It includes `APIs` for managing `users`, `products`, and `orders` — demonstrating full `CRUD` functionality.
 
 ---
 
 ## 🧱 Tech Stack
 
-| Layer    | Technology                       |
-| -------- | -------------------------------- |
-| Backend  | Node.js + Express                |
-| Database | PostgreSQL                       |
-| Tools    | pgAdmin, Postman, JWT (optional) |
+| Layer    | Technology        |
+| -------- | ----------------- |
+| Backend  | Node.js + Express |
+| Database | PostgreSQL        |
+| Tools    | pgAdmin, Postman  |
 
 ---
 
 ## 🗃️ Database Schema
+Create the following `tables` in **PostgreSQL** using `pgadmin`
 
 1. `Users` Table: To store `users` details
 ```sql
@@ -26,7 +27,7 @@ CREATE TABLE users (
     password TEXT NOT NULL
 );
 ```
-> This `users` table stores user account details with an auto-incrementing `id`, `name`, unique `email`, and `password`. All fields are required, and emails must be `unique`.
+> This `users` table stores user account details with an auto-incrementing `id`, `name`, unique `email`, and `password`. All fields are required, and `emails` must be `unique`.
 
 
 2. `Products` Table: To store the Products Details.
@@ -40,7 +41,7 @@ CREATE TABLE products (
 );
 
 ```
-> This `products` table stores product details with an auto-incrementing `id`, product `name`, optional `description`, `price` (up to 10 digits, 2 decimal places), and available stock. All fields except description are required.
+> This `products` table stores product details with an auto-incrementing `id`, product `name`, optional `description`, `price` (up to 10 digits, 2 decimal places), and available stock. All fields except `description` are required.
 
 
 3. `Orders` Table: To store the orders Details.
@@ -56,7 +57,7 @@ CREATE TABLE orders (
 ```
 > This `orders` table records each order placed by a user. It includes an auto-incrementing `id`, a `user_id` linked to the `users table`, the total order `amount`, and the timestamp `created_at` which defaults to the current time.
 
-4. Order Items: To store the details of individual products within an order. 
+4. Order Items: To store the **details of individual products** within an order. 
    For example if a user ordered 2 products then there will be 2 entries in this table with same `order_id` and diff `product_id`.
 
 ```sql
@@ -70,12 +71,12 @@ CREATE TABLE order_items (
 );
 ```
 
-> This order_items table stores details of individual products within an order. Each record links to an order_id and a product_id, and includes the quantity purchased and the price per item. It supports tracking multiple products per order.
+> This `order_items` table stores **details of individual products within an order**. Each record links to an `order_id` and a `product_id`, and includes the quantity purchased and the price per item. It supports tracking multiple products per order.
 
 ---
 
 ## 📦 Project Structure
-Below is the organized folder structure for the E-commerce Backend API project. It separates core functionality into modular files and folders for better maintainability and scalability.
+Below is the organized folder structure for the **E-commerce Backend API** project. It separates core functionality into `modular` files and `folders` for better `maintainability` and `scalability`.
 
 ```bash
 e-commerce-backend-server/
@@ -97,7 +98,7 @@ e-commerce-backend-server/
 ## Create Backend - Node & Express Server
 
 **Project Setup**
-Use the below command or Directly use the VS Code to Create the folder instead of using mkdir in Terminal
+Use the below command or Directly use the VS Code to Create the `folder` instead of using `mkdir` in Terminal
 
 **Create a new directory:**
 ```bash
@@ -117,10 +118,10 @@ Inside your project folder (ecommerce-backend-server) run the below command to i
 npm install express pg
 ```
 Note: 
-   - This will create a new folder named `node-modules` and a file named `package-lock.json` in the projects root folder. In this case npm downloads the `express` and `pg` packages (and all their dependencies) and saves them in the node_modules folder. 
-   - `package-lock.json` - Locks the exact versions of every installed package and its sub-dependencies.
-     - It Ensures consistent installs across different environments (e.g., teammates or servers).
-     - Prevents bugs due to version mismatches.
+   - This will create a new folder named `node-modules` and a file named `package-lock.json` in the projects root folder. In this case npm downloads the `express` and `pg` packages (and **all their dependencies**) and saves them in the `node_modules` folder. 
+   - `package-lock.json` - Locks the **exact versions of every installed package** and **its sub-dependencies**.
+     - It **Ensures consistent installs across different environments** (e.g., teammates or servers).
+     - Prevents `bugs` due to version mismatches.
 
 
 **🔌 Database Connection**
@@ -139,14 +140,15 @@ const pool = new Pool({
 
 module.exports = pool;
 ```
-> This setup uses `pg.Pool` to efficiently manage multiple database connections. Remember to replace the placeholder values with your actual PostgreSQL credentials.
+> This setup uses `pg.Pool` to **efficiently manage multiple database connections**. Remember to replace the placeholder values with your actual **PostgreSQL credentials**.
 ---
 
 ## 🚀 Express Setup (`app.js`)
-Inside your project folder (ecommerce-backend-server), create another file named `app.js`. This file is the main entry point for your E-commerce Backend API. It initializes the Express server, configures middleware, and sets up the routing for different API endpoints.
+Inside your project folder (ecommerce-backend-server), create another file named `app.js`. This file is the main **entry point** for our E-commerce Backend API. It initializes the Express server, configures `middleware`, and sets up the `routing` for different API endpoints.
 
 ```js
 const express = require('express');
+const pool = require('./db');
 const app = express();
 const port = 3000;
 
@@ -169,20 +171,28 @@ Now start the server by running below command
 ```js
 node app.js
 ```
+
+If you want to use nodemon module then do the following
+
+```js
+npm install -g nodemon      // Install Nodemon
+nodemon app.js              // Run the server using nodemon
+```
 ---
 
 **Explaination:**
   - `app.use(express.json())`: 
-    - This is a middleware that tells Express to automatically parse incoming JSON requests.
-    - It allows your API to read and access data sent in the body of POST, PUT, or PATCH requests (like user data or product info).
+    - This is a `middleware` that tells Express to **automatically parse incoming JSON requests**.
+    - It allows your API to `read` and `access` **data sent in the body of `POST`, `PUT`, or `PATCH` requests** (like user data or product info).
   - `/`: 
-    - This is a GET route for the root URL. 
-    - When someone opens http://localhost:3000/ in the browser or Postman, the server responds with:
+    - This is a `GET` route for the root URL. 
+    - When someone opens http://localhost:3000/ in the `browser` or `Postman`, the server responds with:
 
     ```bash
     I am Alive!
     ```
 ---
+
 # Let's Start Adding the `Endpoints`/`Routes`
 
 ## 1. 👤 USERS Endpoints:
@@ -213,9 +223,9 @@ app.post('/users', async (req, res) => {
     - This assumes the client is sending a JSON payload like:
     ```js
     {
-    "name": "Alice",
-    "email": "alice@example.com",
-    "password": "securepassword"
+    "name": "Pramod",
+    "email": "pramod@example.com",
+    "password": "Monday@123"
     }
     ```
   - `🛠️ await pool.query(...)`: This executes an SQL INSERT query using the PostgreSQL connection pool
@@ -238,7 +248,7 @@ Go to the **Headers** tab and set:
 | ------------ | ---------------- |
 | Content-Type | application/json |
 
-This tells the server you're sending JSON data.
+> This tells the server you're sending JSON data.
 
 **3. Set the Request Body**
 - Go to the **Body** tab.
@@ -320,13 +330,13 @@ If the request is successful, you should receive:
 ## 2. 📦 PRODUCTS Endpoints:
 
 ### POST /products – `Create`/`Add` a New Product
-This endpoint allows you to `add` a new product to the products table in the PostgreSQL database.
-  - It expects a POST request with a JSON body containing:
-    - name (text)
-    - description (optional text)
-    - price (numeric)
-    - stock (integer)
-  - It executes an INSERT SQL query using these values and returns the newly created product.
+This endpoint allows you to `add` a new `product` to the **products table in the PostgreSQL database**.
+  - It expects a POST request with a `JSON` body containing:
+    - `name` (text)
+    - `description` (optional text)
+    - `price` (numeric)
+    - `stock` (integer)
+  - It executes an `INSERT` SQL query using these values and returns the newly created product.
   - Response: Returns the created product with status code 201 Created.
 
 ```js
@@ -361,9 +371,9 @@ app.post('/products', async (req, res) => {
   - Response: Returns the newly created product with status 201 Created.
 
 ### GET /products – `Read`/`Fetch` All Products
-This endpoint retrieves and returns a list of all products stored in the database.
-  - It uses a SELECT * FROM products SQL query to fetch all product rows.
-  - The response is an array of product objects in JSON format.
+This endpoint `retrieves` and `returns` a **list of all products stored in the database**.
+  - It uses a `SELECT * FROM products` SQL query to fetch all product rows.
+  - The response is an `array` of product objects in `JSON` format.
 
 ```js
 app.get('/products', async (req, res) => {
@@ -372,21 +382,21 @@ app.get('/products', async (req, res) => {
 });
 ```
 ***Test in Postman***
-  - Method: GET
-  - Endpoint: /products
+  - Method: `GET`
+  - Endpoint: `/products`
   - Purpose: Retrieves all products from the database.
-  - Request Body: Not needed as it is GET request
+  - Request Body: **Not needed** as it is GET request
   - Response: Returns an array of all product objects.
 
 
 ### PUT /products – Update Product by `ID`
-This endpoint updates the details of an existing product by its id.
-  - This endpoint make use of the concept of `URL Paramter` as it takes the data from the Client in the URL.
-  - It accepts a PUT request to /products/:id, where :id is the ID of the product to update.
+This endpoint updates the details of an existing product by its id. This will modify the entire row, use `PATCH` if you want to modify specific columns.
+  - This endpoint make use of the concept of `URL Paramter` as it takes the data from the Client in the `URL`.
+  - It accepts a PUT request to `/products/:id`, where `:id` is the ID of the product to update.
   - It uses the values in the JSON body to update:
     - `name`, `description`, `price`, and `stock`.
-  - The SQL query uses placeholders ($1, $2, ...) to prevent SQL injection.
-  - Response: Returns the updated product object.
+  - The SQL query uses placeholders ($1, $2, ...) to prevent `SQL injection`.
+  - Response: Returns the **updated product object**.
 
 ```js
 // Update product
@@ -489,11 +499,11 @@ app.post('/orders', async (req, res) => {
 ```
 
 **🛠️ What Happens:**
-  - The backend calculates the total price of the order.
-  - It inserts the order into the orders table with user_id and total.
-  - It retrieves the newly created order_id from the database.
+  - The backend calculates the `total price` of the order.
+  - It `inserts` the order into the `orders` table with `user_id` and `total`.
+  - It retrieves the newly created `order_id` from the database.
   - For each item in the items array:
-    - It inserts a record into the order_items table with details of product, quantity, price, and linked order_id.
+    - It `inserts` a record into the `order_items` table with details of `product`, `quantity`, `price`, and linked `order_id`.
 
 
 ***Test in Postman***
@@ -565,10 +575,10 @@ app.get('/orders', async (req, res) => {
 ---
 
 # `Modular Approach`: 
-Let's separates core functionality into modular files and folders for better `maintainability` and `scalability`.
+Let's separates **core functionality into modular files** and folders for better `maintainability` and `scalability`.
 
 ## Controllers in Node.js:
-In a Node.js & Express `controllers` are responsible for handling the actual logic for a route — they take the request, interact with the database or business logic, and return a response.
+In a Node.js & Express `controllers` are responsible for handling the **actual logic** for a route — they take the request, interact with the database or business logic, and return a response.
 
 They separate the logic from your route definitions (server.js or routes/*.js) to keep your code `modular`, `clean`, and `maintainable`.
 
@@ -578,8 +588,8 @@ They separate the logic from your route definitions (server.js or routes/*.js) t
 
 ## Let's Start creating the `Controllers` for our E-Commerce Project:
 **There are Two Ways to Modularize Node.js + Express Server:**
-1. Without Using Router Module
-2. With Using Router Module
+1. Without Using **Router Module**
+2. With Using **Router Module**
 
 
 ## 1. Without Using Router Module:
@@ -653,8 +663,8 @@ Do the same for all other `endpoints` by creating dedicated files inside the `si
 ---
 
 ## 2. With Using Router Module:
-  - In Express.js, the Router module is a `mini Express` application. It provides a way to group related routes together, making your code `modular`, `readable`, and `maintainable`.
-  - This is the recommended approach for `scalable apps`. You separate routes into modules, and optionally controllers too.
+  - In Express.js, the Router module is a `mini Express` application. It provides a way to **group related routes together**, making your code `modular`, `readable`, and `maintainable`.
+  - This is the recommended approach for `scalable apps`. You separate routes into `modules`, and optionally `controllers` too.
 
 
 **Let's start building our routes with the Express Router module for better structure and organization.**
@@ -684,15 +694,20 @@ app.listen(port, () => {
 ```
 
 **Explanation:**
- - Express Initialization: Creates an Express application instance (app).
- - Port Setup: Defines the port number (3000) where the server will listen for requests.
- - JSON Middleware: app.use(express.json()) enables the server to automatically parse JSON data sent in HTTP request bodies.
+ - **Express Initialization**: Creates an Express application instance (app).
+ - **Port Setup**: Defines the port number (`3000`) where the server will `listen` for `requests`.
+ - **JSON Middleware**: `app.use(express.json())` enables the server to automatically parse JSON data sent in HTTP request bodies.
 
 ---
+## Create a new folder:
+First create a new folder called `routes`. We will keep all our `Controllers` code or `Business Logic` inside of this directory
+```js
+mkdir routes
+```
 
 ## 👤 User Routes (`routes/users.js`)
 
-First create a new folder called `routes` then inside of that create a file named `users.js` and paste the below code.
+Inside `routes` folder create a file named `users.js` and paste the below code.
 
 ```js
 const express = require('express');

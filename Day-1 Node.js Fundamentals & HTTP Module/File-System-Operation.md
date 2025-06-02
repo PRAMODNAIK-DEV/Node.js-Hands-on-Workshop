@@ -38,6 +38,18 @@ const data = fs.readFileSync('example.txt', 'utf8');
 console.log("File content:", data);
 ```
 
+## Why `Callback`:
+  - fs.readFile is asynchronous
+  - It means:
+    - Node.js will not block or wait while the file is being read.
+    - Instead, it continues executing other code.
+    - When the file reading is done (which could take time), your callback is called.
+
+## 🧠 In Simple Terms:
+- You're saying: “Hey Node, go read this file in the background.”
+- “When you're done (success or error), call my function with the result.”
+- Your callback function is how you resume execution once that async operation finishes.
+
 ---
 
 ### ✏️ 3. Writing to a File
