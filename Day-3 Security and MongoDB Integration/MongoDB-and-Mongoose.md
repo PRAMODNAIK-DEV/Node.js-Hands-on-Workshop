@@ -5,17 +5,17 @@
 MongoDB is a **NoSQL document database** that stores data in **flexible, JSON-like documents**.
 
 - Stores data as **BSON** (Binary JSON)
-- Schema-less by default (allows flexibility)
+- `Schema-less` by default (allows `flexibility`)
 - Designed for **horizontal scaling** and high availability
 
 ## 🧠 Key Concepts
 - **Database**: A container for collections.
-- **Collection**: A group of MongoDB documents (like a table in SQL).
-- **Document**: A record in a collection (like a row in SQL). Stored in BSON format.
+- **Collection**: A group of MongoDB `documents` (like a table in SQL).
+- **Document**: A `record` in a collection (like a row in SQL). Stored in BSON format.
 
 
 ### 📦 1. Database
-  - A database is a container that holds multiple collections.
+  - A database is a `container` that holds **multiple collections**.
   - It’s like the main folder in which your data is stored.
   - Example:
     - In our e-commerce backend server, we need to create a database called `e-commerceDB`, as we did for PostgreSQL.
@@ -31,7 +31,7 @@ MongoDB is a **NoSQL document database** that stores data in **flexible, JSON-li
   - A collection is a **group of documents** in MongoDB, similar to a `table` in SQL.
   - Each document in a collection can have a `slightly different structure`, but generally they represent the same type of object.
   - Example:
-    - In the `e-commerceDB`, we will have a users, products and orders collection
+    - In the `e-commerceDB`, we will have a `users`, `products` and `orders` collection
 
 ### 📄 3. Document
   - A document is a **single record** in a collection, stored in `BSON` (Binary JSON).
@@ -58,19 +58,19 @@ MongoDB is a **NoSQL document database** that stores data in **flexible, JSON-li
         }
 
         ```
-    **Note**: These documents don't have to follow a **strict schema**, but using Mongoose (as explained before) helps you enforce consistency.
+    **Note**: These documents don't have to follow a **strict schema**, but using Mongoose (as explained before) helps you enforce `consistency`.
 
 
 ---
 
 ## 🧩 What is Mongoose?
-Mongoose is an **ODM (Object Data Modeling)** library for MongoDB and Node.js.
-Mongoose provides a schema-based solution to model your MongoDB data. It allows you to define schemas (blueprints) for your documents (data entries) and gives you helpful tools to work with MongoDB more effectively.
+Mongoose is an **ODM (Object Data Modeling)** library for `MongoDB` and `Node.js`.
+Mongoose provides a **schema-based solution to model your MongoDB data**. It allows you to define `schemas` (blueprints) for your documents (data entries) and gives you helpful tools to work with MongoDB more effectively.
 
 It provides:
-- Schema definition for MongoDB documents
+- **Schema definition** for MongoDB documents
 - Model-based structure to interact with collections
-- Middleware, validation, and utility methods
+- `Middleware`, `validation`, and `utility` methods
 
 ---
 
@@ -78,10 +78,10 @@ It provides:
 Mongoose is an **Object Data Modeling (ODM)** `library` for MongoDB and Node.js. It provides a higher-level **abstraction** on top of the MongoDB native driver, making it **easier to interact with MongoDB using JavaScript**.
 
 **🔍 What Mongoose Does:**
-  - Defines schemas for your data
+  - Defines `schemas` for your data
   - Maps JavaScript objects to MongoDB documents
   - Provides built-in validation, middleware, and query helpers
-  - Simplifies CRUD operations (Create, Read, Update, Delete)
+  - Simplifies CRUD operations (`Create`, `Read`, `Update`, `Delete`)
 
 
 ## 🏗️ Defining a Schema and Creating Model in Node.js using mongoose
@@ -116,7 +116,7 @@ const userSchema = new mongoose.Schema({
 
 ## 🧱 Creating a Model
 
-A **model** is a wrapper on the schema to perform database operations.
+A **model** is a `wrapper on the schema` to perform database operations.
 
 A Model is like a `class` that’s **created based on the schema**. It provides the actual functions to:
  	
@@ -190,11 +190,11 @@ Now, let's create a database where we will store all of our collections (similar
 ### **Step-2**
 ![](./images//Conn-5.png)
 
-Here it is asking for a Collection name as well you can give test or any other name for now as will create all of our Collections using Mogoose. Click on Create Database it will create the Database like below:
+Here it is asking for a Collection name as well you can give test or any other name for now as will create all of our Collections using `Mogoose`. Click on Create Database it will create the Database like below:
 
 ![](./images//Conn-6.png)
 
-#### **Note:** We no need create `Database` and  `Collection` (Table) it will be created automatically by Mongoose if the Database or the Collection not found.
+#### **Note:** We no need create `Database` and  `Collection` (Table) it will be created automatically by `Mongoose` if the Database or the Collection not found.
 
 ---
 ## Now Using this Connection Let's connect Node.js + Express and MongoDB using Mongoose
@@ -231,12 +231,12 @@ module.exports = connectToMongoDB;
    - Defines an **asynchronous function** named `connectToMongoDB`.
    - `async` allows you to use `await` inside the function (which simplifies working with `promises`, like database connections).
 
-2. **`await mongoose.connect('mongodb://localhost:27017/e-commerceDB', {
+2. `await mongoose.connect('mongodb://localhost:27017/e-commerceDB', {
    useNewUrlParser: true,
    useUnifiedTopology: true,
-});`**
-   - Tries to connect to your local MongoDB server at port 27017
-   - Connects specifically to the database called test-db
+});`
+   - Tries to connect to your **local MongoDB server** at port 27017
+   - Connects specifically to the database called `e-commerceDB`
    - If it doesn’t exist, MongoDB will create it automatically when you first insert data
    - 🔧 Options passed:
      - `useNewUrlParser`: true: Uses the new MongoDB connection string parser

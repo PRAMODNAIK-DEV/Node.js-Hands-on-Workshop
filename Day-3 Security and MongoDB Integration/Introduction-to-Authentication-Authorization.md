@@ -7,16 +7,16 @@
 ### 🧩 What’s the Difference?
 | Concept            | Meaning                                                                                                                        |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| **Authentication** | Verifying the identity of a user (e.g., login `user_name` and `password`). to determine whether the user is legitimate or not. |
-| **Authorization**  | Determining what an authenticated user is `allowed to do` (e.g., admin rights).                                                |
+| **Authentication** | **Verifying the identity of a user** (e.g., login `user_name` and `password`). to determine whether the user is `legitimate` or not. |
+| **Authorization**  | Determining what an `authenticated` user is `allowed to do` (e.g., admin rights).                                                |
 
 ---
 
 ### ✅ Common Authentication Methods
-- Username & Password (with hashing)
-- OAuth (Google, GitHub login)
-- JWT (JSON Web Token)
-- Sessions & Cookies (for stateful auth)
+- `Username` & `Password` (with hashing)
+- `OAuth` (Google, GitHub login)
+- `JWT` (JSON Web Token)
+- `Sessions` & `Cookies` (for stateful auth)
 
 ---
 
@@ -31,7 +31,7 @@ npm install express pg bcryptjs jsonwebtoken dotenv
   - `pg` – PostgreSQL client for Node.js to interact with PostgreSQL databases.
   - `bcryptjs` – Library for `hashing` and `comparing` passwords securely.
   - `jsonwebtoken` – For generating and verifying `JWT tokens` used in authentication.
-  - `dotenv` – Loads environment variables from a `.env` file into process.env.
+  - `dotenv` – Loads environment variables from a `.env` file into `process.env`.
 
 ---
 ### 2. **Environment Configuration with `.env`**
@@ -101,13 +101,13 @@ module.exports = pool;
 ```js
 require('dotenv').config();
 ```
-  - It loads environment variables defined in your `.env` file into process.env.
-  - The require('dotenv') imports the dotenv package.
-  - The .config() method reads the .env file and parses its key-value pairs.
-  - These key-value pairs become available in your app via process.env.
+  - It loads environment variables defined in your `.env` file into `process.env`.
+  - The require('dotenv') `imports` the `dotenv` `package`.
+  - The `.config()` method reads the `.env` file and `parses` its key-value pairs.
+  - These key-value pairs become available in your app via `process.env`.
 
 #### **What is process.env in Node.js?:**
-The process.env is a built-in object in Node.js that provides access to environment variables of the system where your application is running.
+The `process.env` is a **built-in object in Node.js** that provides access to environment variables of the system where your application is running.
 
 🔹 **How it works:**
   - `process` is a **`global object`** in Node.js that gives information and control over the current Node.js process.
@@ -116,12 +116,12 @@ The process.env is a built-in object in Node.js that provides access to environm
 ---
 
 ### 5. **Register/Create User Endpoint**
-  - We have already created a `/users` endpoint in our app, which handles **user registration**. It is a POST request where the user is expected to send their `name`, `email`, and `password`. 
-  - However, we haven't `encrypted` the user's password before storing it in the database, which poses a **major security risk** —anyone with database access could potentially `steal` user passwords. To address this issue and secure user data, follow the steps below.
+  - We have already created a `/users` endpoint in our app, which handles **user registration**. It is a `POST` request where the user is expected to send their `name`, `email`, and `password`. 
+  - However, we haven't `encrypted` the user's password before storing it in the database, which poses a **major security risk** —**anyone with database access could potentially `steal` user passwords**. To address this issue and secure user data, follow the steps below.
 
 <br>
 
-Let's modify our POST `/users` endpoint (also known as Create or Register New User) inside /routes/users.js file to encrypt the user's password before storing it in the database. Just look at the commented lines and make the changes.
+Let's modify our POST `/users` endpoint (also known as Create or Register New User) inside `/routes/users.js` file to `encrypt` the user's password before storing it in the database. Just look at the commented lines and make the changes.
 
 First, install the external package named bcryptjs to hash the password before storing it into the database table.
 ```js
@@ -150,22 +150,22 @@ router.post('/', async (req, res) => {
 });
 ```
 **Explaination**
-  - `const hashedPassword = await bcrypt.hash(password, 10);`:  Generates a hash of the password using 10 salt rounds. `10` → The salt rounds, a measure of how computationally intensive the hash will be.
+  - `const hashedPassword = await bcrypt.hash(password, 10);`:  **Generates a hash of the password using 10 salt rounds**. `10` → The salt rounds, a measure of how **computationally intensive** the hash will be.
 
 #### **🔑 What is “salt” in password hashing?**
 Salt is a `random value` added to the password before `hashing`. In our case, It tells bcrypt to repeat the `hashing algorithm` 2^10 = 1024 times.
 
 This means:
   - Even if two users have the same `password`, their `hashed` values will be different.
-  - Salting makes attacks like rainbow tables (precomputed hash dictionaries) useless.
-  - Salt rounds = the number of times bcrypt processes the data internally.
+  - `Salting` makes attacks like rainbow tables (precomputed hash dictionaries) useless.
+  - Salt rounds = the **number of times bcrypt processes the data internally.**
 
 
 #### **🔒 Is this readable string insecure?**
 - No — although it looks like a readable string, it's `not reversible`.
-- Bcrypt hashes are one-way functions:
+- **Bcrypt hashes are one-way functions**:
   - You cannot `decrypt` or `reverse` them to get the original password.
-  - You can only compare: try hashing the user’s login attempt and see if it matches.
+  - You can only `compare`: try hashing the user’s login attempt and see if it matches.
 
 ---
 
@@ -173,60 +173,60 @@ This means:
 
 #### **What is Login & Token Generation?**
 It’s the process where:
-  - A user logs in with credentials (e.g., email and password).
-  - The server validates the credentials.
-  - If valid, the server generates a token (usually a JWT – JSON Web Token).
-  - The token is sent back to the client and used for authenticated requests.
+  - A user logs in with `credentials` (e.g., email and password).
+  - The server `validates` the credentials.
+  - If valid, the server generates a `token` (usually a JWT – JSON Web Token).
+  - The `token` is sent back to the client and used for `authenticated` requests.
 
 <br>
 
 #### **🔒 Why is this process needed?**
 #### **1. 🔑 To verify the user’s identity**
-     - You need to make sure the user is who they claim to be.
-     - This is done by checking their email + password against stored (hashed) values.
+   - You need to make sure the **user is who they claim to be**.
+   - This is done by checking their `email` + `password` against stored (`hashed`) values.
 
 #### **2. 🪪 To enable access to protected routes**
-     - After login, the token acts like an ID card.
-     - The client includes the token in headers (usually Authorization) in each request.
-     - The server checks the token to allow/deny access to APIs like:
-       - /profile
-       - /orders
-       - /products
+   - After `login`, the token acts like an **ID card**.
+   - The client includes the token in `headers` (usually `Authorization`) in each request.
+   - The server checks the token to `allow/deny` access to APIs like:
+     - `/profile`
+     - `/orders`
+     - `/products`
 
 #### **3. 🛡️ To keep sessions stateless**
-     - With tokens, the server doesn’t need to store session data.
-     - Instead, each request carries the token and proves the user is authenticated.
+   - With tokens, the server doesn’t need to store session data.
+   - Instead, each request carries the token and proves the user is authenticated.
 
 
 #### **Why a token is needed even after login:**
-🔐 Security: We don't ask for username & password on every request
-  - Imagine a user logs in, then clicks around your app — view profile, check orders, post comments.
-  - If you asked for username + password on every API call, that would:
-    - Be annoying for the user
+🔐 Security: We don't ask for `username` & `password` on every request
+  - Imagine a user logs in, then clicks around your app — **view profile, check orders, post comments**.
+  - If you asked for `username` + `password` on every API call, that would:
+    - Be `annoying` for the user
     - Be a huge security risk (password sent repeatedly = easier to steal)
 
 🔄 Instead:
-  - Ask for username + password once
-  - Then issue a token (JWT or session token)
-  - User sends token with each future request
+  - Ask for username + password `once`
+  - Then issue a `token` (JWT or session token)
+  - User sends `token` with each future request
 
 --- 
 ### Username and password are for **`Authentication`**, and the token is for **`Authorization`**:
 
 **Authentication** — `Username` + `Password`
-  - This happens first
+  - **This happens first**
   - You prove you are who you say you are
   - Example:
-    - "I’m john@example.com and my password is abc123"
-    - Server checks DB, confirms identity
-  - If valid, server gives you a token
+    - "I’m `john@example.com` and my password is `abc123`"
+    - Server checks DB, **confirms identity**
+  - If valid, server gives you a `token`
 
 **🪪 Authorization** — `Token`
-  - This happens after authentication
-  - Now that the server knows who you are, it checks:
-    - "Are you allowed to access this route?"
-    - "Are you an admin?"
-    - "Can you edit this data?"
+  - This happens after `authentication`
+  - Now that the **server knows who you are**, it checks:
+    - `"Are you allowed to access this route?"`
+    - `"Are you an admin?"`
+    - `"Can you edit this data?"`
   - The token contains that information (like your userId, role, etc.)
 
 <br>
@@ -271,11 +271,11 @@ if (!user || !(await bcrypt.compare(password, user.password))) {
   return res.status(401).send('Invalid credentials');
 }
 ```
-This block of code will Authenticates the user and compare passwords
+This block of code will `Authenticates` the user and compare passwords
 It Checks if:
   - User does not exist
-  - OR bcrypt.compare() returns false (meaning password doesn’t match the hashed one in the DB)
-  - If either condition is true → login fails → returns 401 Unauthorized.
+  - OR bcrypt.compare() returns false (meaning **password doesn’t match** the hashed one in the DB)
+  - If either condition is true → login fails → returns `401` Unauthorized.
 
 **Generate a JWT token if login is successful**
 ```js
@@ -285,18 +285,18 @@ const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
 ```
 This line is responsible for generating a JSON Web Token (JWT) that is returned to the user after successful login. 
 **`🔐 jwt.sign(payload, secretOrPrivateKey, options)`:**
-This is a `function` provided by the jsonwebtoken library. It creates (`signs`) a token that the server can later verify.
+This is a `function` provided by the `jsonwebtoken` library. It creates (`signs`) a token that the server can later verify.
   1. **Payload**:
     - `{ userId: user.id }`: 
-       - This is the data you want to include in the token.
-       - In this case, you're embedding the authenticated user’s unique id.
-       - This userId can be used later to identify the user in protected routes (e.g., by extracting it from the token).
-       - You can add more fields like email, role, etc., but avoid putting sensitive data (like passwords) in the token.
+       - This is the `data` **you want to include in the token**.
+       - In this case, you're embedding the authenticated user’s **unique id**.
+       - This userId can be used later to identify the user in **protected routes** (e.g., by extracting it from the token).
+       - You can add more fields like `email`, `role`, etc., but **avoid putting sensitive data** (like passwords) in the token.
   2. **Secret Key**:
     - `process.env.JWT_SECRET`:
-      - This is the secret string used to sign the token.
+      - This is the **secret string used to `sign` the token**.
       - Only the **server** (you) should know this key.
-      - It’s stored in .env file like:
+      - It’s stored in `.env` file like:
         ```js
         JWT_SECRET=mySuperSecretKey123!
         ```
@@ -304,26 +304,26 @@ This is a `function` provided by the jsonwebtoken library. It creates (`signs`) 
   
   3. **Options** :
     - `{ expiresIn: '1h' }`:
-      - This tells the token to expire in 1 hour.
-      - After that, the token is no longer valid and users will need to log in again.
+      - This tells the token to **expire in 1 hour.**
+      - After that, the **token is no longer valid and users will need to log in again**.
       - Other formats for this option:
-        - '2d' = 2 days
-        - '10m' = 10 minutes
-        - 60 * 60 = 3600 seconds = 1 hour
+        - '`2d`' = 2 days
+        - '`10m`' = 10 minutes
+        - `60 * 60` = 3600 seconds = 1 hour
 
   4. **What is returned?**:
-    - The result is a signed string, typically looking like this:
+    - The result is a `signed string`, typically looking like this:
         ```js
         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0ODQ2NDAwOCwiZXhwIjoxNzQ4NDY3NjA4fQ.Xp3Y506oOkbAfdRnf-bLb15mrJfLfXIA4uGlvmv63gE
         ```
       - This string has 3 parts:
-        - `Header`: specifies algorithm (HS256) and token type
-        - `Payload`: includes your data (like userId)
-        - `Signature`: verifies the token was signed with your secret
+        - `Header`: specifies `algorithm` (`HS256`) and token type
+        - `Payload`: includes your `data` (like userId)
+        - `Signature`: verifies the token was **signed with your secret**
 
 <br>
 
-Now update the main file `server.js`, where all the `Controllers` from different files are imported and registered. Import and register the newly created `Controller` for the /login endpoint by appending the code below to `server.js`
+Now update the main file `server.js`, where all the `Controllers` from different files are imported and registered. Import and register the newly created `Controller` for the `/login` endpoint by appending the code below to `server.js`
 
 ```js
 const loginRoutes = require('./routes/login');      // Import the login Controller
@@ -345,11 +345,11 @@ When building modern web apps (with Node.js, Express, etc.), not every user shou
 
 For example:
 ✅ `/register` and `/login` → should be `public` (accessible to everyone)
-🔒 `/dashboard`, `/profile`, `/admin/users` → should be `protected` (accessible only to logged-in users or users with special roles like admin)
+🔒 `/dashboard`, `/profile`, `/admin/users` → should be `protected` (accessible only to logged-in users or users with special roles like `admin`)
 
 
 **🚫 Problem Without Protection:**
-If routes like /admin or /user/settings aren't protected:
+If routes like `/admin` or `/user/settings` aren't protected:
   - Anyone can access them — even **without logging in**
   - Users can `modify` or `view` **sensitive data** without permission
   - The app becomes `insecure` and `vulnerable` to misuse
@@ -357,12 +357,12 @@ If routes like /admin or /user/settings aren't protected:
 
 **🔐 Solution: Protected Routes**
 To fix this, you need to:
-   - Authenticate the user (using login + token like JWT)
+   - Authenticate the user (using `login` + `token` like JWT)
    - Use **`Authorization Middleware`** to:
-     - Check the token
-     - Verify it
-     - Extract user data from it
-     - Allow access only if the token is valid
+     - Check the `token`
+     - `Verify` it
+     - `Extract` user data from it
+     - `Allow` access only if the **token is valid**
 
 <br>
 
@@ -399,12 +399,12 @@ module.exports = { authenticate };
     - The `optional chaining` operator (?.) prevents runtime errors if authorization is undefined.
 
   3. `if (!token) return res.status(401).send('Authorization failed. Please provide a valid token');`->
-    - If no token was found, it immediately returns a 401 Unauthorized response.
+    - If no token was found, it immediately returns a `401` **Unauthorized response**.
     - This tells the client they must provide a token.
 
   4. `jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {`->
     - Calls `jwt.verify()` to validate the token using the `secret key` from environment variables.
-    - If valid, decoded will contain the **token's payload** (e.g., user info).
+    - If valid, `decoded` will contain the **token's payload** (e.g., user info).
     - If invalid (e.g., tampered or expired), err will be set.
 
   5. `if (err) return res.status(403).send('The provided Token is Invalid');`->
@@ -447,7 +447,7 @@ Now that we know how to send data to our backend server using `Postman` either b
 ---
 
 ## Protect the Route:
-Now to protect any route or endpoint we have to pass our `authenticate` middleware function as a parameter to the Controller or Route handling function (As a callback function).
+Now to protect any route or endpoint we have to pass our `authenticate` middleware function as a parameter to the `Controller` or Route handling function (As a callback function).
 
 **Example of Protectecting the GET /products Route**
 ```js

@@ -25,7 +25,7 @@ e-commerce-backend-server/
 ```
 
 ## Step-: Install Mongoose
-Open the Command Prompt and navigate to your project folder using the cd command. Then, install Mongoose by running the following command:
+Open the Command Prompt and navigate to your project folder using the cd command. Then, install `Mongoose` by running the following command:
 
 ```js
 cd e-commerce-backend-server
@@ -57,11 +57,11 @@ module.exports = connectToMongoDB;
 ```
 
 ## Step-3: Create Models
-Now, we need to create models for each collection.
-- This is similar to what we did with PostgreSQL, where we created tables for each entity such as Users, Products, Orders, and OrderItem.
+Now, we need to create `models` for each `collection`.
+- This is similar to what we did with PostgreSQL, where we created `tables` for each entity such as `Users`, `Products`, `Orders`, and `OrderItem`.
 - In `MongoDB`, we define `schemas` using `Mongoose` **to represent these collections**.
 
-Let's create a new folder named **`models`** inside our project directory. This folder will contain all the Mongoose model files for our collections.
+Let's create a new folder named **`models`** inside our project directory. This folder will contain all the **Mongoose model files for our collections**.
 
 ### 1. Create Users Model
 First, create a new file named `users.js` inside the models folder, and add the following code to define the User model.
@@ -186,7 +186,7 @@ router.post('/', async (req, res) => {
         // res.status(201).json(result.rows[0]);
 
         //MongoDB
-        const user = new Users({ name, email, hashedPassword });
+        const user = new Users({ name, email, password: hashedPassword });
         await user.save();
 
         res.status(201).json(user);
