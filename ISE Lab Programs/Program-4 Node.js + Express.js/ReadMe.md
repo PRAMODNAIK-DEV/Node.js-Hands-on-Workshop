@@ -114,9 +114,29 @@ Inside the project root folder `express-crud-api` create a new folder named publ
 
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Item Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    input, button {
+      margin: 5px 0;
+    }
+    ul {
+      padding-left: 0;
+    }
+    li {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-left: 10px;
+    }
+  </style>
 </head>
 <body>
   <h1>Item Manager</h1>
@@ -128,7 +148,7 @@ Inside the project root folder `express-crud-api` create a new folder named publ
 
   <ul id="itemList"></ul>
 
-  <script>
+  <script defer>
     const api = 'http://localhost:3000/items';
 
     const list = document.getElementById('itemList');
@@ -136,50 +156,70 @@ Inside the project root folder `express-crud-api` create a new folder named publ
     const itemName = document.getElementById('itemName');
 
     async function fetchItems() {
-      const res = await fetch(api);
-      const items = await res.json();
-      list.innerHTML = '';
-      items.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = \`\${item.name} 
-          <button onclick="deleteItem(\${item.id})">Delete</button>
-          <button onclick="editItem(\${item.id}, '\${item.name}')">Edit</button>\`;
-        list.appendChild(li);
-      });
+      try {
+        const res = await fetch(api);
+        const items = await res.json();
+        list.innerHTML = '';
+        items.forEach(item => {
+          const li = document.createElement('li');
+          const safeName = item.name.replace(/"/g, '&quot;'); // escape double quotes
+          li.innerHTML = `
+            ${item.name}
+            <button onclick="deleteItem(${item.id})">Delete</button>
+            <button onclick="editItem(${item.id}, '${safeName}')">Edit</button>
+          `;
+          list.appendChild(li);
+        });
+      } catch (error) {
+        console.error('Error fetching items:', error);
+      }
     }
 
     form.addEventListener('submit', async e => {
       e.preventDefault();
-      await fetch(api, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: itemName.value })
-      });
-      itemName.value = '';
-      fetchItems();
+      try {
+        await fetch(api, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: itemName.value.trim() })
+        });
+        itemName.value = '';
+        fetchItems();
+      } catch (error) {
+        console.error('Error adding item:', error);
+      }
     });
 
     async function deleteItem(id) {
-      await fetch(\`\${api}/\${id}\`, { method: 'DELETE' });
-      fetchItems();
+      try {
+        await fetch(`${api}/${id}`, { method: 'DELETE' });
+        fetchItems();
+      } catch (error) {
+        console.error('Error deleting item:', error);
+      }
     }
 
     async function editItem(id, oldName) {
       const newName = prompt('Edit item name:', oldName);
-      if (newName) {
-        await fetch(\`\${api}/\${id}\`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: newName })
-        });
-        fetchItems();
+      if (newName && newName.trim()) {
+        try {
+          await fetch(`${api}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: newName.trim() })
+          });
+          fetchItems();
+        } catch (error) {
+          console.error('Error editing item:', error);
+        }
       }
     }
 
-    fetchItems();
+    window.onload = fetchItems;
   </script>
 </body>
 </html>
+
 ```
 
 ---
@@ -204,7 +244,7 @@ Inside the project root folder `express-crud-api` create a new folder named publ
 
 ---
 
-## Summary
+## Note
 This project demonstrates how to create a RESTful API with full CRUD operations using Express.js and connect it with a frontend using HTML and vanilla JavaScript.
 
 ---
