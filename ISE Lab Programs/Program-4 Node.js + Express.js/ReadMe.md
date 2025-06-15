@@ -79,9 +79,9 @@ app.get('/items', (req, res) => {
 
 // POST a new item
 app.post('/items', (req, res) => {
-  const { name } = req.body;
+  const { name, description, price } = req.body;
   if (!name) return res.status(400).json({ error: 'Name is required' });
-  const newItem = { id: idCounter++, name };
+  const newItem = { id: idCounter++, name, description, price };
   items.push(newItem);
   res.status(201).json(newItem);
 });
@@ -89,11 +89,15 @@ app.post('/items', (req, res) => {
 // PUT update item by ID
 app.put('/items/:id', (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
+  const { name, description, price } = req.body;
   const item = items.find(i => i.id === parseInt(id));
   if (!item) return res.status(404).json({ error: 'Item not found' });
   if (!name) return res.status(400).json({ error: 'Name is required' });
+  if (!description) return res.status(400).json({ error: 'description is required' });
+  if (!price) return res.status(400).json({ error: 'price is required' });
   item.name = name;
+  item.description = description;
+  item.price = price;
   res.json(item);
 });
 
@@ -103,7 +107,7 @@ app.delete('/items/:id', (req, res) => {
   const index = items.findIndex(i => i.id === parseInt(id));
   if (index === -1) return res.status(404).json({ error: 'Item not found' });
   items.splice(index, 1);
-  res.status(204).send();
+  res.status(200).send({ "status": "ok", "message": `Item ${id} deleted successfully!` });
 });
 
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
@@ -117,7 +121,7 @@ Inside the project root folder `express-crud-api` create a new folder named publ
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Item Manager</title>
+  <title>Product Manager</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -125,16 +129,19 @@ Inside the project root folder `express-crud-api` create a new folder named publ
     }
     input, button {
       margin: 5px 0;
+      display: block;
     }
     ul {
       padding-left: 0;
     }
     li {
       list-style: none;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
     }
     button {
-      margin-left: 10px;
+      margin-right: 5px;
     }
   </style>
 </head>
@@ -143,6 +150,8 @@ Inside the project root folder `express-crud-api` create a new folder named publ
 
   <form id="addForm">
     <input type="text" id="itemName" placeholder="Item name" required>
+    <input type="text" id="itemDescription" placeholder="Description" required>
+    <input type="number" id="itemPrice" placeholder="Price" required step="0.01" min="0">
     <button type="submit">Add Item</button>
   </form>
 
@@ -154,6 +163,8 @@ Inside the project root folder `express-crud-api` create a new folder named publ
     const list = document.getElementById('itemList');
     const form = document.getElementById('addForm');
     const itemName = document.getElementById('itemName');
+    const itemDescription = document.getElementById('itemDescription');
+    const itemPrice = document.getElementById('itemPrice');
 
     async function fetchItems() {
       try {
@@ -162,11 +173,12 @@ Inside the project root folder `express-crud-api` create a new folder named publ
         list.innerHTML = '';
         items.forEach(item => {
           const li = document.createElement('li');
-          const safeName = item.name.replace(/"/g, '&quot;'); // escape double quotes
           li.innerHTML = `
-            ${item.name}
+            <strong>${item.name}</strong><br>
+            Description: ${item.description}<br>
+            Price: ₹${parseFloat(item.price).toFixed(2)}<br>
             <button onclick="deleteItem(${item.id})">Delete</button>
-            <button onclick="editItem(${item.id}, '${safeName}')">Edit</button>
+            <button onclick="editItem(${item.id}, '${item.name.replace(/'/g, "\\'")}', '${item.description.replace(/'/g, "\\'")}', ${item.price})">Edit</button>
           `;
           list.appendChild(li);
         });
@@ -181,9 +193,15 @@ Inside the project root folder `express-crud-api` create a new folder named publ
         await fetch(api, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: itemName.value.trim() })
+          body: JSON.stringify({
+            name: itemName.value.trim(),
+            description: itemDescription.value.trim(),
+            price: parseFloat(itemPrice.value)
+          })
         });
         itemName.value = '';
+        itemDescription.value = '';
+        itemPrice.value = '';
         fetchItems();
       } catch (error) {
         console.error('Error adding item:', error);
@@ -199,14 +217,21 @@ Inside the project root folder `express-crud-api` create a new folder named publ
       }
     }
 
-    async function editItem(id, oldName) {
+    async function editItem(id, oldName, oldDescription, oldPrice) {
       const newName = prompt('Edit item name:', oldName);
-      if (newName && newName.trim()) {
+      const newDescription = prompt('Edit item description:', oldDescription);
+      const newPrice = prompt('Edit item price:', oldPrice);
+
+      if (newName && newDescription && newPrice && !isNaN(parseFloat(newPrice))) {
         try {
           await fetch(`${api}/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: newName.trim() })
+            body: JSON.stringify({
+              name: newName.trim(),
+              description: newDescription.trim(),
+              price: parseFloat(newPrice)
+            })
           });
           fetchItems();
         } catch (error) {
@@ -232,9 +257,9 @@ Inside the project root folder `express-crud-api` create a new folder named publ
 
 | TC-01        | GET    | /items         | None                 | List of all items        | 200          |
 
-| TC-02        | POST   | /items         | { name: "Test" }    | Newly created item       | 201          |
+| TC-02        | POST   | /items         | { name: "Item Name", "description":"Item Description", "price": "Item Price (int)"  }    | Newly created item       | 201          |
 
-| TC-03        | PUT    | /items/1       | { name: "Updated" } | Updated item             | 200          |
+| TC-03        | PUT    | /items/1       | { name: "Updated Item Name", "description":"Updated Item Description", "price": "Updated Item Price (int)"  } | Updated item             | 200          |
 
 | TC-04        | DELETE | /items/1       | None                 | No content               | 204          |
 
