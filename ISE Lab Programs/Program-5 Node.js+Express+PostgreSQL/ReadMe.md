@@ -12,8 +12,8 @@ This project is a RESTful API built with **Express.js** and **PostgreSQL** to ma
 ---
 
 ## 🗃️ Step 1: PostgreSQL Table Creation
-
-You have to create the following users `table` in your postgres database. Use pgAdmin to create a `databse` with name of your choice and inside of this database create the table named `users`. Run the following SQL command in your PostgreSQL client which is `pgAdmin`.
+1. Install PostgreSQL and pgAdmin in your machine
+2. You have to create the following users `table` in your postgres database. Use pgAdmin to create a `databse` with name of your choice and inside of this database create the table named `users`. Run the following SQL command in your PostgreSQL client which is `pgAdmin`.
 
 ```sql
 CREATE TABLE users (
