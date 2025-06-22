@@ -156,7 +156,7 @@ To test the endpoint make use of PostMan API Client. To learn how to use PostMan
 #### 1. Create User
 
 `Method`: POST
-`URL`: http://localhost:3000/api/users
+`URL`: http://localhost:3000/users
 `Body`: 
 ```js
 {
@@ -175,13 +175,13 @@ To test the endpoint make use of PostMan API Client. To learn how to use PostMan
 
 #### 2. Get All Users
 `Method`: GET
-`URL`: http://localhost:3000/api/users
+`URL`: http://localhost:3000/users
 `Body`: Not needed as it is GET request
 `Response`: Server returns list of all the users from the users table.
 
 #### 3. Update User
 `Method`: PUT
-`URL`: http://localhost:3000/api/users/3        // Here /3 is the User id which I want to update
+`URL`: http://localhost:3000/users/3        // Here /3 is the User id which I want to update
 `Body`: Now I want update the name so my req body look like this
 ```js
 {
@@ -200,7 +200,7 @@ To test the endpoint make use of PostMan API Client. To learn how to use PostMan
 
 #### 4. Delete User
 `Method`: DELETE
-`URL`: http://localhost:3000/api/users/3    	    // /3 is the ID of the user which I want to delete
+`URL`: http://localhost:3000/users/3    	    // /3 is the ID of the user which I want to delete
 `Body`: No Body needed
 `Response`: 
 ```js

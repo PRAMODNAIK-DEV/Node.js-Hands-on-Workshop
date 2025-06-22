@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JWT Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+  <p id="message"></p>
+
+  <script>
+    let token = '';
+
+    async function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+      if (data.token) {
+        token = data.token;
+        document.getElementById('message').innerText = "Login successful!";
+        getProfile();
+      } else {
+        document.getElementById('message').innerText = "Login failed!";
+      }
+    }
+
+    async function getProfile() {
+      const res = await fetch('http://localhost:3000/profile', {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+
+      const data = await res.json();
+      document.getElementById('message').innerText = data.message || "Access Denied!";
+    }
+  </script>
+</body>
+</html>
