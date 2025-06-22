@@ -162,16 +162,16 @@ Make sure MongoDB is running locally at `mongodb://localhost:27017` or replace t
 To test the endpoint make use of PostMan API Client. To learn how to use PostMan follow this documentation: [Postman Documentation](../../Postman.md)
 #### 1. Create User
 
-`Method`: POST
-`URL`: http://localhost:3000/api/users
-`Body`: 
+#### `Method`: POST
+#### `URL`: http://localhost:3000/api/users
+#### `Body`: 
 ```js
 {
     "name": "Pramod Naik",
     "email": "pramod@example.com"
 }
 ```
-`Response`: 
+#### #### `Response`: 
 ```js
 {
     "name": "Pramod Naik",
@@ -182,22 +182,23 @@ To test the endpoint make use of PostMan API Client. To learn how to use PostMan
 ```
 
 #### 2. Get All Users
-`Method`: GET
-`URL`: http://localhost:3000/api/users
-`Body`: Not needed as it is GET request
-`Response`: Server returns list of all the users from the users table.
+#### `Method`: GET
+#### `URL`: http://localhost:3000/api/users
+#### `Body`: Not needed as it is GET request
+#### `Response`: Server returns list of all the users from the users table.
 
 #### 3. Update User
-`Method`: PUT
-`URL`: http://localhost:3000/api/users/684f0eff17abc4e41f7cc459      // Here /684f0eff17abc4e41f7cc459 is the User id which I want to update
-`Body`: Now I want update the name so my req body look like this
+#### `Method`: PUT
+#### `URL`: http://localhost:3000/api/users/684f0eff17abc4e41f7cc459      
+// Here /684f0eff17abc4e41f7cc459 is the User id which I want to update
+#### `Body`: Now I want update the name so my req body look like this
 ```js
 {
     "name": "Pramod Vishnu Naik",
     "email": "pramod@example.com"
 }
 ```
-`Response`: 
+#### `Response`: 
 ```js
 {
     "id": 3,
@@ -207,10 +208,11 @@ To test the endpoint make use of PostMan API Client. To learn how to use PostMan
 ```
 
 #### 4. Delete User
-`Method`: DELETE
-`URL`: http://localhost:3000/api/users/684f0eff17abc4e41f7cc459    	    // /684f0eff17abc4e41f7cc459 is the ID of the user which I want to delete
-`Body`: No Body needed
-`Response`: 
+#### `Method`: DELETE
+#### `URL`: http://localhost:3000/api/users/684f0eff17abc4e41f7cc459    	    
+// /684f0eff17abc4e41f7cc459 is the ID of the user which I want to delete
+#### `Body`: No Body needed
+#### `Response`: 
 ```js
 {
     "message": "User deleted successfully"
