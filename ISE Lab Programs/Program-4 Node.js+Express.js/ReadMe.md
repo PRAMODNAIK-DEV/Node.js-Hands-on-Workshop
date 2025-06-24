@@ -251,25 +251,141 @@ Inside the project root folder `express-crud-api` create a new folder named publ
 
 ## Test Cases
 
-| Test Case ID | Method | Endpoint       | Input Data          | Expected Output         | Status Code |
-
-|--------------|--------|----------------|----------------------|--------------------------|--------------|
-
-| TC-01        | GET    | /items         | None                 | List of all items        | 200          |
-
-| TC-02        | POST   | /items         | { name: "Item Name", "description":"Item Description", "price": "Item Price (int)"  }    | Newly created item       | 201          |
-
-| TC-03        | PUT    | /items/1       | { name: "Updated Item Name", "description":"Updated Item Description", "price": "Updated Item Price (int)"  } | Updated item             | 200          |
-
-| TC-04        | DELETE | /items/1       | None                 | No content               | 204          |
-
-| TC-05        | POST   | /items         | { }                  | Error: name required     | 400          |
-
-| TC-06        | PUT    | /items/999     | { name: "X" }       | Error: not found         | 404          |
-
+| Test Case ID | Method | Endpoint   | Input Data                                                                                                                                 | Expected Output             | Status Code |
+|--------------|--------|------------|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|-------------|
+| TC-01        | GET    | /items     | None                                                                                                                                       | List of all items           | 200         |
+| TC-02        | POST   | /items     | `{ "name": "Item Name", "description": "Item Description", "price": 100 }`                                                                | Newly created item          | 201         |
+| TC-03        | PUT    | /items/1   | `{ "name": "Updated Item Name", "description": "Updated Item Description", "price": 150 }`                                                | Updated item                | 200         |
+| TC-04        | DELETE | /items/1   | None                                                                                                                                       | Success message             | 200         |
+| TC-05        | POST   | /items     | `{}`                                                                                                                                       | `{ "error": "Name is required" }` | 400         |
+| TC-06        | PUT    | /items/999 | `{ "name": "X", "description": "Y", "price": 50 }`                                                                                         | `{ "error": "Item not found" }` | 404         |
 ---
 
 ## Note
 This project demonstrates how to create a RESTful API with full CRUD operations using Express.js and connect it with a frontend using HTML and vanilla JavaScript.
+
+---
+
+## Test API Endpoints in Postman
+To understand how to use Postman for API Testing Please refere this document: [How to Use Postman](../../Postman.md)
+
+### 1. Get all items
+
+**Request**
+```
+GET /items
+```
+
+**Example in Postman:**
+- Method: `GET`
+- URL: `http://localhost:3000/items`
+- Body: No body needed as it is GET
+
+**Response**
+```json
+[]
+```
+Initially we will get [] empty array as we have not added any items yet.
+---
+
+### 2. Add a new item
+
+**Request**
+```
+POST /items
+```
+
+**Example in Postman:**
+- Method: `POST`
+- URL: `http://localhost:3000/items`
+- Body (select `raw` + `JSON`): and paste the below JSON
+```json
+{
+  "name": "Pen",
+  "description": "Blue ink pen",
+  "price": 10
+}
+```
+
+**Response**
+```json
+{
+  "id": 1,
+  "name": "Pen",
+  "description": "Blue ink pen",
+  "price": 10
+}
+```
+
+To test whether the Product Pen is Posted/Added or not use The 1st endpoint GET /item. THis time you should get one item as a response not []
+
+For example In Postman make the following changes:
+
+- Method: `GET`
+- URL: `http://localhost:3000/items`
+- Body: No body needed as it is GET
+
+**Response**
+```json
+[
+    {
+        "id": 1,
+        "name": "Pen",
+        "description": "Blue ink pen",
+        "price": 10
+    }
+]
+```
+
+This is the product which you added in the previous POST /items endpoint.
+---
+
+### 3. Update an item
+Now imagin by miss you gave wrong product name in the prevous POST /items. So in order to change the name or any other details of previously created product you have to use PUT /items
+**Request**
+```
+PUT /items/:id
+```
+
+**Example in Postman:**
+- Method: `PUT`
+- URL: `http://localhost:3000/items/1`        // Do not forget to add query parameter /1 
+- Body:
+```json
+{
+  "name": "Black Rock Pen",
+  "description": "Black ink pen",
+  "price": 12
+}
+```
+
+**Response**
+```json
+{
+    "id": 1,
+    "name": "Black Rock Pen",
+    "description": "Black ink pen",
+    "price": 12
+}
+```
+---
+### 4. Delete an item
+Now imagin the production of the `Black Rock Pen` is stopped so we have to delete that product.
+**Request**
+```
+DELETE /items/:id
+```
+
+**Example in Postman:**
+- Method: `DELETE`
+- URL: `http://localhost:3000/items/1`
+
+**Response**
+```json
+{
+  "status": "ok",
+  "message": "Item 1 deleted successfully!"
+}
+```
 
 ---
