@@ -349,7 +349,7 @@ PUT /items/:id
 
 **Example in Postman:**
 - Method: `PUT`
-- URL: `http://localhost:3000/items/1`        // Do not forget to add query parameter /1 
+- URL: `http://localhost:3000/items/1`        -->  Do not forget to add query parameter /1 the product id you want to update after /items otherwise you will get 404 Not Found.
 - Body:
 ```json
 {
